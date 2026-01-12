@@ -17,11 +17,16 @@
   },
   "dependencies": {
     "@cesium/engine": "^22.2.0",
+    "@cesium/widgets": "^14.2.0",
     "@mdi/font": "^7.4.47",
+    "cesium": "^1.137.0",
     "pinia": "^3.0.4",
+    "vite-plugin-cesium": "^1.2.23",
     "vue": "^3.5.26",
+    "vue-i18n": "^11.2.8",
     "vue-router": "^4.6.4",
-    "vuetify": "^3.11.6"
+    "vuetify": "^3.11.6",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.3",
