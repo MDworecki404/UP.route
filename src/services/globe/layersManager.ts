@@ -1,4 +1,4 @@
-import { type LayersUnionType } from '@/types/layers'
+import { type LayersUnionType, type OSMLayerType } from '@/types/layers'
 import type { ImageryLayer } from '@cesium/engine'
 import { OpenStreetMapImageryProvider } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
@@ -13,7 +13,6 @@ export class LayersManager {
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
-        // Initialization is explicit — call `initializeLayers()` from the creator
     }
 
     async initializeLayers(): Promise<void> {
@@ -44,11 +43,13 @@ export class LayersManager {
 export class OSMLayer extends LayerBase<ImageryLayer> {
     public readonly classType = 'OSMLayer'
     private _viewer: Viewer
+    private _config: OSMLayerType
     public _layer: ImageryLayer | null = null
 
-    constructor(viewer: Viewer) {
+    constructor(viewer: Viewer, config: OSMLayerType) {
         super()
         this._viewer = viewer
+        this._config = config
     }
 
     initialize(): Promise<ImageryLayer> {
@@ -59,6 +60,9 @@ export class OSMLayer extends LayerBase<ImageryLayer> {
                     credit: '© OpenStreetMap contributors',
                 }),
             )
+            this._layer.name = this._config.name
+            this._layer.appId = this._config.id
+            this._layer.show = this._config.active
             resolve(this._layer)
         })
     }
@@ -98,7 +102,7 @@ export class OSMLayer extends LayerBase<ImageryLayer> {
 export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
     switch (layer.type) {
         case 'osm':
-            return new OSMLayer(viewer)
+            return new OSMLayer(viewer, layer)
         default:
             throw new Error(`Layer type ${layer.type} is not supported`)
     }

@@ -1,8 +1,8 @@
+import { Cartesian3, Ion } from '@cesium/engine'
 import { type Viewer } from '@cesium/widgets'
-import { Ion } from '@cesium/engine'
-import { getDefaultViewerSettings } from '../defaults'
+import { getDefaultView, getDefaultViewerSettings } from '../defaults'
 import { appLoaded } from '../eventBus'
-import { LayersManager } from './layersManager'
+import type { LayersManager } from './layersManager'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -11,6 +11,8 @@ export class GlobeService {
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
+
+        this.setInitialView()
     }
 
     get layers(): LayersManager {
@@ -21,12 +23,30 @@ export class GlobeService {
     }
 
     public async initServices(): Promise<void> {
+        const { LayersManager } = await import('./layersManager')
+
         if (!this._viewer) {
             throw new Error('Viewer is not initialized')
         }
 
         this._layersManager = new LayersManager(this._viewer)
         await this._layersManager.initializeLayers()
+    }
+
+    private setInitialView(): void {
+        if (!this._viewer) {
+            throw new Error('Viewer is not initialized')
+        }
+
+        const defaultView = getDefaultView()
+        this._viewer.camera.setView({
+            destination: Cartesian3.fromElements(
+                defaultView.destination.x,
+                defaultView.destination.y,
+                defaultView.destination.z,
+            ),
+            orientation: defaultView.orientation,
+        })
     }
 
     get viewer(): Viewer {
