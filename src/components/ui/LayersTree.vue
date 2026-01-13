@@ -16,6 +16,7 @@
         :items="treeItems"
         :item-value="'id'"
         :activatable="false"
+        :select-strategy="'trunk'"
         density="compact"
         :selectable="true"
         :collapse-icon="'mdi-chevron-down'"
@@ -23,8 +24,7 @@
         :selected-color="'primary'"
         slim
         :search="search"
-        :indent="8"
-        :style="{ fontSize: '0.8rem' }"
+        :indent="32"
     >
         <template #no-data>
             <div class="px-5 text-medium-emphasis">
@@ -105,16 +105,21 @@ onMounted(() => {
 
 <style scoped>
 .v-treeview {
-    font-size: 0.8rem !important;
+    font-size: 0.9rem !important;
 }
 
 :deep(.v-list-item-title) {
-    font-size: 0.9rem !important;
+    font-size: 0.95rem !important;
 }
 
 :deep(.v-list-item) {
     min-height: 24px !important;
     padding-top: 1px !important;
     padding-bottom: 1px !important;
+}
+
+:deep(.v-list-item__overlay) {
+    opacity: 0 !important;
+    display: none !important;
 }
 </style>

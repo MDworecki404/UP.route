@@ -1,9 +1,12 @@
 import type { Action, ActionsIds } from '@/types/actions'
 import { actionPerformed } from './eventBus'
+import { getTool } from './tools'
 
-const toggleTool = (config: Action) => {
+const toggleTool = async (config: Action) => {
     if (config.actionId !== 'toggleTool') return
-    console.log(`Toggling tool with ID: ${config.toolId}`)
+
+    const tool = await getTool(config.toolId)
+    console.log(tool)
 }
 
 const toggleLayersDrawer = (config: Action) => {

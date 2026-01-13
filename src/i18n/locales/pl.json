@@ -2,5 +2,6 @@
     "loadingApplication": "Ładowanie aplikacji...",
     "basemaps": "Podkłady mapowe",
     "noLayersInSearch": "Brak warstw w wynikach wyszukiwania",
-    "searchLayers": "Wyszukaj warstwy"
+    "searchLayers": "Wyszukaj warstwy",
+    "layers": "Warstwy"
 }

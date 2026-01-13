@@ -3,6 +3,21 @@
         {
             "tooltip": {
                 "text": {
+                    "en": "Settings",
+                    "pl": "Ustawienia"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-cog-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "settings",
+                "icon": "mdi-cog-outline"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
                     "en": "Layers",
                     "pl": "Warstwy"
                 },

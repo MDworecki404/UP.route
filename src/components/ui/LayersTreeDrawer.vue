@@ -7,6 +7,12 @@
         :scrim="false"
         :absolute="true"
     >
+        <ToolToolbar
+            :icon="'mdi-chevron-left'"
+            :title="'layers'"
+            :icon-custom-func="() => performAction({ actionId: 'toggleLayersDrawer' })"
+            :hide-close-icon="true"
+        />
         <LayersTree />
     </v-navigation-drawer>
 </template>
@@ -15,6 +21,8 @@
 import { actionPerformed } from '@/services/eventBus'
 import { onMounted, ref } from 'vue'
 import LayersTree from './LayersTree.vue'
+import ToolToolbar from './ToolToolbar.vue'
+import { performAction } from '@/services/actions'
 
 const isActive = ref(false)
 
