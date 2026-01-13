@@ -15,12 +15,16 @@ export const ActionButtonSchema = z.object({
     text: z.string().optional(),
 })
 
+export const ActionButtonWithActionSchema = ActionButtonSchema.extend({
+    action: ActionSchema,
+})
+
 export type ActionButtonWithActionType = z.infer<typeof ActionButtonSchema> & {
     action: z.infer<typeof ActionSchema>
 }
 
 export const UiSchema = z.object({
-    toolbarActionButtons: z.array(ActionButtonSchema),
+    toolbarActionButtons: z.array(ActionButtonWithActionSchema),
 })
 
 export type UiType = z.infer<typeof UiSchema>
