@@ -2,21 +2,22 @@ import type { Component } from 'vue'
 
 type Tool = Component
 
+export const TOOLS_KEYS = ['settings'] as const
+
+export type ToolsKeys = (typeof TOOLS_KEYS)[number]
+
 export interface ToolsDictionary {
     [key: string]: Tool
 }
 
-export const Tools: ToolsDictionary = {
+export const Tools: Record<ToolsKeys, Tool> = {
     settings: (await import('../components/tools/SettingsTool.vue')).default,
 }
-
-export type ToolsKeys = keyof typeof Tools
 
 export const getTool = async (toolId: ToolsKeys): Promise<Tool | null> => {
     const toolImport = Tools[toolId]
     if (toolImport) {
-        const toolModule = toolImport
-        return toolModule
+        return toolImport
     }
     return null
 }

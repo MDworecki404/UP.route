@@ -1,8 +1,9 @@
+import { TOOLS_KEYS } from '@/services/tools'
 import z from 'zod'
 
 export const ToggleToolActionSchema = z.object({
     actionId: z.literal('toggleTool'),
-    toolId: z.string(),
+    toolId: z.enum(TOOLS_KEYS),
     icon: z.string(),
     props: z.record(z.string(), z.any()).optional(),
 })
