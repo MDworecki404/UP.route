@@ -5,7 +5,6 @@ export interface LocalizedString {
     [key: string]: string
 }
 
-// 1. Tworzymy typ unii: może to być obiekt ALBO zwykły string
 type TranslatableContent = LocalizedString | string | null | undefined
 
 export function useDynamicTranslation() {
@@ -15,15 +14,12 @@ export function useDynamicTranslation() {
         return computed(() => {
             const data = unref(content)
 
-            // Obsługa braku danych
             if (!data) return ''
 
-            // 2. NOWOŚĆ: Jeśli to zwykły string, zwracamy go bez zmian
             if (typeof data === 'string') {
                 return data
             }
 
-            // Tutaj kod jest bez zmian (obsługa obiektu)
             const currentLang = locale.value
             const fallback = (unref(fallbackLocale) as string) || defaultLang
 

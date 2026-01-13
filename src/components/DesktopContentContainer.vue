@@ -1,11 +1,13 @@
 <template>
     <div class="desktop-content-container">
         <v-toolbar elevation="2" height="47" density="comfortable" color="background">
-            <ActionButtonsList
-                class="ml-2"
-                :buttons-list="buttonsList"
-                :orientation="'horizontal'"
-            />
+            <div>
+                <ActionButtonsList
+                    class="ml-2"
+                    :buttons-list="buttonsList"
+                    :orientation="'horizontal'"
+                />
+            </div>
         </v-toolbar>
     </div>
 </template>
