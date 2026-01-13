@@ -6,11 +6,12 @@
         <div style="width: 50%" class="d-flex justify-center flex-column align-center">
             <v-row dense no-gutters class="py-5">
                 <v-img :src="imgPath" :width="400" />
+                <v-img :src="appLogo" :width="200" />
             </v-row>
             <v-row dense no-gutters class="py-5">
                 {{ $t('loadingApplication') }}
             </v-row>
-            <v-progress-linear color="blue-darken-3" indeterminate></v-progress-linear>
+            <v-progress-linear color="primary" indeterminate></v-progress-linear>
         </div>
     </div>
 </template>
@@ -19,8 +20,12 @@
 import { appLoaded } from '@/services/eventBus'
 import { useCommonStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import { useTheme } from 'vuetify'
 
-const imgPath = new URL('../assets/UPWR_polish_logo.png', import.meta.url).href
+const appLogo = new URL('/appLogo.png', import.meta.url).href
+const imgPath = useTheme().current.value.dark
+    ? new URL('@/assets/UPWR_polish_logo_dark.png', import.meta.url).href
+    : new URL('@/assets/UPWR_polish_logo.png', import.meta.url).href
 
 const commonStore = useCommonStore()
 const { isOverlayActive } = storeToRefs(commonStore)
