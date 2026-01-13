@@ -3,32 +3,15 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "2D View",
-                    "pl": "Widok 2D"
-                },
-                "location": "bottom"
-            },
-            "icon": "mdi-video-2d"
-        },
-        {
-            "tooltip": {
-                "text": {
                     "en": "Layers",
                     "pl": "Warstwy"
                 },
                 "location": "bottom"
             },
-            "icon": "mdi-layers-outline"
-        },
-        {
-            "tooltip": {
-                "text": {
-                    "en": "Routes",
-                    "pl": "Trasy"
-                },
-                "location": "bottom"
-            },
-            "icon": "mdi-map-marker-path"
+            "icon": "mdi-layers-outline",
+            "action": {
+                "actionId": "toggleLayersDrawer"
+            }
         }
     ]
 }

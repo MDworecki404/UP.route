@@ -15,6 +15,10 @@ export class LayersManager {
         this._viewer = viewer
     }
 
+    get layers(): Map<string, LayersClassTypes> {
+        return this._layers
+    }
+
     async initializeLayers(): Promise<void> {
         const layersConfig = await fetchJsonFile<LayersUnionType[]>(
             new URL('@/properties/layers.json', import.meta.url).href,
@@ -63,12 +67,17 @@ export class OSMLayer extends LayerBase<ImageryLayer> {
             this._layer.name = this._config.name
             this._layer.appId = this._config.id
             this._layer.show = this._config.active
+            this._layer.parent = this._config.parent!
             resolve(this._layer)
         })
     }
 
+    get config(): OSMLayerType {
+        return this._config
+    }
+
     getName(): string {
-        return this._layer?.name ?? this.classType
+        return this._layer!.name ?? this.classType
     }
 
     getType(): string {

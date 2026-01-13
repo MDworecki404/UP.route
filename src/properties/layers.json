@@ -3,6 +3,7 @@
         "type": "osm",
         "active": true,
         "name": "OpenStreetMap",
-        "id": "osm"
+        "id": "osm",
+        "parent": "basemaps"
     }
 ]

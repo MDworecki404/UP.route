@@ -1,12 +1,14 @@
 import z from 'zod'
 
 export const LayerTypes = z.enum(['osm', 'wms', 'wmts', '3dtiles'])
+export const LayerParents = z.enum(['basemaps'])
 
 export const LayerBaseSchema = z.object({
     type: LayerTypes,
     active: z.boolean().default(true),
     name: z.string(),
     id: z.string().optional(),
+    parent: LayerParents.nullish(),
 })
 
 export type LayerBaseType = z.infer<typeof LayerBaseSchema>

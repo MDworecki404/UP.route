@@ -1,3 +1,6 @@
 {
-    "loadingApplication": "Loading application..."
+    "loadingApplication": "Loading application...",
+    "basemaps": "Basemaps",
+    "noLayersInSearch": "No layers in search results",
+    "searchLayers": "Search layers"
 }

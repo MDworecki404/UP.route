@@ -10,6 +10,7 @@
                 />
             </div>
         </v-toolbar>
+        <LayersTreeDrawer></LayersTreeDrawer>
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import { fetchJsonFile } from '@/services/utils'
 import type { UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
+import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 
 const buttonsList = ref<UiType>()
 
