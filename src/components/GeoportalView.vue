@@ -1,10 +1,12 @@
 <template>
     <div ref="cesiumContainer" id="cesiumContainer"></div>
+    <UserInterface />
 </template>
 
 <script setup lang="ts">
 import { initGlobeInstance } from '@/services/globe/globe'
 import { onMounted, useTemplateRef } from 'vue'
+import UserInterface from './UserInterface.vue'
 
 const cesiumContainer = useTemplateRef('cesiumContainer')
 
