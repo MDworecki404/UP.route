@@ -1,0 +1,9 @@
+[
+    {
+        "type": "osm",
+        "active": true,
+        "name": "OpenStreetMap",
+        "id": "osm",
+        "parent": "basemaps"
+    }
+]

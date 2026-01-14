@@ -3,12 +3,18 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "2D View",
-                    "pl": "Widok 2D"
+                    "en": "Settings",
+                    "pl": "Ustawienia"
                 },
                 "location": "bottom"
             },
-            "icon": "mdi-video-2d"
+            "icon": "mdi-cog-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "settings",
+                "icon": "mdi-cog-outline",
+                "width": 400
+            }
         },
         {
             "tooltip": {
@@ -18,17 +24,10 @@
                 },
                 "location": "bottom"
             },
-            "icon": "mdi-layers-outline"
-        },
-        {
-            "tooltip": {
-                "text": {
-                    "en": "Routes",
-                    "pl": "Trasy"
-                },
-                "location": "bottom"
-            },
-            "icon": "mdi-map-marker-path"
+            "icon": "mdi-layers-outline",
+            "action": {
+                "actionId": "toggleLayersDrawer"
+            }
         }
     ]
 }

@@ -10,12 +10,14 @@
             :key="button.icon"
             :icon="button.icon"
             :tooltip="button.tooltip"
+            @click="performAction(button.action)"
         ></ActionButton>
     </div>
 </template>
 <script setup lang="ts">
 import ActionButton from './ActionButton.vue'
 import { type ActionButtonWithActionType } from '@/types/ui'
+import { performAction } from '@/services/actions'
 
 const { orientation = 'horizontal' } = defineProps<{
     buttonsList: ActionButtonWithActionType[]
