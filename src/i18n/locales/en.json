@@ -3,5 +3,8 @@
     "basemaps": "Basemaps",
     "noLayersInSearch": "No layers in search results",
     "searchLayers": "Search layers",
-    "layers": "Layers"
+    "layers": "Layers",
+    "appSettings": "App Settings",
+    "appInfo": "App Info",
+    "openContextMenu": "Open context menu"
 }

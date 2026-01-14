@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 type Tool = Component
 
-export const TOOLS_KEYS = ['settings'] as const
+export const TOOLS_KEYS = [] as const
 
 export type ToolsKeys = (typeof TOOLS_KEYS)[number]
 
@@ -20,9 +20,7 @@ export type ToolsMap = {
     icon?: string
 }
 
-export const Tools: Record<ToolsKeys, Tool> = {
-    settings: (await import('../components/tools/SettingsTool.vue')).default,
-}
+export const Tools: Record<ToolsKeys, Tool> = {}
 
 export const getTool = async (toolId: ToolsKeys): Promise<Tool | null> => {
     const toolImport = Tools[toolId]

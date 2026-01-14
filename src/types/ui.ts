@@ -28,3 +28,13 @@ export const UiSchema = z.object({
 })
 
 export type UiType = z.infer<typeof UiSchema>
+
+export const ContextMenuListSchema = z.array(
+    z.object({
+        text: z.string(),
+        method: z.function(),
+        icon: z.string().optional(),
+    }),
+)
+
+export type ContextMenuListType = z.infer<typeof ContextMenuListSchema>

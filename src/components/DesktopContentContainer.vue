@@ -1,27 +1,39 @@
 <template>
     <div class="desktop-content-container">
         <v-toolbar elevation="2" height="47" density="comfortable" color="background">
-            <div>
+            <template #prepend>
                 <ActionButtonsList
                     v-if="buttonsList?.toolbarActionButtons"
-                    class="ml-2"
                     :buttons-list="buttonsList?.toolbarActionButtons"
                     :orientation="'horizontal'"
                 />
-            </div>
+            </template>
+
+            <template #append>
+                <ContextMenuButton :icon="'mdi-menu'" :contextMenuList="ContextMenuItems" />
+            </template>
         </v-toolbar>
+
         <LayersTreeDrawer></LayersTreeDrawer>
+
         <DesktopToolsContainer></DesktopToolsContainer>
+
+        <BottomNavigation />
     </div>
 </template>
 
 <script setup lang="ts">
 import { fetchJsonFile } from '@/services/utils'
-import type { UiType } from '@/types/ui'
+import type { ContextMenuListType, UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
-import ActionButtonsList from './ui/ActionButtonsList.vue'
-import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import DesktopToolsContainer from './DesktopToolsContainer.vue'
+import ActionButtonsList from './ui/ActionButtonsList.vue'
+import ContextMenuButton from './ui/ContextMenuButton.vue'
+import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
+import { useI18n } from 'vue-i18n'
+import BottomNavigation from './ui/BottomNavigation.vue'
+
+const { t } = useI18n()
 
 const buttonsList = ref<UiType>()
 
@@ -32,6 +44,23 @@ onMounted(async () => {
 
     buttonsList.value = uiConfig
 })
+
+const ContextMenuItems: ContextMenuListType = [
+    {
+        text: t('appSettings'),
+        method: () => {
+            console.log('Open app settings')
+        },
+        icon: 'mdi-cog',
+    },
+    {
+        text: t('appInfo'),
+        method: () => {
+            console.log('appInfo')
+        },
+        icon: 'mdi-information-box',
+    },
+]
 </script>
 
 <style scoped>

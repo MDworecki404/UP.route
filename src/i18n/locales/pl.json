@@ -3,5 +3,8 @@
     "basemaps": "Podkłady mapowe",
     "noLayersInSearch": "Brak warstw w wynikach wyszukiwania",
     "searchLayers": "Wyszukaj warstwy",
-    "layers": "Warstwy"
+    "layers": "Warstwy",
+    "appSettings": "Ustawienia aplikacji",
+    "appInfo": "Informacje o aplikacji",
+    "openContextMenu": "Otwórz menu kontekstowe"
 }
