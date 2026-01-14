@@ -1,5 +1,5 @@
 <template>
-    <div class="desktop-tools-container">
+    <div class="desktop-tools-container d-flex flex-column align-end">
         <ToolsWrapper
             v-for="tool in activeToolsArray"
             :key="tool.id"
