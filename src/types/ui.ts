@@ -25,6 +25,7 @@ export type ActionButtonWithActionType = z.infer<typeof ActionButtonSchema> & {
 
 export const UiSchema = z.object({
     toolbarActionButtons: z.array(ActionButtonWithActionSchema),
+    toolsButtons: z.array(ActionButtonWithActionSchema),
 })
 
 export type UiType = z.infer<typeof UiSchema>

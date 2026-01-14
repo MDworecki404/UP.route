@@ -27,7 +27,7 @@ const { activeToolsArray } = storeToRefs(toolsStore)
 <style scoped>
 .desktop-tools-container {
     position: absolute;
-    top: 47px;
+    top: 38px;
     margin: 5px;
     right: 0;
     width: auto;

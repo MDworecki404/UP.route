@@ -6,5 +6,10 @@
     "layers": "Layers",
     "appSettings": "App Settings",
     "appInfo": "App Info",
-    "openContextMenu": "Open context menu"
+    "openContextMenu": "Open context menu",
+    "heading": "Heading",
+    "pitch": "Pitch",
+    "roll": "Roll",
+    "toolsMenuTooltip": "Tools",
+    "cameraPosition": "Camera position"
 }

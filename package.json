@@ -20,6 +20,7 @@
     "@cesium/widgets": "^14.2.0",
     "@mdi/font": "^7.4.47",
     "cesium": "^1.137.0",
+    "lodash": "^4.17.21",
     "pinia": "^3.0.4",
     "vite-plugin-cesium": "^1.2.23",
     "vue": "^3.5.26",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.3",
+    "@types/lodash": "^4.17.23",
     "@types/node": "^24.10.4",
     "@vitejs/plugin-vue": "^6.0.3",
     "@vue/eslint-config-prettier": "^10.2.0",

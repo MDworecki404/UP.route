@@ -8,10 +8,13 @@
                     :orientation="'horizontal'"
                 />
             </template>
-
             <template #append>
-                <ContextMenuButton :icon="'mdi-menu'" :contextMenuList="ContextMenuItems" />
+                <ContextMenuButton
+                    :icon="'mdi-dots-horizontal'"
+                    :contextMenuList="ContextMenuItems"
+                />
             </template>
+            <ToolsMenu />
         </v-toolbar>
 
         <LayersTreeDrawer></LayersTreeDrawer>
@@ -32,6 +35,7 @@ import ContextMenuButton from './ui/ContextMenuButton.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import { useI18n } from 'vue-i18n'
 import BottomNavigation from './ui/BottomNavigation.vue'
+import ToolsMenu from './ui/ToolsMenu.vue'
 
 const { t } = useI18n()
 

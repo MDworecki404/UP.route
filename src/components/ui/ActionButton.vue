@@ -7,10 +7,9 @@
         }"
         @click="onClick"
         rounded="0"
-        color="primary"
         size="32"
     >
-        <v-icon size="27">{{ icon }}</v-icon>
+        <v-icon size="27" color="primary">{{ icon }}</v-icon>
     </v-btn>
 </template>
 

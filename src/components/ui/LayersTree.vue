@@ -16,7 +16,6 @@
         :items="treeItems"
         :item-value="'id'"
         :activatable="false"
-        :select-strategy="'trunk'"
         density="compact"
         :selectable="true"
         :collapse-icon="'mdi-chevron-down'"
@@ -35,11 +34,11 @@
 </template>
 
 <script setup lang="ts">
-import { appLoaded } from '@/services/eventBus'
 import { globeInstance } from '@/services/globe/globe'
 import { LayerParents } from '@/types/layers'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import _ from 'lodash'
 
 const { t } = useI18n()
 const search = ref('')
@@ -61,6 +60,22 @@ type TreeNode = TreeNodeParent | TreeNodeLayer
 
 const treeItems = ref<TreeNode[]>([])
 const activeLayers = ref<string[]>([])
+
+watch(activeLayers, (newVal, oldVal) => {
+    _.difference(newVal, oldVal).forEach((layerId) => {
+        const layer = globeInstance.layers.layers.get(layerId)
+        if (layer) {
+            layer.setVisibility(!layer.isVisible())
+        }
+    })
+
+    _.difference(oldVal, newVal).forEach((layerId) => {
+        const layer = globeInstance.layers.layers.get(layerId)
+        if (layer) {
+            layer.setVisibility(!layer.isVisible())
+        }
+    })
+})
 
 const createParents = () => {
     LayerParents.options.forEach((parent) => {
@@ -96,10 +111,7 @@ const populateTree = () => {
 onMounted(() => {
     createParents()
 
-    const listener = appLoaded.addEventListener(() => {
-        populateTree()
-        listener()
-    })
+    populateTree()
 })
 </script>
 

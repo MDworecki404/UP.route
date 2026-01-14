@@ -13,5 +13,23 @@
                 "actionId": "toggleLayersDrawer"
             }
         }
+    ],
+    "toolsButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "cameraPosition",
+                    "pl": "Pozycja kamery"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-camera-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "cameraPosition",
+                "icon": "mdi-camera-outline",
+                "width": 350
+            }
+        }
     ]
 }

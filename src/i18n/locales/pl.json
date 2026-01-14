@@ -6,5 +6,10 @@
     "layers": "Warstwy",
     "appSettings": "Ustawienia aplikacji",
     "appInfo": "Informacje o aplikacji",
-    "openContextMenu": "Otwórz menu kontekstowe"
+    "openContextMenu": "Otwórz menu kontekstowe",
+    "heading": "Kierunek",
+    "pitch": "Nachylenie",
+    "roll": "Obrót",
+    "toolsMenuTooltip": "Narzędzia",
+    "cameraPosition": "Pozycja kamery"
 }

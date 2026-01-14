@@ -3,7 +3,7 @@
         <v-card-title class="pa-0 ma-0">
             <ToolToolbar
                 :icon="icon"
-                :title="$t(id)"
+                :title="id"
                 :close-custom-func="() => closeTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>
