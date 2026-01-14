@@ -7,6 +7,7 @@
             :width="tool.width"
             :max-height="tool.maxHeight"
             :icon="tool.icon"
+            class="mt-1"
         >
             <template #default>
                 <component :is="tool.component" v-bind="tool.props" />

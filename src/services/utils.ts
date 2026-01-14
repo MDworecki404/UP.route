@@ -43,3 +43,19 @@ export const getCameraPositionAndOrientation = (): {
         roll: globeInstance.viewer.camera.roll,
     }
 }
+
+export const saveItemInLocalStorage = (key: string, value: unknown): void => {
+    localStorage.setItem(key, JSON.stringify(value))
+}
+
+export const getItemFromLocalStorage = <T>(key: string): T | null => {
+    const item = localStorage.getItem(key)
+    if (item) {
+        return JSON.parse(item) as T
+    }
+    return null
+}
+
+export const removeItemFromLocalStorage = (key: string): void => {
+    localStorage.removeItem(key)
+}

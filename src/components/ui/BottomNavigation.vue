@@ -7,6 +7,7 @@
                 divider="|"
                 color="primary"
                 density="compact"
+                class="font-weight-bold"
                 :disabled="false"
             ></v-breadcrumbs>
         </div>

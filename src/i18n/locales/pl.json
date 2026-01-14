@@ -14,5 +14,10 @@
     "cameraPosition": "Pozycja kamery",
     "3dLayers": "Warstwy 3D",
     "raiseToTop": "Przenieś na wierzch",
-    "campus3D": "Kampus 3D"
+    "campus3D": "Kampus 3D",
+    "pl": "Polski",
+    "en": "English",
+    "light": "Jasny",
+    "dark": "Ciemny",
+    "globeSettings": "Ustawienia globu"
 }

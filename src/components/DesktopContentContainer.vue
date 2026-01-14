@@ -26,15 +26,16 @@
 </template>
 
 <script setup lang="ts">
+import { performAction } from '@/services/actions'
 import { fetchJsonFile } from '@/services/utils'
 import type { ContextMenuListType, UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import DesktopToolsContainer from './DesktopToolsContainer.vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
+import BottomNavigation from './ui/BottomNavigation.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
-import { useI18n } from 'vue-i18n'
-import BottomNavigation from './ui/BottomNavigation.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 
 const { t } = useI18n()
@@ -53,7 +54,12 @@ const ContextMenuItems: ContextMenuListType = [
     {
         text: t('appSettings'),
         method: () => {
-            console.log('Open app settings')
+            performAction({
+                actionId: 'toggleTool',
+                icon: 'mdi-cog-outline',
+                toolId: 'appSettings',
+                width: 400,
+            })
         },
         icon: 'mdi-cog',
     },

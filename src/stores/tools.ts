@@ -21,12 +21,12 @@ export const useToolsStore = defineStore('tools', () => {
             maxHeight,
             width,
         })
-        activeToolsArray.value = Array.from(activeTools.value.values())
+        activeToolsArray.value.unshift(activeTools.value.get(id)!)
     }
 
     const closeTool = (id: string) => {
         activeTools.value?.delete(id)
-        activeToolsArray.value = Array.from(activeTools.value.values())
+        activeToolsArray.value = activeToolsArray.value.filter((tool) => tool.id !== id)
     }
 
     const minimizeTool = (id: string) => {
@@ -34,7 +34,6 @@ export const useToolsStore = defineStore('tools', () => {
         if (tool) {
             tool.isMinimized = true
         }
-        activeToolsArray.value = Array.from(activeTools.value.values())
     }
 
     const restoreTool = (id: string) => {
@@ -42,7 +41,6 @@ export const useToolsStore = defineStore('tools', () => {
         if (tool) {
             tool.isMinimized = false
         }
-        activeToolsArray.value = Array.from(activeTools.value.values())
     }
 
     return {

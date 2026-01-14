@@ -1,3 +1,5 @@
+import { SkyAtmosphere } from '@cesium/engine'
+import { ShadowMode } from '@cesium/engine'
 import { Terrain, WebMercatorProjection } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 
@@ -20,6 +22,8 @@ export const getDefaultViewerSettings = (): Viewer.ConstructorOptions => {
         projectionPicker: false,
         scene3DOnly: true,
         terrain: Terrain.fromWorldTerrain(),
+        skyAtmosphere: new SkyAtmosphere(),
+        terrainShadows: ShadowMode.DISABLED,
     }
 }
 

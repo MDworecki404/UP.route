@@ -7,11 +7,11 @@
                 size="24"
                 @click="iconCustomFunc && iconCustomFunc()"
                 color="primary"
-                :style="iconCustomFunc ? { cursor: 'pointer' } : {}"
+                :style="iconCustomFunc ? { cursor: 'pointer' } : { cursor: 'default' }"
                 >{{ icon }}</v-icon
             >
             <div class="text-button pl-4 text-primary text-button--large font-weight-bold">
-                {{ $t(title) }}
+                {{ title ? $t(title) : '' }}
             </div>
         </template>
         <template #append>
@@ -31,7 +31,7 @@
 <script setup lang="ts">
 defineProps<{
     icon?: string
-    title: string
+    title?: string
     showMinimize?: boolean
     hideCloseIcon?: boolean
     iconCustomFunc?: () => void
