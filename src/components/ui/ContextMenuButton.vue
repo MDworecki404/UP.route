@@ -9,9 +9,11 @@
                 }"
                 :icon="icon"
                 :text="text"
+                :size="size"
+                :elevation="elevation"
                 class="rounded-0"
             >
-                <v-icon color="primary" :icon="icon" />
+                <v-icon :size="iconSize" color="primary" :icon="icon" />
             </v-btn>
         </template>
         <v-list density="compact">
@@ -35,10 +37,14 @@
 
 <script setup lang="ts">
 import type { ContextMenuListType } from '@/types/ui'
+import type { VBtn } from 'vuetify/components'
 
 defineProps<{
     icon: string
     text?: string
     contextMenuList?: ContextMenuListType
+    size?: VBtn['size']
+    iconSize?: number
+    elevation?: number
 }>()
 </script>

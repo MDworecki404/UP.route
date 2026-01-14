@@ -1,0 +1,42 @@
+[
+    {
+        "type": "osm",
+        "active": true,
+        "name": "OpenStreetMap",
+        "id": "osm",
+        "parent": "basemaps"
+    },
+    {
+        "type": "xyz",
+        "active": false,
+        "name": {
+            "pl": "Esri World Imagery",
+            "en": "Esri World Imagery"
+        },
+        "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        "id": "xyz",
+        "parent": "basemaps"
+    },
+    {
+        "type": "3dtiles",
+        "active": false,
+        "name": {
+            "pl": "Budynki 3D (Google)",
+            "en": "3D Buildings (Google)"
+        },
+        "id": "3dBuildingsGoogle",
+        "parent": "3dLayers",
+        "ionId": 2275207
+    },
+    {
+        "type": "3dtiles",
+        "active": false,
+        "name": {
+            "pl": "Budynki 3D (OpenStreetMap)",
+            "en": "3D Buildings (OpenStreetMap)"
+        },
+        "id": "3dBuildingsOpenStreetMap",
+        "parent": "3dLayers",
+        "ionId": 96188
+    }
+]

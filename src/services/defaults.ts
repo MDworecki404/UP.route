@@ -1,4 +1,4 @@
-import { WebMercatorProjection } from '@cesium/engine'
+import { Terrain, WebMercatorProjection } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 
 export const getDefaultViewerSettings = (): Viewer.ConstructorOptions => {
@@ -19,7 +19,7 @@ export const getDefaultViewerSettings = (): Viewer.ConstructorOptions => {
         clockViewModel: undefined,
         projectionPicker: false,
         scene3DOnly: true,
-        terrainProvider: undefined,
+        terrain: Terrain.fromWorldTerrain(),
     }
 }
 

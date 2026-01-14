@@ -11,5 +11,8 @@
     "pitch": "Nachylenie",
     "roll": "Obrót",
     "toolsMenuTooltip": "Narzędzia",
-    "cameraPosition": "Pozycja kamery"
+    "cameraPosition": "Pozycja kamery",
+    "3dLayers": "Warstwy 3D",
+    "raiseToTop": "Przenieś na wierzch",
+    "campus3D": "Kampus 3D"
 }

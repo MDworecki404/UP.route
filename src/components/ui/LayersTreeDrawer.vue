@@ -2,7 +2,7 @@
     <v-navigation-drawer
         v-model="isActive"
         class="layersTree-drawer"
-        width="400"
+        width="350"
         :persistent="true"
         :scrim="false"
         :absolute="true"

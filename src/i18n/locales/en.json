@@ -11,5 +11,8 @@
     "pitch": "Pitch",
     "roll": "Roll",
     "toolsMenuTooltip": "Tools",
-    "cameraPosition": "Camera position"
+    "cameraPosition": "Camera position",
+    "3dLayers": "3D Layers",
+    "raiseToTop": "Raise to top",
+    "campus3D": "3D Campus"
 }

@@ -1,12 +1,17 @@
 import z from 'zod'
 
-export const LayerTypes = z.enum(['osm', 'wms', 'wmts', '3dtiles'])
-export const LayerParents = z.enum(['basemaps'])
+export const LayerTypes = z.enum(['osm', 'xyz', 'wms', 'wmts', '3dtiles'])
+export const LayerParents = z.enum(['basemaps', '3dLayers', 'campus3D'])
 
 export const LayerBaseSchema = z.object({
     type: LayerTypes,
     active: z.boolean().default(true),
-    name: z.string(),
+    name: z.string().or(
+        z.object({
+            pl: z.string(),
+            en: z.string(),
+        }),
+    ),
     id: z.string().optional(),
     parent: LayerParents.nullish(),
 })
@@ -19,12 +24,31 @@ export const OSMLayerSchema = LayerBaseSchema.extend({
 
 export type OSMLayerType = z.infer<typeof OSMLayerSchema>
 
+export const Cesium3DTilesLayerSchema = LayerBaseSchema.extend({
+    type: z.literal('3dtiles'),
+    ionId: z.number(),
+})
+
+export type Cesium3DTilesLayerType = z.infer<typeof Cesium3DTilesLayerSchema>
+
+export const XYZLayerSchema = LayerBaseSchema.extend({
+    type: z.literal('xyz'),
+    url: z.string(),
+})
+
+export type XYZLayerType = z.infer<typeof XYZLayerSchema>
+
 export const WMSLayerSchema = LayerBaseSchema.extend({
     type: z.literal('wms'),
     url: z.string(),
     layers: z.string(),
 })
 
-export const LayersUnionSchema = z.discriminatedUnion('type', [OSMLayerSchema, WMSLayerSchema])
+export const LayersUnionSchema = z.discriminatedUnion('type', [
+    OSMLayerSchema,
+    Cesium3DTilesLayerSchema,
+    XYZLayerSchema,
+    WMSLayerSchema,
+])
 
 export type LayersUnionType = z.infer<typeof LayersUnionSchema>

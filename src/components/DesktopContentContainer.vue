@@ -43,7 +43,7 @@ const buttonsList = ref<UiType>()
 
 onMounted(async () => {
     const uiConfig = await fetchJsonFile<UiType>(
-        new URL('@/properties/ui.json', import.meta.url).href,
+        new URL('/properties/ui.json', import.meta.url).href,
     )
 
     buttonsList.value = uiConfig

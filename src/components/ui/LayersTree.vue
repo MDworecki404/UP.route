@@ -18,6 +18,7 @@
         :activatable="false"
         density="compact"
         :selectable="true"
+        :select-strategy="'classic'"
         :collapse-icon="'mdi-chevron-down'"
         :expand-icon="'mdi-chevron-right'"
         :selected-color="'primary'"
@@ -30,18 +31,38 @@
                 {{ $t('noLayersInSearch') }}
             </div>
         </template>
+        <template #append="{ item }">
+            <template
+                v-if="
+                    item.type === 'layer' && (item.layerType === 'xyz' || item.layerType === 'osm')
+                "
+            >
+                <context-menu-button
+                    :context-menu-list="getImageryLayerContextMenuList(item)"
+                    :icon="'mdi-dots-vertical'"
+                    :location="'right'"
+                    :size="'x-small'"
+                    :iconSize="18"
+                    :elevation="0"
+                />
+            </template>
+        </template>
     </v-treeview>
 </template>
 
 <script setup lang="ts">
+import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import { globeInstance } from '@/services/globe/globe'
 import { LayerParents } from '@/types/layers'
+import type { ContextMenuListType } from '@/types/ui'
+import _ from 'lodash'
 import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import _ from 'lodash'
+import ContextMenuButton from './ContextMenuButton.vue'
 
 const { t } = useI18n()
 const search = ref('')
+const { translate } = useDynamicTranslation()
 
 type TreeNodeParent = {
     id: string
@@ -54,6 +75,7 @@ type TreeNodeLayer = {
     id: string
     title: string
     type: 'layer'
+    layerType: string
 }
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
@@ -100,8 +122,9 @@ const populateTree = () => {
             if (parentNode && parentNode.type === 'parent') {
                 parentNode.children.push({
                     id: layer.config.id!,
-                    title: layer.config.name,
+                    title: translate(layer.config.name).value!,
                     type: 'layer',
+                    layerType: layer.config.type,
                 })
             }
         }
@@ -113,6 +136,19 @@ onMounted(() => {
 
     populateTree()
 })
+
+const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [
+    {
+        text: t('raiseToTop'),
+        icon: 'mdi-arrow-up-thick',
+        method: () => {
+            const layer = globeInstance.layers.layers.get(item.id)
+            if (layer) {
+                layer.raiseToTop()
+            }
+        },
+    },
+]
 </script>
 
 <style scoped>
