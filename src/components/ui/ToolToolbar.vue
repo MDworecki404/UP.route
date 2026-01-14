@@ -4,6 +4,7 @@
         <template #prepend>
             <v-icon
                 v-if="icon"
+                size="24"
                 @click="iconCustomFunc && iconCustomFunc()"
                 :style="iconCustomFunc ? { cursor: 'pointer' } : {}"
                 >{{ icon }}</v-icon
@@ -11,7 +12,7 @@
             <div class="text-button pl-4">{{ $t(title) }}</div>
         </template>
         <template #append>
-            <v-icon v-if="showMinimize">mdi-window-minimize</v-icon>
+            <v-icon v-if="showMinimize">mdi-minus</v-icon>
             <v-icon
                 v-if="!hideCloseIcon"
                 style="cursor: pointer"

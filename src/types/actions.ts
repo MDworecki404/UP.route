@@ -6,6 +6,8 @@ export const ToggleToolActionSchema = z.object({
     toolId: z.enum(TOOLS_KEYS),
     icon: z.string(),
     props: z.record(z.string(), z.any()).optional(),
+    width: z.number().optional(),
+    maxHeight: z.number().optional(),
 })
 
 export const ToggleLayersDrawerSchema = z.object({

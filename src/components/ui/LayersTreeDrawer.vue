@@ -2,7 +2,7 @@
     <v-navigation-drawer
         v-model="isActive"
         class="layersTree-drawer"
-        width="300"
+        width="400"
         :persistent="true"
         :scrim="false"
         :absolute="true"
@@ -18,11 +18,11 @@
 </template>
 
 <script setup lang="ts">
+import { performAction } from '@/services/actions'
 import { actionPerformed } from '@/services/eventBus'
 import { onMounted, ref } from 'vue'
 import LayersTree from './LayersTree.vue'
 import ToolToolbar from './ToolToolbar.vue'
-import { performAction } from '@/services/actions'
 
 const isActive = ref(false)
 

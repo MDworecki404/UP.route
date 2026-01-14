@@ -10,6 +10,16 @@ export interface ToolsDictionary {
     [key: string]: Tool
 }
 
+export type ToolsMap = {
+    id: ToolsKeys
+    component: Tool
+    props?: Record<string, unknown>
+    width?: number
+    maxHeight?: number
+    isMinimized?: boolean
+    icon?: string
+}
+
 export const Tools: Record<ToolsKeys, Tool> = {
     settings: (await import('../components/tools/SettingsTool.vue')).default,
 }

@@ -12,7 +12,8 @@
             "action": {
                 "actionId": "toggleTool",
                 "toolId": "settings",
-                "icon": "mdi-cog-outline"
+                "icon": "mdi-cog-outline",
+                "width": 400
             }
         },
         {

@@ -1,12 +1,23 @@
+import { useToolsStore } from '@/stores'
 import type { Action, ActionsIds } from '@/types/actions'
 import { actionPerformed } from './eventBus'
 import { getTool } from './tools'
 
 const toggleTool = async (config: Action) => {
     if (config.actionId !== 'toggleTool') return
+    const toolsStore = useToolsStore()
 
     const tool = await getTool(config.toolId)
-    console.log(tool)
+    toolsStore.openTool({
+        id: config.toolId,
+        component: tool!,
+        props: config.props,
+        width: config.width,
+        icon: config.icon,
+        maxHeight: config.maxHeight,
+    })
+
+    actionPerformed.raiseEvent(config)
 }
 
 const toggleLayersDrawer = (config: Action) => {

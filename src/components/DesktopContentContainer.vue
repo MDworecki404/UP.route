@@ -11,6 +11,7 @@
             </div>
         </v-toolbar>
         <LayersTreeDrawer></LayersTreeDrawer>
+        <DesktopToolsContainer></DesktopToolsContainer>
     </div>
 </template>
 
@@ -20,6 +21,7 @@ import type { UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
+import DesktopToolsContainer from './DesktopToolsContainer.vue'
 
 const buttonsList = ref<UiType>()
 
