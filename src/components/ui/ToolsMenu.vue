@@ -1,5 +1,10 @@
 <template>
-    <v-menu :offset="-5" location="bottom center" :location-strategy="'connected'">
+    <v-menu
+        :offset="-5"
+        location="bottom center"
+        :close-on-content-click="false"
+        :location-strategy="'connected'"
+    >
         <template #activator="{ props }">
             <v-btn
                 v-bind="props"

@@ -19,5 +19,9 @@
     "en": "English",
     "light": "Light",
     "dark": "Dark",
-    "globeSettings": "Globe settings"
+    "globeSettings": "Globe settings",
+    "skyAtmosphere": "Sky and atmosphere",
+    "terrainShadows": "Terrain shadows",
+    "resolutionScale": "Resolution scale",
+    "save": "Save"
 }
