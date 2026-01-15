@@ -32,5 +32,6 @@
     "removeGlobeSettings": "Usuń ustawienia globu",
     "globeSettingsRemoved": "Ustawienia globu zostały usunięte.",
     "demLayers": "Modele terenu",
-    "vectorLayers": "Warstwy wektorowe"
+    "vectorLayers": "Warstwy wektorowe",
+    "layersTree": "Drzewo warstw"
 }

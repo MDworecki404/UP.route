@@ -32,5 +32,6 @@
     "removeGlobeSettings": "Remove globe settings",
     "globeSettingsRemoved": "Globe settings have been removed.",
     "demLayers": "Terrain models",
-    "vectorLayers": "Vector layers"
+    "vectorLayers": "Vector layers",
+    "layersTree": "Layers tree"
 }

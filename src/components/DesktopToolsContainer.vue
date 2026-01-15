@@ -9,7 +9,7 @@
             :icon="tool.icon"
             class="mt-1"
         >
-            <template #default>
+            <template #card-text>
                 <component :is="tool.component" v-bind="tool.props" />
             </template>
         </ToolsWrapper>
@@ -32,7 +32,7 @@ const { activeToolsArray } = storeToRefs(toolsStore)
     margin: 5px;
     right: 0;
     width: auto;
-    min-height: 300px;
+    min-height: min-content;
     pointer-events: none;
 }
 </style>

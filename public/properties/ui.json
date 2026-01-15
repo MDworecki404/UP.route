@@ -14,6 +14,38 @@
             }
         }
     ],
+    "mobileToolbarActionButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Layers",
+                    "pl": "Warstwy"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-layers-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "layersTree",
+                "icon": "mdi-layers-outline"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Routing",
+                    "pl": "Wyszukiwarka tras"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-directions",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "routing",
+                "icon": "mdi-directions"
+            }
+        }
+    ],
     "toolsButtons": [
         {
             "tooltip": {

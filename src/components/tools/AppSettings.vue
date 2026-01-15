@@ -1,38 +1,36 @@
 <template>
-    <v-card-text class="ma-0 pa-2">
-        <v-row dense no-gutters class="ga-5">
-            <v-select
-                v-model="selectedLanguage"
-                :items="languages"
-                :item-title="(item) => $t(item)"
-                :item-value="(item) => item"
-                variant="outlined"
-                color="primary"
-                density="compact"
-                prepend-inner-icon="mdi-translate"
-                @update:model-value="onChangeLanguage"
-            ></v-select>
-            <v-select
-                v-model="selectedTheme"
-                :items="themes"
-                :item-title="(item) => $t(item)"
-                :item-value="(item) => item"
-                variant="outlined"
-                color="primary"
-                density="compact"
-                prepend-inner-icon="mdi-theme-light-dark"
-                @update:model-value="onChangeTheme"
-            ></v-select>
-        </v-row>
-        <v-row dense no-gutters justify="end">
-            <TextButton
-                :prepend-icon="'mdi-earth'"
-                :text="$t('globeSettings')"
-                :color="'primary'"
-                @click="openCesiumSettingsDialog"
-            ></TextButton>
-        </v-row>
-    </v-card-text>
+    <v-row dense no-gutters class="ga-5">
+        <v-select
+            v-model="selectedLanguage"
+            :items="languages"
+            :item-title="(item) => $t(item)"
+            :item-value="(item) => item"
+            variant="outlined"
+            color="primary"
+            density="compact"
+            prepend-inner-icon="mdi-translate"
+            @update:model-value="onChangeLanguage"
+        ></v-select>
+        <v-select
+            v-model="selectedTheme"
+            :items="themes"
+            :item-title="(item) => $t(item)"
+            :item-value="(item) => item"
+            variant="outlined"
+            color="primary"
+            density="compact"
+            prepend-inner-icon="mdi-theme-light-dark"
+            @update:model-value="onChangeTheme"
+        ></v-select>
+    </v-row>
+    <v-row dense no-gutters justify="end">
+        <TextButton
+            :prepend-icon="'mdi-earth'"
+            :text="$t('globeSettings')"
+            :color="'primary'"
+            @click="openCesiumSettingsDialog"
+        ></TextButton>
+    </v-row>
 </template>
 
 <script lang="ts" setup>

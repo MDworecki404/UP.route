@@ -1,18 +1,34 @@
 import type { ToolsMap } from '@/services/tools'
 import { defineStore } from 'pinia'
-import { ref, markRaw } from 'vue'
+import { markRaw, ref } from 'vue'
+import { useDisplay } from 'vuetify'
 
 export const useToolsStore = defineStore('tools', () => {
+    const { mobile } = useDisplay()
     const activeTools = ref<Map<string, ToolsMap>>(new Map())
+    const mobileActiveTool = ref<ToolsMap | null>(null)
     const activeToolsArray = ref<ToolsMap[]>([])
 
     const openTool = ({ id, component, props, icon, isMinimized, maxHeight, width }: ToolsMap) => {
+        if (mobile.value) {
+            mobileActiveTool.value = {
+                id,
+                component: markRaw(component),
+                props,
+                icon,
+                isMinimized,
+                maxHeight,
+                width,
+            }
+            return
+        }
+
         if (activeTools.value?.has(id)) {
             closeTool(id)
             return
         }
 
-        activeTools.value?.set(id, {
+        const toolData: ToolsMap = {
             id,
             component: markRaw(component),
             props,
@@ -20,13 +36,19 @@ export const useToolsStore = defineStore('tools', () => {
             isMinimized,
             maxHeight,
             width,
-        })
-        activeToolsArray.value.unshift(activeTools.value.get(id)!)
+        }
+
+        activeTools.value?.set(id, toolData)
+        activeToolsArray.value.unshift(toolData)
     }
 
     const closeTool = (id: string) => {
         activeTools.value?.delete(id)
         activeToolsArray.value = activeToolsArray.value.filter((tool) => tool.id !== id)
+
+        if (mobile.value && mobileActiveTool.value?.id === id) {
+            mobileActiveTool.value = null
+        }
     }
 
     const minimizeTool = (id: string) => {
@@ -46,6 +68,7 @@ export const useToolsStore = defineStore('tools', () => {
     return {
         activeTools,
         activeToolsArray,
+        mobileActiveTool,
         openTool,
         closeTool,
         minimizeTool,
