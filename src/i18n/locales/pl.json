@@ -27,5 +27,8 @@
     "DISABLED": "Wyłączone",
     "ENABLED": "Włączone",
     "CAST_ONLY": "Tylko rzucanie",
-    "RECEIVE_ONLY": "Tylko odbieranie"
+    "RECEIVE_ONLY": "Tylko odbieranie",
+    "globeSettingsSaved": "Ustawienia globu zostały zapisane.",
+    "removeGlobeSettings": "Usuń ustawienia globu",
+    "globeSettingsRemoved": "Ustawienia globu zostały usunięte."
 }

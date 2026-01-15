@@ -23,5 +23,12 @@
     "skyAtmosphere": "Sky and atmosphere",
     "terrainShadows": "Terrain shadows",
     "resolutionScale": "Resolution scale",
-    "save": "Save"
+    "save": "Save",
+    "DISABLED": "Disabled",
+    "ENABLED": "Enabled",
+    "CAST_ONLY": "Cast only",
+    "RECEIVE_ONLY": "Receive only",
+    "globeSettingsSaved": "Globe settings have been saved.",
+    "removeGlobeSettings": "Remove globe settings",
+    "globeSettingsRemoved": "Globe settings have been removed."
 }

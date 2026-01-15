@@ -39,8 +39,21 @@
             </v-slider>
         </v-row>
     </v-card-text>
-    <v-card-actions class="d-flex justify-end">
-        <TextButton color="success" :text="$t('save')" :prepend-icon="'mdi-content-save-outline'" />
+    <v-card-actions class="d-flex justify-space-between">
+        <TextButton
+            :loading="saveLoading"
+            color="error"
+            :text="$t('removeGlobeSettings')"
+            :prepend-icon="'mdi-trash-can-outline'"
+            @click="removeUserGlobeSettings"
+        />
+        <TextButton
+            :loading="saveLoading"
+            color="success"
+            :text="$t('save')"
+            :prepend-icon="'mdi-content-save-outline'"
+            @click="onGlobeSettingsSave"
+        />
     </v-card-actions>
 </template>
 
@@ -49,9 +62,19 @@ import { globeInstance } from '@/services/globe/globe'
 import { ShadowMode, SkyAtmosphere } from '@cesium/engine'
 import { onMounted, ref } from 'vue'
 import TextButton from '../ui/TextButton.vue'
+import { saveItemInLocalStorage } from '@/services/utils'
+import type { userGlobeSettings } from '@/types/utils'
+import { useNotifyStore } from '@/stores/notify'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
+const notifyStore = useNotifyStore()
+
+const saveLoading = ref(false)
 
 const skyAtmosphere = ref(false)
-const terrainShadows = ref('DISABLED')
+const terrainShadows = ref<keyof typeof ShadowMode>('DISABLED')
 const resolutionScale = ref(1.0)
 
 const onSkyAtmosphereChange = (value: boolean) => {
@@ -62,7 +85,7 @@ const onSkyAtmosphereChange = (value: boolean) => {
     }
 }
 
-const onTerrainShadowsChange = (value: string) => {
+const onTerrainShadowsChange = (value: keyof typeof ShadowMode) => {
     if (value === 'DISABLED') {
         globeInstance.viewer.terrainShadows = ShadowMode.DISABLED
     } else if (value === 'ENABLED') {
@@ -76,6 +99,40 @@ const onTerrainShadowsChange = (value: string) => {
 
 const onResolutionScaleChange = (value: number) => {
     globeInstance.viewer.resolutionScale = value
+}
+
+const onGlobeSettingsSave = () => {
+    saveLoading.value = true
+
+    const config: userGlobeSettings = {
+        skyAtmosphere: skyAtmosphere.value,
+        terrainShadows: terrainShadows.value as keyof typeof ShadowMode,
+        resolutionScale: resolutionScale.value,
+    }
+
+    saveItemInLocalStorage('userGlobeSettings', config)
+
+    saveLoading.value = false
+
+    notifyStore.showNotify({
+        msg: t('globeSettingsSaved'),
+        notifyType: 'success',
+        notifyIcon: 'mdi-check-circle-outline',
+        notifyDuration: 2000,
+        notifyWidth: 250,
+    })
+}
+
+const removeUserGlobeSettings = () => {
+    localStorage.removeItem('userGlobeSettings')
+
+    notifyStore.showNotify({
+        msg: t('globeSettingsRemoved'),
+        notifyType: 'info',
+        notifyIcon: 'mdi-trash-can-outline',
+        notifyDuration: 2000,
+        notifyWidth: 250,
+    })
 }
 
 onMounted(() => {

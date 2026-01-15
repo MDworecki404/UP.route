@@ -1,7 +1,9 @@
-import { Cartesian3, Ion } from '@cesium/engine'
+import type { userGlobeSettings } from '@/types/utils'
+import { Cartesian3, Ion, ShadowMode, SkyAtmosphere } from '@cesium/engine'
 import { type Viewer } from '@cesium/widgets'
 import { getDefaultView, getDefaultViewerSettings } from '../defaults'
 import { appLoaded } from '../eventBus'
+import { getItemFromLocalStorage } from '../utils'
 import type { LayersManager } from './layersManager'
 
 export let globeInstance: GlobeService
@@ -55,6 +57,36 @@ export class GlobeService {
         }
         return this._viewer
     }
+
+    public getUserGlobeSettings(): void {
+        const config = getItemFromLocalStorage<userGlobeSettings>('userGlobeSettings')
+        if (config) {
+            if (config.skyAtmosphere === true) {
+                this._viewer!.scene.skyAtmosphere = new SkyAtmosphere()
+            }
+
+            if (config.terrainShadows) {
+                switch (config.terrainShadows) {
+                    case 'DISABLED':
+                        this._viewer!.terrainShadows = ShadowMode.DISABLED
+                        break
+                    case 'ENABLED':
+                        this._viewer!.terrainShadows = ShadowMode.ENABLED
+                        break
+                    case 'CAST_ONLY':
+                        this._viewer!.terrainShadows = ShadowMode.CAST_ONLY
+                        break
+                    case 'RECEIVE_ONLY':
+                        this._viewer!.terrainShadows = ShadowMode.RECEIVE_ONLY
+                        break
+                }
+            }
+
+            if (config.resolutionScale) {
+                this._viewer!.resolutionScale = config.resolutionScale
+            }
+        }
+    }
 }
 
 export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeService> => {
@@ -75,6 +107,7 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
             appLoaded.raiseEvent(true)
         }, 1000)
 
+        globeInstance.getUserGlobeSettings()
         return globeInstance
     } else {
         return globeInstance

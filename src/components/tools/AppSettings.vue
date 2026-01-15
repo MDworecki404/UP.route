@@ -28,6 +28,7 @@
             <TextButton
                 :prepend-icon="'mdi-earth'"
                 :text="$t('globeSettings')"
+                :color="'primary'"
                 @click="openCesiumSettingsDialog"
             ></TextButton>
         </v-row>

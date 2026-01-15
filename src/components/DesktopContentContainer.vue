@@ -22,6 +22,8 @@
         <DesktopToolsContainer></DesktopToolsContainer>
 
         <BottomNavigation />
+
+        <NotifyComponent />
     </div>
 </template>
 
@@ -37,6 +39,7 @@ import BottomNavigation from './ui/BottomNavigation.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
+import NotifyComponent from './ui/NotifyComponent.vue'
 
 const { t } = useI18n()
 
