@@ -11,7 +11,6 @@ import {
     CesiumTerrainProvider,
     CzmlDataSource,
     IonResource,
-    HeightReference,
     OpenStreetMapImageryProvider,
     Terrain,
     UrlTemplateImageryProvider,
@@ -149,9 +148,7 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
     initialize(): Promise<Cesium3DTileset> {
         return (async () => {
             try {
-                this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId, {
-                    heightReference: HeightReference.CLAMP_TO_3D_TILE,
-                })
+                this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId)
                 this._layer.show = this._config.active
                 this._layer.parent = this._config.parent!
 
