@@ -10,10 +10,15 @@
                 :icon="icon"
                 :title="id"
                 :close-custom-func="() => closeTool(id)"
+                :minimize-custom-func="
+                    isMinimizedTool(id) ? () => restoreTool(id) : () => minimizeTool(id)
+                "
+                :minimized="isMinimizedTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>
         </v-card-title>
         <v-card-text
+            v-show="!isMinimizedTool(id)"
             class="ma-0 pa-2 overflow-y-auto"
             :class="{ 'tools-wrapper-content-mobile': mobile }"
             :style="`max-height: ${maxHeight ?? '400px'}`"
@@ -36,7 +41,7 @@ defineProps<{
     icon?: ToolsMap['icon']
 }>()
 
-const { closeTool } = useToolsStore()
+const { closeTool, minimizeTool, isMinimizedTool, restoreTool } = useToolsStore()
 const { mobile } = useDisplay()
 </script>
 

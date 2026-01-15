@@ -57,13 +57,36 @@ export const useToolsStore = defineStore('tools', () => {
     }
 
     const minimizeTool = (id: string) => {
+        if (mobile.value) {
+            if (mobileActiveTool.value) {
+                mobileActiveTool.value.isMinimized = true
+            }
+            return
+        }
+
         const tool = activeTools.value?.get(id)
         if (tool) {
             tool.isMinimized = true
         }
     }
 
+    const isMinimizedTool = (id: string): boolean => {
+        if (mobile.value) {
+            return mobileActiveTool.value?.isMinimized ?? false
+        } else {
+            const tool = activeTools.value?.get(id)
+            return tool?.isMinimized ?? false
+        }
+    }
+
     const restoreTool = (id: string) => {
+        if (mobile.value) {
+            if (mobileActiveTool.value) {
+                mobileActiveTool.value.isMinimized = false
+            }
+            return
+        }
+
         const tool = activeTools.value?.get(id)
         if (tool) {
             tool.isMinimized = false
@@ -78,5 +101,6 @@ export const useToolsStore = defineStore('tools', () => {
         closeTool,
         minimizeTool,
         restoreTool,
+        isMinimizedTool,
     }
 })
