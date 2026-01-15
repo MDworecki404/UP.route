@@ -86,15 +86,21 @@ const activeLayers = ref<string[]>([])
 watch(activeLayers, (newVal, oldVal) => {
     _.difference(newVal, oldVal).forEach((layerId) => {
         const layer = globeInstance.layers.layers.get(layerId)
-        if (layer) {
+        if (layer && layer.classType !== 'terrain') {
             layer.setVisibility(!layer.isVisible())
+        }
+        if (layer && layer.classType === 'terrain') {
+            layer.setVisibility(true)
         }
     })
 
     _.difference(oldVal, newVal).forEach((layerId) => {
         const layer = globeInstance.layers.layers.get(layerId)
-        if (layer) {
+        if (layer && layer.classType !== 'terrain') {
             layer.setVisibility(!layer.isVisible())
+        }
+        if (layer && layer.classType === 'terrain') {
+            layer.setVisibility(false)
         }
     })
 })
@@ -114,9 +120,13 @@ const populateTree = () => {
     const layers = globeInstance.layers.layers
     layers.forEach((layer) => {
         const parentName = layer.config.parent || null
-        if (layer._layer?.show) {
+        if (layer && layer.classType !== 'terrain' && layer._layer?.show) {
             activeLayers.value.push(layer.config.id!)
         }
+        if (layer && layer.classType === 'terrain' && layer.isVisible()) {
+            activeLayers.value.push(layer.config.id!)
+        }
+
         if (parentName) {
             const parentNode = treeItems.value.find((node) => node.id === parentName)
             if (parentNode && parentNode.type === 'parent') {
@@ -143,7 +153,7 @@ const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListTyp
         icon: 'mdi-arrow-up-thick',
         method: () => {
             const layer = globeInstance.layers.layers.get(item.id)
-            if (layer) {
+            if (layer && layer.classType !== 'terrain') {
                 layer.raiseToTop()
             }
         },

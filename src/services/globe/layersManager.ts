@@ -2,11 +2,14 @@ import {
     type Cesium3DTilesLayerType,
     type LayersUnionType,
     type OSMLayerType,
+    type TerrainLayerType,
     type XYZLayerType,
 } from '@/types/layers'
 import {
     Cesium3DTileset,
+    CesiumTerrainProvider,
     OpenStreetMapImageryProvider,
+    Terrain,
     UrlTemplateImageryProvider,
     type ImageryLayer,
 } from '@cesium/engine'
@@ -14,7 +17,7 @@ import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
 import { fetchJsonFile } from '../utils'
 
-export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer
+export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer
 
 export class LayersManager {
     private _viewer: Viewer
@@ -43,7 +46,16 @@ export class LayersManager {
 
                 await LayerClass.initialize()
 
-                LayerClass.addToGlobe()
+                if (!(LayerClass instanceof TerrainLayer)) {
+                    LayerClass.addToGlobe()
+                }
+
+                if (LayerClass instanceof TerrainLayer) {
+                    if (layerConfig.active) {
+                        LayerClass.setVisibility(true)
+                    }
+                }
+
                 this._layers.set(layerConfig.id!, LayerClass)
             } catch (error) {
                 console.error(`Error initializing layer ${layerConfig.name}:`, error)
@@ -52,6 +64,10 @@ export class LayersManager {
         }
     }
 }
+
+////////////////////////////////////////////////////////////////
+// MARK: - OSM Layer
+////////////////////////////////////////////////////////////////
 
 export class OSMLayer extends LayerBase<ImageryLayer> {
     public readonly classType = 'OSMLayer'
@@ -106,6 +122,10 @@ export class OSMLayer extends LayerBase<ImageryLayer> {
     }
 }
 
+////////////////////////////////////////////////////////////////
+// MARK: - 3D Tiles Layer
+////////////////////////////////////////////////////////////////
+
 export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
     public readonly classType = '3dTiles'
     private _viewer: Viewer
@@ -119,13 +139,17 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
     }
 
     initialize(): Promise<Cesium3DTileset> {
-        return new Promise(async (resolve) => {
-            this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId)
-            this._layer.show = this._config.active
-            this._layer.parent = this._config.parent!
+        return (async () => {
+            try {
+                this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId)
+                this._layer.show = this._config.active
+                this._layer.parent = this._config.parent!
 
-            resolve(this._layer)
-        })
+                return this._layer
+            } catch (error) {
+                throw error
+            }
+        })()
     }
 
     get config(): Cesium3DTilesLayerType {
@@ -153,6 +177,10 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
         }
     }
 }
+
+////////////////////////////////////////////////////////////////
+// MARK: - XYZ Layer
+////////////////////////////////////////////////////////////////
 
 export class XYZLayer extends LayerBase<ImageryLayer> {
     public readonly classType = 'xyz'
@@ -206,6 +234,48 @@ export class XYZLayer extends LayerBase<ImageryLayer> {
     }
 }
 
+export class TerrainLayer {
+    public readonly classType = 'terrain'
+    private _viewer: Viewer
+    private _config: TerrainLayerType
+    public _layer: Terrain | null = null
+
+    constructor(viewer: Viewer, config: TerrainLayerType) {
+        this._viewer = viewer
+        this._config = config
+    }
+
+    get config(): TerrainLayerType {
+        return this._config
+    }
+
+    initialize(): Promise<Terrain> {
+        return new Promise(async (resolve) => {
+            this._layer = new Terrain(CesiumTerrainProvider.fromIonAssetId(this._config.ionId))
+
+            resolve(this._layer)
+        })
+    }
+
+    setVisibility(visible: boolean): void {
+        if (this._layer) {
+            if (!visible) {
+                this._viewer.scene.setTerrain(Terrain.fromWorldTerrain())
+                return
+            }
+            this._viewer.scene.setTerrain(this._layer)
+        }
+    }
+
+    isVisible(): boolean {
+        return this._viewer.terrainProvider === this._layer?.provider
+    }
+}
+
+////////////////////////////////////////////////////////////////
+// MARK: - Layers Factory
+////////////////////////////////////////////////////////////////
+
 export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
     switch (layer.type) {
         case 'osm':
@@ -214,6 +284,8 @@ export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
             return new Cesium3DTilesLayer(viewer, layer)
         case 'xyz':
             return new XYZLayer(viewer, layer)
+        case 'terrain':
+            return new TerrainLayer(viewer, layer)
         default:
             throw new Error(`Layer type ${layer.type} is not supported`)
     }

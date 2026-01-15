@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const LayerTypes = z.enum(['osm', 'xyz', 'wms', 'wmts', '3dtiles'])
-export const LayerParents = z.enum(['basemaps', '3dLayers', 'campus3D'])
+export const LayerParents = z.enum(['demLayers', 'basemaps', '3dLayers', 'campus3D'])
 
 export const LayerBaseSchema = z.object({
     type: LayerTypes,
@@ -38,6 +38,14 @@ export const XYZLayerSchema = LayerBaseSchema.extend({
 
 export type XYZLayerType = z.infer<typeof XYZLayerSchema>
 
+export const TerrainLayerSchema = LayerBaseSchema.extend({
+    type: z.literal('terrain'),
+    group: z.literal('terrain'),
+    ionId: z.number(),
+})
+
+export type TerrainLayerType = z.infer<typeof TerrainLayerSchema>
+
 export const WMSLayerSchema = LayerBaseSchema.extend({
     type: z.literal('wms'),
     url: z.string(),
@@ -49,6 +57,7 @@ export const LayersUnionSchema = z.discriminatedUnion('type', [
     Cesium3DTilesLayerSchema,
     XYZLayerSchema,
     WMSLayerSchema,
+    TerrainLayerSchema,
 ])
 
 export type LayersUnionType = z.infer<typeof LayersUnionSchema>

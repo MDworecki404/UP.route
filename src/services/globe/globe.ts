@@ -103,11 +103,8 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
         globeInstance = new GlobeService(viewer)
         await globeInstance.initServices()
 
-        setTimeout(() => {
-            appLoaded.raiseEvent(true)
-        }, 1000)
-
         globeInstance.getUserGlobeSettings()
+        appLoaded.raiseEvent(true)
         return globeInstance
     } else {
         return globeInstance

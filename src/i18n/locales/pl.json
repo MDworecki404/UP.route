@@ -30,5 +30,6 @@
     "RECEIVE_ONLY": "Tylko odbieranie",
     "globeSettingsSaved": "Ustawienia globu zostały zapisane.",
     "removeGlobeSettings": "Usuń ustawienia globu",
-    "globeSettingsRemoved": "Ustawienia globu zostały usunięte."
+    "globeSettingsRemoved": "Ustawienia globu zostały usunięte.",
+    "demLayers": "Modele terenu"
 }

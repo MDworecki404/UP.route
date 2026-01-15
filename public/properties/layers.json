@@ -38,5 +38,27 @@
         "id": "3dBuildingsOpenStreetMap",
         "parent": "3dLayers",
         "ionId": 96188
+    },
+    {
+        "type": "terrain",
+        "active": true,
+        "name": {
+            "pl": "Wrocław - NMT",
+            "en": "Wrocław - DEM"
+        },
+        "id": "wroclawDEM",
+        "parent": "demLayers",
+        "ionId": 3554754
+    },
+    {
+        "type": "3dtiles",
+        "active": true,
+        "name": {
+            "pl": "Budynki LOD1",
+            "en": "LOD 1 Buildings"
+        },
+        "id": "wroclawLOD1Buildings",
+        "parent": "3dLayers",
+        "ionId": 0
     }
 ]
