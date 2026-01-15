@@ -32,7 +32,7 @@ const { activeToolsArray } = storeToRefs(toolsStore)
     margin: 5px;
     right: 0;
     width: auto;
-    min-height: 300px;
+    min-height: min-content;
     pointer-events: none;
 }
 </style>
