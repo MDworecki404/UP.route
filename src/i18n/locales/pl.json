@@ -31,5 +31,6 @@
     "globeSettingsSaved": "Ustawienia globu zostały zapisane.",
     "removeGlobeSettings": "Usuń ustawienia globu",
     "globeSettingsRemoved": "Ustawienia globu zostały usunięte.",
-    "demLayers": "Modele terenu"
+    "demLayers": "Modele terenu",
+    "vectorLayers": "Warstwy wektorowe"
 }

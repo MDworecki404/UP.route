@@ -1,5 +1,6 @@
 import {
     type Cesium3DTilesLayerType,
+    type CZMLLayerType,
     type LayersUnionType,
     type OSMLayerType,
     type TerrainLayerType,
@@ -8,6 +9,9 @@ import {
 import {
     Cesium3DTileset,
     CesiumTerrainProvider,
+    CzmlDataSource,
+    IonResource,
+    HeightReference,
     OpenStreetMapImageryProvider,
     Terrain,
     UrlTemplateImageryProvider,
@@ -17,7 +21,11 @@ import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
 import { fetchJsonFile } from '../utils'
 
-export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer
+export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
+
+////////////////////////////////////////////////////////////////
+// MARK: - Layers Manager
+////////////////////////////////////////////////////////////////
 
 export class LayersManager {
     private _viewer: Viewer
@@ -141,7 +149,9 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
     initialize(): Promise<Cesium3DTileset> {
         return (async () => {
             try {
-                this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId)
+                this._layer = await Cesium3DTileset.fromIonAssetId(this._config.ionId, {
+                    heightReference: HeightReference.CLAMP_TO_3D_TILE,
+                })
                 this._layer.show = this._config.active
                 this._layer.parent = this._config.parent!
 
@@ -234,6 +244,10 @@ export class XYZLayer extends LayerBase<ImageryLayer> {
     }
 }
 
+////////////////////////////////////////////////////////////////
+// MARK: - Terrain Layer
+////////////////////////////////////////////////////////////////
+
 export class TerrainLayer {
     public readonly classType = 'terrain'
     private _viewer: Viewer
@@ -273,6 +287,64 @@ export class TerrainLayer {
 }
 
 ////////////////////////////////////////////////////////////////
+// MARK: - CZML Layer
+////////////////////////////////////////////////////////////////
+
+export class CZMLLayer extends LayerBase<CzmlDataSource> {
+    public readonly classType = 'czml'
+    private _viewer: Viewer
+    private _config: CZMLLayerType
+    public _layer: CzmlDataSource | null = null
+
+    constructor(viewer: Viewer, config: CZMLLayerType) {
+        super()
+        this._viewer = viewer
+        this._config = config
+    }
+
+    initialize(): Promise<CzmlDataSource> {
+        return (async () => {
+            try {
+                const resource = await IonResource.fromAssetId(this._config.ionId)
+                this._layer = await CzmlDataSource.load(resource)
+                if (this._layer) {
+                    this._layer.show = this._config.active
+                    this._layer.parent = this._config.parent!
+                }
+            } catch (error) {
+                throw error
+            }
+            return this._layer!
+        })()
+    }
+
+    addToGlobe(): void {
+        if (this._layer && !this._viewer.dataSources.contains(this._layer)) {
+            this._viewer.dataSources.add(this._layer)
+        }
+    }
+
+    get config(): CZMLLayerType {
+        return this._config
+    }
+
+    getName(): string {
+        return this._layer!.name ?? this.classType
+    }
+
+    getType(): string {
+        return this.classType
+    }
+
+    destroy(): void {
+        if (this._layer) {
+            this._viewer.dataSources.remove(this._layer)
+            this._layer = null
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////
 // MARK: - Layers Factory
 ////////////////////////////////////////////////////////////////
 
@@ -286,6 +358,8 @@ export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
             return new XYZLayer(viewer, layer)
         case 'terrain':
             return new TerrainLayer(viewer, layer)
+        case 'czml':
+            return new CZMLLayer(viewer, layer)
         default:
             throw new Error(`Layer type ${layer.type} is not supported`)
     }

@@ -59,6 +59,17 @@
         },
         "id": "wroclawLOD1Buildings",
         "parent": "3dLayers",
-        "ionId": 0
+        "ionId": 4352519
+    },
+    {
+        "type": "czml",
+        "active": true,
+        "name": {
+            "pl": "Granice Wrocławia",
+            "en": "Wrocław Boundaries"
+        },
+        "id": "wroclawBoundaries",
+        "parent": "vectorLayers",
+        "ionId": 4352611
     }
 ]

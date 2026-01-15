@@ -99,6 +99,7 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
         const viewer = new Viewer(target, getDefaultViewerSettings())
         viewer.dataSources.removeAll()
         viewer.imageryLayers.removeAll()
+        viewer.scene.globe.depthTestAgainstTerrain = true
 
         globeInstance = new GlobeService(viewer)
         await globeInstance.initServices()

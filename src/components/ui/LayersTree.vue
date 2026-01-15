@@ -13,6 +13,7 @@
     </v-row>
     <v-treeview
         v-model:selected="activeLayers"
+        v-model:opened="openIds"
         :items="treeItems"
         :item-value="'id'"
         :activatable="false"
@@ -83,6 +84,8 @@ type TreeNode = TreeNodeParent | TreeNodeLayer
 const treeItems = ref<TreeNode[]>([])
 const activeLayers = ref<string[]>([])
 
+const openIds = ref(['campus3D', '3dLayers', 'basemaps'])
+
 watch(activeLayers, (newVal, oldVal) => {
     _.difference(newVal, oldVal).forEach((layerId) => {
         const layer = globeInstance.layers.layers.get(layerId)
@@ -137,6 +140,13 @@ const populateTree = () => {
                     layerType: layer.config.type,
                 })
             }
+        } else {
+            treeItems.value.push({
+                id: layer.config.id!,
+                title: translate(layer.config.name).value!,
+                type: 'layer',
+                layerType: layer.config.type,
+            })
         }
     })
 }
