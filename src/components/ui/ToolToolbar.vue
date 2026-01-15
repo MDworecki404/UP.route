@@ -15,7 +15,13 @@
             </div>
         </template>
         <template #append>
-            <v-icon v-if="showMinimize" color="primary">mdi-minus</v-icon>
+            <v-icon
+                v-if="showMinimize"
+                color="primary"
+                style="cursor: pointer"
+                @click="minimizeCustomFunc && minimizeCustomFunc()"
+                >{{ !minimized ? 'mdi-minus' : 'mdi-window-maximize' }}</v-icon
+            >
             <v-icon
                 v-if="!hideCloseIcon"
                 style="cursor: pointer"
@@ -34,7 +40,9 @@ defineProps<{
     title?: string
     showMinimize?: boolean
     hideCloseIcon?: boolean
+    minimized?: boolean
     iconCustomFunc?: () => void
     closeCustomFunc?: () => void
+    minimizeCustomFunc?: () => void
 }>()
 </script>
