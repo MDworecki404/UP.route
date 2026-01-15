@@ -9,7 +9,7 @@
             :icon="tool.icon"
             class="mt-1"
         >
-            <template #default>
+            <template #card-text>
                 <component :is="tool.component" v-bind="tool.props" />
             </template>
         </ToolsWrapper>
