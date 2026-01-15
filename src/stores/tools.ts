@@ -11,6 +11,11 @@ export const useToolsStore = defineStore('tools', () => {
 
     const openTool = ({ id, component, props, icon, isMinimized, maxHeight, width }: ToolsMap) => {
         if (mobile.value) {
+            if (mobileActiveTool.value?.id === id) {
+                mobileActiveTool.value = null
+                return
+            }
+
             mobileActiveTool.value = {
                 id,
                 component: markRaw(component),
