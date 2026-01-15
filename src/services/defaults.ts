@@ -42,18 +42,3 @@ export const getDefaultView = () => {
         },
     }
 }
-
-export const getDefaultView = () => {
-    return {
-        destination: {
-            x: 3841338.2348480183,
-            y: 1178907.9723167613,
-            z: 4941123.403761086,
-        },
-        orientation: {
-            heading: 0.22980001877882295,
-            pitch: -0.8007149279440147,
-            roll: 6.283156544952853,
-        },
-    }
-}
