@@ -1,29 +1,33 @@
 <template>
     <div class="desktop-content-container">
-        <v-toolbar elevation="2" height="47" density="comfortable" color="background">
+        <v-toolbar
+            elevation="2"
+            height="47"
+            density="comfortable"
+            color="background"
+            class="toolbar-with-centered-menu"
+        >
             <template #prepend>
                 <ActionButtonsList
-                    v-if="buttonsList?.toolbarActionButtons"
-                    :buttons-list="buttonsList?.toolbarActionButtons"
+                    v-if="buttonsList?.mobileToolbarActionButtons"
+                    :buttons-list="buttonsList?.mobileToolbarActionButtons"
                     :orientation="'horizontal'"
                 />
             </template>
+
+            <div class="centered-tools-menu">
+                <ToolsMenu />
+            </div>
+
             <template #append>
                 <ContextMenuButton
                     :icon="'mdi-dots-horizontal'"
                     :contextMenuList="ContextMenuItems"
                 />
             </template>
-            <ToolsMenu />
         </v-toolbar>
 
-        <LayersTreeDrawer></LayersTreeDrawer>
-
-        <DesktopToolsContainer></DesktopToolsContainer>
-
-        <BottomNavigation />
-
-        <NotifyComponent />
+        <MobileToolsContainer />
     </div>
 </template>
 
@@ -33,14 +37,10 @@ import { fetchJsonFile } from '@/services/utils'
 import type { ContextMenuListType, UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import DesktopToolsContainer from './DesktopToolsContainer.vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
-import BottomNavigation from './ui/BottomNavigation.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
-import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
-import NotifyComponent from './ui/NotifyComponent.vue'
-
+import MobileToolsContainer from './MobileToolsContainer.vue'
 const { t } = useI18n()
 
 const buttonsList = ref<UiType>()
@@ -77,17 +77,14 @@ const ContextMenuItems: ContextMenuListType = [
 </script>
 
 <style scoped>
-.desktop-content-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100dvw;
-    height: 100dvh;
-    pointer-events: none;
-    z-index: 10;
+.toolbar-with-centered-menu {
+    position: relative;
 }
 
-.desktop-content-container > * {
-    pointer-events: auto;
+.centered-tools-menu {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 </style>

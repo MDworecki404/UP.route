@@ -1,21 +1,33 @@
 <template>
-    <v-card :width="width ?? 300" :max-height="maxHeight ?? 500" elevation="2" class="pa-0 ma-0">
+    <v-card
+        :width="width ?? 300"
+        elevation="2"
+        class="pa-0 ma-0"
+        :class="{ 'tools-wrapper-card-mobile': mobile }"
+    >
         <v-card-title class="pa-0 ma-0">
             <ToolToolbar
                 :icon="icon"
-                :title="$t(id)"
+                :title="id"
                 :close-custom-func="() => closeTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>
         </v-card-title>
-        <slot name="default" />
+        <v-card-text
+            class="ma-0 pa-2 overflow-y-auto"
+            :class="{ 'tools-wrapper-content-mobile': mobile }"
+            :style="`max-height: ${maxHeight ?? '400px'}`"
+        >
+            <slot name="card-text" />
+        </v-card-text>
     </v-card>
 </template>
 
 <script lang="ts" setup>
 import type { ToolsMap } from '@/services/tools'
-import ToolToolbar from './ToolToolbar.vue'
 import { useToolsStore } from '@/stores'
+import { useDisplay } from 'vuetify'
+import ToolToolbar from './ToolToolbar.vue'
 
 defineProps<{
     width?: ToolsMap['width']
@@ -25,4 +37,18 @@ defineProps<{
 }>()
 
 const { closeTool } = useToolsStore()
+const { mobile } = useDisplay()
 </script>
+
+<style scoped>
+.tools-wrapper-card-mobile {
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.tools-wrapper-content-mobile {
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+</style>

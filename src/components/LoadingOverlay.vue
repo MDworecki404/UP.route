@@ -5,8 +5,8 @@
     >
         <div style="width: 50%" class="d-flex justify-center flex-column align-center">
             <v-row dense no-gutters class="py-5">
-                <v-img :src="imgPath" :width="400" />
-                <v-img :src="appLogo" :width="200" />
+                <v-img :src="imgPath" :width="mobile ? 200 : 400" />
+                <v-img :src="appLogo" :width="mobile ? 100 : 200" />
             </v-row>
             <v-row dense no-gutters class="py-5">
                 {{ $t('loadingApplication') }}
@@ -21,6 +21,9 @@ import { appLoaded } from '@/services/eventBus'
 import { useCommonStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { useTheme } from 'vuetify'
+import { useDisplay } from 'vuetify'
+
+const { mobile } = useDisplay()
 
 const appLogo = new URL('/appLogo.png', import.meta.url).href
 const imgPath = useTheme().current.value.dark

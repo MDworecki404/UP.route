@@ -1,0 +1,67 @@
+{
+    "toolbarActionButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Layers",
+                    "pl": "Warstwy"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-layers-outline",
+            "action": {
+                "actionId": "toggleLayersDrawer"
+            }
+        }
+    ],
+    "mobileToolbarActionButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Layers",
+                    "pl": "Warstwy"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-layers-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "layersTree",
+                "icon": "mdi-layers-outline"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Routing",
+                    "pl": "Wyszukiwarka tras"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-directions",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "routing",
+                "icon": "mdi-directions"
+            }
+        }
+    ],
+    "toolsButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "cameraPosition",
+                    "pl": "Pozycja kamery"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-camera-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "cameraPosition",
+                "icon": "mdi-camera-outline",
+                "width": 350
+            }
+        }
+    ]
+}

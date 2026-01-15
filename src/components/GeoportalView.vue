@@ -1,17 +1,22 @@
 <template>
     <div ref="cesiumContainer" id="cesiumContainer"></div>
-    <UserInterface />
+    <UserInterface v-if="loaded" />
 </template>
 
 <script setup lang="ts">
 import { initGlobeInstance } from '@/services/globe/globe'
-import { onMounted, useTemplateRef } from 'vue'
+import { onMounted, ref, useTemplateRef } from 'vue'
 import UserInterface from './UserInterface.vue'
+import { appLoaded } from '@/services/eventBus'
 
 const cesiumContainer = useTemplateRef('cesiumContainer')
-
+const loaded = ref(false)
 onMounted(() => {
     initGlobeInstance(cesiumContainer.value!)
+    const listener = appLoaded.addEventListener(() => {
+        loaded.value = true
+        listener()
+    })
 })
 </script>
 

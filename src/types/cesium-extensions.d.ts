@@ -36,4 +36,10 @@ declare module '@cesium/engine' {
         name?: string
         parent?: string
     }
+
+    interface CzmlDataSource {
+        appId?: string
+        name?: string
+        parent?: string
+    }
 }

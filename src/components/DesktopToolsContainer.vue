@@ -1,5 +1,5 @@
 <template>
-    <div class="desktop-tools-container">
+    <div class="desktop-tools-container d-flex flex-column align-end">
         <ToolsWrapper
             v-for="tool in activeToolsArray"
             :key="tool.id"
@@ -7,8 +7,9 @@
             :width="tool.width"
             :max-height="tool.maxHeight"
             :icon="tool.icon"
+            class="mt-1"
         >
-            <template #default>
+            <template #card-text>
                 <component :is="tool.component" v-bind="tool.props" />
             </template>
         </ToolsWrapper>
@@ -27,11 +28,11 @@ const { activeToolsArray } = storeToRefs(toolsStore)
 <style scoped>
 .desktop-tools-container {
     position: absolute;
-    top: 47px;
+    top: 38px;
     margin: 5px;
     right: 0;
     width: auto;
-    min-height: 300px;
+    min-height: min-content;
     pointer-events: none;
 }
 </style>

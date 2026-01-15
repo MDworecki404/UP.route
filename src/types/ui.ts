@@ -25,6 +25,18 @@ export type ActionButtonWithActionType = z.infer<typeof ActionButtonSchema> & {
 
 export const UiSchema = z.object({
     toolbarActionButtons: z.array(ActionButtonWithActionSchema),
+    mobileToolbarActionButtons: z.array(ActionButtonWithActionSchema),
+    toolsButtons: z.array(ActionButtonWithActionSchema),
 })
 
 export type UiType = z.infer<typeof UiSchema>
+
+export const ContextMenuListSchema = z.array(
+    z.object({
+        text: z.string(),
+        method: z.function(),
+        icon: z.string().optional(),
+    }),
+)
+
+export type ContextMenuListType = z.infer<typeof ContextMenuListSchema>

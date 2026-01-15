@@ -13,12 +13,13 @@
     </v-row>
     <v-treeview
         v-model:selected="activeLayers"
+        v-model:opened="openIds"
         :items="treeItems"
         :item-value="'id'"
         :activatable="false"
-        :select-strategy="'trunk'"
         density="compact"
         :selectable="true"
+        :select-strategy="'classic'"
         :collapse-icon="'mdi-chevron-down'"
         :expand-icon="'mdi-chevron-right'"
         :selected-color="'primary'"
@@ -31,18 +32,38 @@
                 {{ $t('noLayersInSearch') }}
             </div>
         </template>
+        <template #append="{ item }">
+            <template
+                v-if="
+                    item.type === 'layer' && (item.layerType === 'xyz' || item.layerType === 'osm')
+                "
+            >
+                <context-menu-button
+                    :context-menu-list="getImageryLayerContextMenuList(item)"
+                    :icon="'mdi-dots-vertical'"
+                    :location="'right'"
+                    :size="'x-small'"
+                    :iconSize="18"
+                    :elevation="0"
+                />
+            </template>
+        </template>
     </v-treeview>
 </template>
 
 <script setup lang="ts">
-import { appLoaded } from '@/services/eventBus'
+import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import { globeInstance } from '@/services/globe/globe'
 import { LayerParents } from '@/types/layers'
-import { onMounted, ref } from 'vue'
+import type { ContextMenuListType } from '@/types/ui'
+import _ from 'lodash'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import ContextMenuButton from './ContextMenuButton.vue'
 
 const { t } = useI18n()
 const search = ref('')
+const { translate } = useDynamicTranslation()
 
 type TreeNodeParent = {
     id: string
@@ -55,12 +76,37 @@ type TreeNodeLayer = {
     id: string
     title: string
     type: 'layer'
+    layerType: string
 }
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
 
 const treeItems = ref<TreeNode[]>([])
 const activeLayers = ref<string[]>([])
+
+const openIds = ref(['campus3D', '3dLayers', 'basemaps'])
+
+watch(activeLayers, (newVal, oldVal) => {
+    _.difference(newVal, oldVal).forEach((layerId) => {
+        const layer = globeInstance.layers.layers.get(layerId)
+        if (layer && layer.classType !== 'terrain') {
+            layer.setVisibility(!layer.isVisible())
+        }
+        if (layer && layer.classType === 'terrain') {
+            layer.setVisibility(true)
+        }
+    })
+
+    _.difference(oldVal, newVal).forEach((layerId) => {
+        const layer = globeInstance.layers.layers.get(layerId)
+        if (layer && layer.classType !== 'terrain') {
+            layer.setVisibility(!layer.isVisible())
+        }
+        if (layer && layer.classType === 'terrain') {
+            layer.setVisibility(false)
+        }
+    })
+})
 
 const createParents = () => {
     LayerParents.options.forEach((parent) => {
@@ -77,18 +123,30 @@ const populateTree = () => {
     const layers = globeInstance.layers.layers
     layers.forEach((layer) => {
         const parentName = layer.config.parent || null
-        if (layer._layer?.show) {
+        if (layer && layer.classType !== 'terrain' && layer._layer?.show) {
             activeLayers.value.push(layer.config.id!)
         }
+        if (layer && layer.classType === 'terrain' && layer.isVisible()) {
+            activeLayers.value.push(layer.config.id!)
+        }
+
         if (parentName) {
             const parentNode = treeItems.value.find((node) => node.id === parentName)
             if (parentNode && parentNode.type === 'parent') {
                 parentNode.children.push({
                     id: layer.config.id!,
-                    title: layer.config.name,
+                    title: translate(layer.config.name).value!,
                     type: 'layer',
+                    layerType: layer.config.type,
                 })
             }
+        } else {
+            treeItems.value.push({
+                id: layer.config.id!,
+                title: translate(layer.config.name).value!,
+                type: 'layer',
+                layerType: layer.config.type,
+            })
         }
     })
 }
@@ -96,11 +154,21 @@ const populateTree = () => {
 onMounted(() => {
     createParents()
 
-    const listener = appLoaded.addEventListener(() => {
-        populateTree()
-        listener()
-    })
+    populateTree()
 })
+
+const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [
+    {
+        text: t('raiseToTop'),
+        icon: 'mdi-arrow-up-thick',
+        method: () => {
+            const layer = globeInstance.layers.layers.get(item.id)
+            if (layer && layer.classType !== 'terrain') {
+                layer.raiseToTop()
+            }
+        },
+    },
+]
 </script>
 
 <style scoped>

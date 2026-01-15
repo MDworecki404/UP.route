@@ -9,6 +9,7 @@ import './main.css'
 import App from './App.vue'
 import router from './router'
 import i18n from './i18n'
+import { getItemFromLocalStorage } from './services/utils'
 
 const upwrBrandColors = {
     burgundy: '#c7364e', // Kolor główny pobrany z logo/pieczęci
@@ -18,7 +19,7 @@ const upwrBrandColors = {
 }
 
 // Motyw Jasny (UPWr Light)
-const upwrLightTheme = {
+const light = {
     dark: false,
     colors: {
         background: '#FFFFFF', // Czysta biel tła
@@ -37,7 +38,7 @@ const upwrLightTheme = {
 }
 
 // Motyw Ciemny (UPWr Dark - inspirowany bluzą)
-const upwrDarkTheme = {
+const dark = {
     dark: true,
     colors: {
         background: '#121212', // Standardowe ciemne tło Vuetify (dla lepszego kontrastu)
@@ -62,10 +63,10 @@ const vuetify = createVuetify({
     components,
     directives,
     theme: {
-        defaultTheme: 'upwrDark', // Ustawienie domyślnego motywu
+        defaultTheme: getItemFromLocalStorage<string>('upRouteTheme') || 'light',
         themes: {
-            upwrLight: upwrLightTheme,
-            upwrDark: upwrDarkTheme,
+            light: light,
+            dark: dark,
         },
     },
 })
