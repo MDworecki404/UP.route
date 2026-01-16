@@ -71,5 +71,20 @@
         "id": "wroclawBoundaries",
         "parent": "vectorLayers",
         "ionId": 4352611
+    },
+    {
+        "type": "3dtiles",
+        "tilesProps": {
+            "type": "pointCloud",
+            "pointSize": 100
+        },
+        "active": false,
+        "name": {
+            "pl": "Budynki UPWr (ALS)",
+            "en": "UPWr Buildings (ALS)"
+        },
+        "id": "upwrALSBuildings",
+        "parent": "campus3D",
+        "ionId": 4354406
     }
 ]

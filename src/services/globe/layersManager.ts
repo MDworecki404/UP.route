@@ -19,6 +19,7 @@ import {
 import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
 import { fetchJsonFile } from '../utils'
+import { Cesium3DTileStyle } from '@cesium/engine'
 
 export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
 
@@ -152,6 +153,8 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
                 this._layer.show = this._config.active
                 this._layer.parent = this._config.parent!
 
+                this.setLayerProperties()
+
                 return this._layer
             } catch (error) {
                 throw error
@@ -174,6 +177,19 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
     addToGlobe(): void {
         if (this._layer && !this._viewer.scene.primitives.contains(this._layer)) {
             this._viewer.scene.primitives.add(this._layer)
+        }
+    }
+
+    private setLayerProperties(): void {
+        if (!this._layer) return
+
+        switch (this._config.tilesProps?.type) {
+            case 'pointCloud':
+                if (this._layer.style) {
+                    this._layer!.style = new Cesium3DTileStyle({
+                        pointSize: this._config.tilesProps.pointSize ?? 1,
+                    })
+                }
         }
     }
 

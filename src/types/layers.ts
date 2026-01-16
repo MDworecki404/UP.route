@@ -30,8 +30,27 @@ export const OSMLayerSchema = LayerBaseSchema.extend({
 
 export type OSMLayerType = z.infer<typeof OSMLayerSchema>
 
+const Cesium3DTilesPointCloudSchema = z.object({
+    type: z.literal('pointCloud'),
+    pointSize: z.number().optional(),
+    maximumScreenSpaceError: z.number().optional(),
+    pointCloudShading: z
+        .object({
+            attenuation: z.boolean().optional(),
+            geometricErrorScale: z.number().optional(),
+            baseResolution: z.number().optional(),
+            eyeDomeLighting: z.boolean().optional(),
+            eyeDomeLightingStrength: z.number().optional(),
+            eyeDomeLightingRadius: z.number().optional(),
+        })
+        .optional(),
+})
+
+const Cesium3DTilesUnionSchema = z.discriminatedUnion('type', [Cesium3DTilesPointCloudSchema])
+
 export const Cesium3DTilesLayerSchema = LayerBaseSchema.extend({
     type: z.literal('3dtiles'),
+    tilesProps: Cesium3DTilesUnionSchema.optional(),
     zIndex: z.number().optional(),
     ionId: z.number(),
 })
