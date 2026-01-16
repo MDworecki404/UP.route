@@ -8,8 +8,11 @@
         <ActionButton
             v-for="button in buttonsList"
             :key="button.icon"
+            :class="buttonCustomClass"
             :icon="button.icon"
+            :color="buttonColor"
             :tooltip="button.tooltip"
+            :variant="buttonVariant"
             @click="performAction(button.action)"
         ></ActionButton>
     </div>
@@ -22,5 +25,8 @@ import { performAction } from '@/services/actions'
 const { orientation = 'horizontal' } = defineProps<{
     buttonsList: ActionButtonWithActionType[]
     orientation?: 'horizontal' | 'vertical'
+    buttonVariant?: string
+    buttonCustomClass?: string
+    buttonColor?: string
 }>()
 </script>

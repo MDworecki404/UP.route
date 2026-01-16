@@ -33,5 +33,14 @@
     "globeSettingsRemoved": "Ustawienia globu zostały usunięte.",
     "demLayers": "Modele terenu",
     "vectorLayers": "Warstwy wektorowe",
-    "layersTree": "Drzewo warstw"
+    "layersTree": "Drzewo warstw",
+    "objectsShadows": "Cienie obiektów",
+    "shadowsSettings": "Ustawienia cieni",
+    "smoothShadows": "Wygładzone cienie",
+    "day": "Dzień",
+    "time": "Godzina",
+    "selectHour": "Wybierz godzinę",
+    "selectDay": "Wybierz dzień",
+    "setActualTime": "Ustaw aktualny czas",
+    "setDefaultTime": "Ustaw domyślny czas"
 }

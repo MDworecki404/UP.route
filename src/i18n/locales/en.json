@@ -33,5 +33,14 @@
     "globeSettingsRemoved": "Globe settings have been removed.",
     "demLayers": "Terrain models",
     "vectorLayers": "Vector layers",
-    "layersTree": "Layers tree"
+    "layersTree": "Layers tree",
+    "objectsShadows": "Object shadows",
+    "shadowsSettings": "Shadows settings",
+    "smoothShadows": "Smooth shadows",
+    "day": "Day",
+    "time": "Time",
+    "selectHour": "Select hour",
+    "selectDay": "Select day",
+    "setActualTime": "Set actual time",
+    "setDefaultTime": "Set default time"
 }

@@ -12,6 +12,21 @@
             "action": {
                 "actionId": "toggleLayersDrawer"
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Routing",
+                    "pl": "Wyszukiwarka tras"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-directions",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "routing",
+                "icon": "mdi-directions"
+            }
         }
     ],
     "mobileToolbarActionButtons": [
@@ -50,7 +65,7 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "cameraPosition",
+                    "en": "Camera position",
                     "pl": "Pozycja kamery"
                 },
                 "location": "bottom"
@@ -61,6 +76,63 @@
                 "toolId": "cameraPosition",
                 "icon": "mdi-camera-outline",
                 "width": 350
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Shadows settings",
+                    "pl": "Ustawienia cieni"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-sun-clock-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "shadowsSettings",
+                "icon": "mdi-weather-night",
+                "width": 450
+            }
+        }
+    ],
+    "navigationButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Back to home view",
+                    "pl": "Powrót do widoku początkowego"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-home-outline",
+            "action": {
+                "actionId": "backToHomeView"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Zoom in",
+                    "pl": "Przybliż"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-magnify-plus-outline",
+            "action": {
+                "actionId": "zoomIn"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Zoom out",
+                    "pl": "Oddal"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-magnify-minus-outline",
+            "action": {
+                "actionId": "zoomOut"
             }
         }
     ]

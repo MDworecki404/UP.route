@@ -23,6 +23,8 @@
 
         <BottomNavigation />
 
+        <GlobeNavigationPanel />
+
         <NotifyComponent />
     </div>
 </template>
@@ -32,7 +34,6 @@ import { performAction } from '@/services/actions'
 import { fetchJsonFile } from '@/services/utils'
 import type { ContextMenuListType, UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import DesktopToolsContainer from './DesktopToolsContainer.vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
 import BottomNavigation from './ui/BottomNavigation.vue'
@@ -40,8 +41,7 @@ import ContextMenuButton from './ui/ContextMenuButton.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
-
-const { t } = useI18n()
+import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
 
 const buttonsList = ref<UiType>()
 
@@ -55,7 +55,7 @@ onMounted(async () => {
 
 const ContextMenuItems: ContextMenuListType = [
     {
-        text: t('appSettings'),
+        text: 'appSettings',
         method: () => {
             performAction({
                 actionId: 'toggleTool',
@@ -67,7 +67,7 @@ const ContextMenuItems: ContextMenuListType = [
         icon: 'mdi-cog',
     },
     {
-        text: t('appInfo'),
+        text: 'appInfo',
         method: () => {
             console.log('appInfo')
         },
