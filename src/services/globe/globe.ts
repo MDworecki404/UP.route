@@ -5,11 +5,13 @@ import { getDefaultView, getDefaultViewerSettings } from '../defaults'
 import { appLoaded } from '../eventBus'
 import { getItemFromLocalStorage } from '../utils'
 import type { LayersManager } from './layersManager'
+import type { TimeManager } from './time'
 
 export let globeInstance: GlobeService
 export class GlobeService {
     private _viewer: Viewer | null = null
     private _layersManager: LayersManager | null = null
+    private _timeManager: TimeManager | null = null
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
@@ -24,8 +26,16 @@ export class GlobeService {
         return this._layersManager
     }
 
+    get time(): TimeManager {
+        if (!this._timeManager) {
+            throw new Error('TimeManager is not initialized')
+        }
+        return this._timeManager
+    }
+
     public async initServices(): Promise<void> {
         const { LayersManager } = await import('./layersManager')
+        const { TimeManager } = await import('./time')
 
         if (!this._viewer) {
             throw new Error('Viewer is not initialized')
@@ -33,6 +43,8 @@ export class GlobeService {
 
         this._layersManager = new LayersManager(this._viewer)
         await this._layersManager.initializeLayers()
+
+        this._timeManager = new TimeManager(this._viewer)
     }
 
     private setInitialView(): void {

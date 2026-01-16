@@ -77,6 +77,22 @@
                 "icon": "mdi-camera-outline",
                 "width": 350
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Shadows settings",
+                    "pl": "Ustawienia cieni"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-sun-clock-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "shadowsSettings",
+                "icon": "mdi-weather-night",
+                "width": 450
+            }
         }
     ]
 }
