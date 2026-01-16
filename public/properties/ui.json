@@ -12,6 +12,21 @@
             "action": {
                 "actionId": "toggleLayersDrawer"
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Routing",
+                    "pl": "Wyszukiwarka tras"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-directions",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "routing",
+                "icon": "mdi-directions"
+            }
         }
     ],
     "mobileToolbarActionButtons": [
@@ -50,7 +65,7 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "cameraPosition",
+                    "en": "Camera position",
                     "pl": "Pozycja kamery"
                 },
                 "location": "bottom"

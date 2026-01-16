@@ -57,7 +57,7 @@ import { globeInstance } from '@/services/globe/globe'
 import { LayerParents } from '@/types/layers'
 import type { ContextMenuListType } from '@/types/ui'
 import _ from 'lodash'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ContextMenuButton from './ContextMenuButton.vue'
 
@@ -81,10 +81,34 @@ type TreeNodeLayer = {
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
 
-const treeItems = ref<TreeNode[]>([])
+const treeItemsBase = ref<TreeNode[]>([])
 const activeLayers = ref<string[]>([])
 
 const openIds = ref(['campus3D', '3dLayers', 'basemaps'])
+
+const treeItems = computed(() => {
+    return treeItemsBase.value.map((node) => {
+        if (node.type === 'parent') {
+            return {
+                ...node,
+                title: t(node.id),
+                children: node.children.map((child) => {
+                    const layer = globeInstance.layers.layers.get(child.id)
+                    return {
+                        ...child,
+                        title: layer ? translate(layer.config.name).value! : child.title,
+                    }
+                }),
+            }
+        } else {
+            const layer = globeInstance.layers.layers.get(node.id)
+            return {
+                ...node,
+                title: layer ? translate(layer.config.name).value! : node.title,
+            }
+        }
+    })
+})
 
 watch(activeLayers, (newVal, oldVal) => {
     _.difference(newVal, oldVal).forEach((layerId) => {
@@ -110,7 +134,7 @@ watch(activeLayers, (newVal, oldVal) => {
 
 const createParents = () => {
     LayerParents.options.forEach((parent) => {
-        treeItems.value.push({
+        treeItemsBase.value.push({
             id: parent,
             title: t(parent),
             children: [],
@@ -131,19 +155,19 @@ const populateTree = () => {
         }
 
         if (parentName) {
-            const parentNode = treeItems.value.find((node) => node.id === parentName)
+            const parentNode = treeItemsBase.value.find((node) => node.id === parentName)
             if (parentNode && parentNode.type === 'parent') {
                 parentNode.children.push({
                     id: layer.config.id!,
-                    title: translate(layer.config.name).value!,
+                    title: '', // Będzie wypełnione przez computed
                     type: 'layer',
                     layerType: layer.config.type,
                 })
             }
         } else {
-            treeItems.value.push({
+            treeItemsBase.value.push({
                 id: layer.config.id!,
-                title: translate(layer.config.name).value!,
+                title: '', // Będzie wypełnione przez computed
                 type: 'layer',
                 layerType: layer.config.type,
             })

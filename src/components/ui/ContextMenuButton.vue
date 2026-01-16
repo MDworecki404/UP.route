@@ -29,7 +29,7 @@
                 <template #append>
                     <v-icon :icon="item.icon" size="16" />
                 </template>
-                <v-list-item-title>{{ item.text }}</v-list-item-title>
+                <v-list-item-title>{{ $t(item.text) }}</v-list-item-title>
             </v-list-item>
         </v-list>
     </v-menu>
