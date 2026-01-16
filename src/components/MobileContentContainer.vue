@@ -28,6 +28,8 @@
         </v-toolbar>
 
         <MobileToolsContainer />
+
+        <GlobeNavigationPanel />
     </div>
 </template>
 
@@ -41,6 +43,7 @@ import ActionButtonsList from './ui/ActionButtonsList.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 import MobileToolsContainer from './MobileToolsContainer.vue'
+import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
 const { t } = useI18n()
 
 const buttonsList = ref<UiType>()

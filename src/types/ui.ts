@@ -27,6 +27,7 @@ export const UiSchema = z.object({
     toolbarActionButtons: z.array(ActionButtonWithActionSchema),
     mobileToolbarActionButtons: z.array(ActionButtonWithActionSchema),
     toolsButtons: z.array(ActionButtonWithActionSchema),
+    navigationButtons: z.array(ActionButtonWithActionSchema),
 })
 
 export type UiType = z.infer<typeof UiSchema>

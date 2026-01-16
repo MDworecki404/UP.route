@@ -94,5 +94,46 @@
                 "width": 450
             }
         }
+    ],
+    "navigationButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Back to home view",
+                    "pl": "Powrót do widoku początkowego"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-home-outline",
+            "action": {
+                "actionId": "backToHomeView"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Zoom in",
+                    "pl": "Przybliż"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-magnify-plus-outline",
+            "action": {
+                "actionId": "zoomIn"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Zoom out",
+                    "pl": "Oddal"
+                },
+                "location": "left"
+            },
+            "icon": "mdi-magnify-minus-outline",
+            "action": {
+                "actionId": "zoomOut"
+            }
+        }
     ]
 }

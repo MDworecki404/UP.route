@@ -23,6 +23,8 @@
 
         <BottomNavigation />
 
+        <GlobeNavigationPanel />
+
         <NotifyComponent />
     </div>
 </template>
@@ -39,6 +41,7 @@ import ContextMenuButton from './ui/ContextMenuButton.vue'
 import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
+import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
 
 const buttonsList = ref<UiType>()
 

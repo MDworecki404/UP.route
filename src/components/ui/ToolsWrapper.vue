@@ -3,6 +3,7 @@
         :width="width ?? 300"
         elevation="2"
         class="pa-0 ma-0"
+        style="z-index: 100"
         :class="{ 'tools-wrapper-card-mobile': mobile }"
     >
         <v-card-title class="pa-0 ma-0">

@@ -6,6 +6,7 @@ import { appLoaded } from '../eventBus'
 import { getItemFromLocalStorage } from '../utils'
 import type { LayersManager } from './layersManager'
 import type { TimeManager } from './time'
+import { Ray } from '@cesium/engine'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -68,6 +69,62 @@ export class GlobeService {
             throw new Error('Viewer is not initialized')
         }
         return this._viewer
+    }
+
+    public flyHomeView(): void {
+        if (!this._viewer) {
+            throw new Error('Viewer is not initialized')
+        }
+
+        const defaultView = getDefaultView()
+        this._viewer.camera.flyTo({
+            destination: Cartesian3.fromElements(
+                defaultView.destination.x,
+                defaultView.destination.y,
+                defaultView.destination.z,
+            ),
+            orientation: defaultView.orientation,
+            duration: 1.5,
+        })
+    }
+
+    private getCameraFocus() {
+        const { scene, camera } = this.viewer
+        const ray = new Ray(camera.positionWC, camera.directionWC)
+        const intersection = scene.globe.pick(ray, scene)
+
+        if (intersection) {
+            return intersection
+        }
+        ray.direction = camera.upWC
+        const cameraIntersection = scene.globe.pick(ray, scene)
+        return cameraIntersection || camera.positionWC
+    }
+
+    changeZoom(zoomChange: number) {
+        const focus = this.getCameraFocus()
+        const { camera } = this.viewer
+        const { directionWC, positionWC } = camera
+        const distance = Cartesian3.distance(focus, positionWC)
+        if (distance > 15 && distance < 18331000) {
+            const amount = Math.max(0.35 * distance, 50)
+            const moveScratch = Cartesian3.multiplyByScalar(
+                directionWC,
+                zoomChange * amount,
+                new Cartesian3(),
+            )
+            const destination = Cartesian3.add(positionWC, moveScratch, new Cartesian3())
+            const orientation = {
+                heading: camera.heading,
+                pitch: camera.pitch,
+                roll: camera.roll,
+            }
+            this.viewer.camera.flyTo({
+                destination,
+                orientation,
+                duration: 0.3,
+            })
+        }
     }
 
     public getUserGlobeSettings(): void {
