@@ -27,8 +27,22 @@
                 "toolId": "routing",
                 "icon": "mdi-directions"
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Find building",
+                    "pl": "Znajdź budynek"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-office-building-marker",
+            "action": {
+                "actionId": "toggleLayersDrawer"
+            }
         }
     ],
+    "toolbarEndActionButtons": [],
     "mobileToolbarActionButtons": [
         {
             "tooltip": {
@@ -59,8 +73,22 @@
                 "toolId": "routing",
                 "icon": "mdi-directions"
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Find building",
+                    "pl": "Znajdź budynek"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-office-building-marker",
+            "action": {
+                "actionId": "toggleLayersDrawer"
+            }
         }
     ],
+    "mobileToolbarEndActionButtons": [],
     "toolsButtons": [
         {
             "tooltip": {

@@ -20,6 +20,11 @@
             </div>
 
             <template #append>
+                <ActionButtonsList
+                    v-if="buttonsList?.mobileToolbarEndActionButtons"
+                    :buttons-list="buttonsList?.mobileToolbarEndActionButtons"
+                    :orientation="'horizontal'"
+                />
                 <ContextMenuButton
                     :icon="'mdi-dots-horizontal'"
                     :contextMenuList="ContextMenuItems"

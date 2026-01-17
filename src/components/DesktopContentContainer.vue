@@ -9,6 +9,11 @@
                 />
             </template>
             <template #append>
+                <ActionButtonsList
+                    v-if="buttonsList?.toolbarEndActionButtons"
+                    :buttons-list="buttonsList?.toolbarEndActionButtons"
+                    :orientation="'horizontal'"
+                />
                 <ContextMenuButton
                     :icon="'mdi-dots-horizontal'"
                     :contextMenuList="ContextMenuItems"

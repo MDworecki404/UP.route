@@ -3,10 +3,6 @@
         <template #activator="{ props }">
             <v-btn
                 v-bind="props"
-                v-tooltip="{
-                    text: $t('openContextMenu'),
-                    location: 'bottom',
-                }"
                 :icon="icon"
                 :text="text"
                 :size="size"
