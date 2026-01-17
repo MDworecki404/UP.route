@@ -9,7 +9,16 @@ export const useToolsStore = defineStore('tools', () => {
     const mobileActiveTool = ref<ToolsMap | null>(null)
     const activeToolsArray = ref<ToolsMap[]>([])
 
-    const openTool = ({ id, component, props, icon, isMinimized, maxHeight, width }: ToolsMap) => {
+    const openTool = ({
+        id,
+        component,
+        props,
+        icon,
+        isMinimized,
+        maxHeight,
+        width,
+        fullscreen = false,
+    }: ToolsMap) => {
         if (mobile.value) {
             if (mobileActiveTool.value?.id === id) {
                 mobileActiveTool.value = null
@@ -24,6 +33,7 @@ export const useToolsStore = defineStore('tools', () => {
                 isMinimized,
                 maxHeight,
                 width,
+                fullscreen,
             }
             return
         }
@@ -59,7 +69,10 @@ export const useToolsStore = defineStore('tools', () => {
     const minimizeTool = (id: string) => {
         if (mobile.value) {
             if (mobileActiveTool.value) {
-                mobileActiveTool.value.isMinimized = true
+                mobileActiveTool.value = {
+                    ...mobileActiveTool.value,
+                    isMinimized: true,
+                }
             }
             return
         }
@@ -82,7 +95,10 @@ export const useToolsStore = defineStore('tools', () => {
     const restoreTool = (id: string) => {
         if (mobile.value) {
             if (mobileActiveTool.value) {
-                mobileActiveTool.value.isMinimized = false
+                mobileActiveTool.value = {
+                    ...mobileActiveTool.value,
+                    isMinimized: false,
+                }
             }
             return
         }
@@ -90,6 +106,15 @@ export const useToolsStore = defineStore('tools', () => {
         const tool = activeTools.value?.get(id)
         if (tool) {
             tool.isMinimized = false
+        }
+    }
+
+    const toggleFullScreenMobileTool = () => {
+        if (mobile.value && mobileActiveTool.value) {
+            mobileActiveTool.value = {
+                ...mobileActiveTool.value,
+                fullscreen: !mobileActiveTool.value.fullscreen,
+            }
         }
     }
 
@@ -102,5 +127,6 @@ export const useToolsStore = defineStore('tools', () => {
         minimizeTool,
         restoreTool,
         isMinimizedTool,
+        toggleFullScreenMobileTool,
     }
 })

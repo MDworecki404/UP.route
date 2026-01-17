@@ -22,6 +22,7 @@ export type ToolsMap = {
     width?: number
     maxHeight?: number
     isMinimized?: boolean
+    fullscreen?: boolean
     icon?: string
 }
 

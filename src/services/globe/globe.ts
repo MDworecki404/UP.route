@@ -127,6 +127,32 @@ export class GlobeService {
         }
     }
 
+    public setCameraNorthUp(): void {
+        const { camera } = this.viewer
+        const cameraFocus = this.getCameraFocus()
+        const distance = Cartesian3.distance(camera.positionWC, cameraFocus)
+
+        const surfaceNormal = Cartesian3.normalize(cameraFocus, new Cartesian3())
+
+        const destination = Cartesian3.add(
+            cameraFocus,
+            Cartesian3.multiplyByScalar(surfaceNormal, distance, new Cartesian3()),
+            new Cartesian3(),
+        )
+
+        const orientation = {
+            heading: 0,
+            pitch: -1.5708,
+            roll: 0,
+        }
+
+        this.viewer.camera.flyTo({
+            destination,
+            orientation,
+            duration: 0.5,
+        })
+    }
+
     public getUserGlobeSettings(): void {
         const config = getItemFromLocalStorage<userGlobeSettings>('userGlobeSettings')
         if (config) {

@@ -3,8 +3,12 @@
         :width="width ?? 300"
         elevation="2"
         class="pa-0 ma-0"
+        rounded="0"
         style="z-index: 100"
-        :class="{ 'tools-wrapper-card-mobile': mobile }"
+        :class="{
+            'tools-wrapper-card-mobile': mobile,
+            'tools-wrapper-fullscreen': mobile && fullscreen && !isMinimizedTool(id),
+        }"
     >
         <v-card-title class="pa-0 ma-0">
             <ToolToolbar
@@ -14,6 +18,8 @@
                 :minimize-custom-func="
                     isMinimizedTool(id) ? () => restoreTool(id) : () => minimizeTool(id)
                 "
+                :fullscreen="fullscreen"
+                :set-fullscreen-custom-func="toggleFullScreenMobileTool"
                 :minimized="isMinimizedTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>
@@ -40,9 +46,11 @@ defineProps<{
     maxHeight?: ToolsMap['maxHeight']
     id: ToolsMap['id']
     icon?: ToolsMap['icon']
+    fullscreen?: ToolsMap['fullscreen']
 }>()
 
-const { closeTool, minimizeTool, isMinimizedTool, restoreTool } = useToolsStore()
+const { closeTool, minimizeTool, isMinimizedTool, restoreTool, toggleFullScreenMobileTool } =
+    useToolsStore()
 const { mobile } = useDisplay()
 </script>
 
@@ -51,6 +59,11 @@ const { mobile } = useDisplay()
     max-height: 80vh;
     display: flex;
     flex-direction: column;
+}
+
+.tools-wrapper-fullscreen {
+    max-height: 100dvh !important;
+    height: 100dvh;
 }
 
 .tools-wrapper-content-mobile {

@@ -43,5 +43,7 @@
     "selectDay": "Wybierz dzień",
     "setActualTime": "Ustaw aktualny czas",
     "setDefaultTime": "Ustaw domyślny czas",
-    "zoomToExtent": "Powiększ do zasięgu"
+    "zoomToExtent": "Powiększ do zasięgu",
+    "setNorthUp": "Ustaw kamerę na północ",
+    "cameraPitch": "Nachylenie kamery"
 }
