@@ -5,6 +5,7 @@
         :min-width="width"
         :max-width="width"
         :timeout="duration"
+        style="z-index: 99999"
     >
         <template #text>
             <div class="d-flex">

@@ -206,6 +206,11 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
         viewer.dataSources.removeAll()
         viewer.imageryLayers.removeAll()
         viewer.scene.globe.depthTestAgainstTerrain = true
+        viewer.scene.globe.dynamicAtmosphereLighting = true
+        viewer.scene.globe.dynamicAtmosphereLightingFromSun = true
+        viewer.scene.globe.showGroundAtmosphere = true
+        viewer.scene.globe.lightingFadeOutDistance = -100000
+        viewer.scene.globe.nightFadeOutDistance = -100000
 
         globeInstance = new GlobeService(viewer)
         await globeInstance.initServices()

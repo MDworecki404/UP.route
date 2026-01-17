@@ -16,7 +16,7 @@
         </template>
         <template #append>
             <v-icon
-                v-if="mobile"
+                v-if="mobile && !hideFullscreenIcon"
                 color="primary"
                 style="cursor: pointer"
                 @click="setFullscreenCustomFunc && setFullscreenCustomFunc()"
@@ -53,6 +53,7 @@ defineProps<{
     hideCloseIcon?: boolean
     minimized?: boolean
     fullscreen?: boolean
+    hideFullscreenIcon?: boolean
     iconCustomFunc?: () => void
     closeCustomFunc?: () => void
     minimizeCustomFunc?: () => void

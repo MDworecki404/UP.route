@@ -4,6 +4,7 @@
             <v-card class="pa-0 ma-0">
                 <v-card-title class="pa-0 ma-0"
                     ><ToolToolbar
+                        :hide-fullscreen-icon="true"
                         :icon="dialogContent?.icon"
                         :title="dialogContent?.title"
                         :close-custom-func="() => dialogStore.closeDialog()"

@@ -11,7 +11,7 @@
                 hide-details
                 v-tooltip="{
                     text: $t('skyAtmosphereTooltip'),
-                    location: 'left',
+                    location: 'top',
                 }"
                 color="primary"
                 @update:model-value="onSkyAtmosphereChange($event!)"

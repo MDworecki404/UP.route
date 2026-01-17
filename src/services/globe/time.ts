@@ -18,7 +18,7 @@ export class TimeManager {
     }
 
     public getTime(): number {
-        return this._actualTimeMs
+        return JulianDate.toDate(this._viewer.clock.currentTime).getTime()
     }
 
     public resetToDefaultTime(): void {
