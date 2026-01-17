@@ -50,5 +50,7 @@
     "property": "Property",
     "value": "Value",
     "of": "of",
-    "objectInfo": "Object info"
+    "objectInfo": "Object info",
+    "globeSettingsDescriptionTitle": "Globe Settings",
+    "globeSettingsDescription": "With these settings, you can customize the appearance and behavior of the 3D globe. Once saved, the settings will be applied every time the application is launched."
 }

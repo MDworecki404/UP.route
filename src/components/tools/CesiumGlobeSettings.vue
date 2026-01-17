@@ -1,10 +1,18 @@
 <template>
     <v-card-text>
+        <v-row dense no-gutters class="d-flex flex-column">
+            <span class="text-subtitle-2">{{ $t('globeSettingsDescription') }}</span>
+            <v-divider class="my-2" />
+        </v-row>
         <v-row dense no-gutters class="d-flex ga-5 flex-wrap" justify="start" align="center">
             <v-checkbox
                 v-model="skyAtmosphere"
                 :label="$t('skyAtmosphere')"
                 hide-details
+                v-tooltip="{
+                    text: $t('skyAtmosphereTooltip'),
+                    location: 'left',
+                }"
                 color="primary"
                 @update:model-value="onSkyAtmosphereChange($event!)"
             ></v-checkbox>
@@ -14,6 +22,10 @@
                 variant="outlined"
                 color="primary"
                 density="compact"
+                v-tooltip="{
+                    text: $t('terrainShadowsTooltip'),
+                    location: 'top',
+                }"
                 :max-width="200"
                 hide-details
                 :items="['DISABLED', 'ENABLED', 'CAST_ONLY', 'RECEIVE_ONLY']"
@@ -28,6 +40,10 @@
                 max="2.0"
                 step="0.1"
                 color="primary"
+                v-tooltip="{
+                    text: $t('resolutionScaleTooltip'),
+                    location: 'bottom',
+                }"
                 :hide-details="true"
                 :min-width="300"
                 :max-width="200"
