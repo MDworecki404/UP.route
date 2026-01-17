@@ -42,5 +42,6 @@
     "selectHour": "Select hour",
     "selectDay": "Select day",
     "setActualTime": "Set actual time",
-    "setDefaultTime": "Set default time"
+    "setDefaultTime": "Set default time",
+    "zoomToExtent": "Zoom to extent"
 }

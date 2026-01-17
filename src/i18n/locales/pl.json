@@ -42,5 +42,6 @@
     "selectHour": "Wybierz godzinę",
     "selectDay": "Wybierz dzień",
     "setActualTime": "Ustaw aktualny czas",
-    "setDefaultTime": "Ustaw domyślny czas"
+    "setDefaultTime": "Ustaw domyślny czas",
+    "zoomToExtent": "Powiększ do zasięgu"
 }

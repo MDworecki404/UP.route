@@ -47,6 +47,21 @@
                     :elevation="0"
                 />
             </template>
+            <template
+                v-if="
+                    item.type === 'layer' &&
+                    (item.layerType === '3dtiles' || item.layerType === 'czml')
+                "
+            >
+                <context-menu-button
+                    :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
+                    :icon="'mdi-dots-vertical'"
+                    :location="'right'"
+                    :size="'x-small'"
+                    :iconSize="18"
+                    :elevation="0"
+                />
+            </template>
         </template>
     </v-treeview>
 </template>
@@ -54,12 +69,13 @@
 <script setup lang="ts">
 import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import { globeInstance } from '@/services/globe/globe'
-import { LayerParents } from '@/types/layers'
+import { LayerParents, type LayersUnionType } from '@/types/layers'
 import type { ContextMenuListType } from '@/types/ui'
 import _ from 'lodash'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ContextMenuButton from './ContextMenuButton.vue'
+import { zoomToLayerById } from '@/services/utils'
 
 const { t } = useI18n()
 const search = ref('')
@@ -76,7 +92,7 @@ type TreeNodeLayer = {
     id: string
     title: string
     type: 'layer'
-    layerType: string
+    layerType: LayersUnionType['type']
 }
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
@@ -183,13 +199,23 @@ onMounted(() => {
 
 const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [
     {
-        text: t('raiseToTop'),
+        text: 'raiseToTop',
         icon: 'mdi-arrow-up-thick',
         method: () => {
             const layer = globeInstance.layers.layers.get(item.id)
             if (layer && layer.classType !== 'terrain') {
                 layer.raiseToTop()
             }
+        },
+    },
+]
+
+const get3DTilesAndCZMLContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [
+    {
+        text: 'zoomToExtent',
+        icon: 'mdi-magnify-scan',
+        method: () => {
+            zoomToLayerById(item.id)
         },
     },
 ]
