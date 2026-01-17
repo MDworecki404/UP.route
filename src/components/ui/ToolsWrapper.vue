@@ -28,7 +28,7 @@
             v-show="!isMinimizedTool(id)"
             class="ma-0 pa-2 overflow-y-auto"
             :class="{ 'tools-wrapper-content-mobile': mobile }"
-            :style="`max-height: ${maxHeight ?? '400px'}`"
+            :style="!fullscreen ? `max-height: ${maxHeight ?? '400px'}` : ''"
         >
             <slot name="card-text" />
         </v-card-text>
