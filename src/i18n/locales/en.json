@@ -45,5 +45,10 @@
     "setDefaultTime": "Set default time",
     "zoomToExtent": "Zoom to extent",
     "setNorthUp": "Set north up",
-    "cameraPitch": "Camera pitch"
+    "cameraPitch": "Camera pitch",
+    "itemsPerPage": "Items per page:",
+    "property": "Property",
+    "value": "Value",
+    "of": "of",
+    "objectInfo": "Object info"
 }

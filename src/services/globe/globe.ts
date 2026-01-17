@@ -7,12 +7,14 @@ import { getItemFromLocalStorage } from '../utils'
 import type { LayersManager } from './layersManager'
 import type { TimeManager } from './time'
 import { Ray } from '@cesium/engine'
+import type { GlobeEvent } from './events'
 
 export let globeInstance: GlobeService
 export class GlobeService {
     private _viewer: Viewer | null = null
     private _layersManager: LayersManager | null = null
     private _timeManager: TimeManager | null = null
+    private _events: GlobeEvent | null = null
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
@@ -34,9 +36,17 @@ export class GlobeService {
         return this._timeManager
     }
 
+    get events(): GlobeEvent {
+        if (!this._events) {
+            throw new Error('GlobeEvent is not initialized')
+        }
+        return this._events
+    }
+
     public async initServices(): Promise<void> {
         const { LayersManager } = await import('./layersManager')
         const { TimeManager } = await import('./time')
+        const { GlobeEvent } = await import('./events')
 
         if (!this._viewer) {
             throw new Error('Viewer is not initialized')
@@ -46,6 +56,7 @@ export class GlobeService {
         await this._layersManager.initializeLayers()
 
         this._timeManager = new TimeManager(this._viewer)
+        this._events = new GlobeEvent(this._viewer)
     }
 
     private setInitialView(): void {

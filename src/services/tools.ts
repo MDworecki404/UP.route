@@ -7,6 +7,7 @@ export const TOOLS_KEYS = [
     'appSettings',
     'layersTree',
     'shadowsSettings',
+    'objectInfo',
 ] as const
 
 export type ToolsKeys = (typeof TOOLS_KEYS)[number]
@@ -31,6 +32,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     appSettings: (await import('@/components/tools/AppSettings.vue')).default,
     layersTree: (await import('@/components/ui/LayersTree.vue')).default,
     shadowsSettings: (await import('@/components/tools/ShadowsSettings.vue')).default,
+    objectInfo: (await import('@/components/tools/ObjectInfo.vue')).default,
 }
 
 export const getTool = async (toolId: ToolsKeys): Promise<Tool | null> => {

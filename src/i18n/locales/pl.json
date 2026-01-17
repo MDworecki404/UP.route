@@ -45,5 +45,10 @@
     "setDefaultTime": "Ustaw domyślny czas",
     "zoomToExtent": "Powiększ do zasięgu",
     "setNorthUp": "Ustaw kamerę na północ",
-    "cameraPitch": "Nachylenie kamery"
+    "cameraPitch": "Nachylenie kamery",
+    "itemsPerPage": "Elementów na stronie:",
+    "property": "Właściwość",
+    "value": "Wartość",
+    "of": "z",
+    "objectInfo": "Informacje o obiekcie"
 }
