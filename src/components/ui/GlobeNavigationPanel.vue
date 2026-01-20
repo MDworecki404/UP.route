@@ -71,6 +71,8 @@ const cameraHeading = ref(0)
 const changeCameraPitch = (value: number) => {
     globeInstance.viewer.camera.setView({
         orientation: {
+            heading: globeInstance.viewer.camera.heading,
+            roll: globeInstance.viewer.camera.roll,
             pitch: value,
         },
     })
