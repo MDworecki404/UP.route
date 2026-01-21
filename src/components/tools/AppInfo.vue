@@ -27,7 +27,7 @@
             </a>
             <v-img
                 style="cursor: pointer"
-                src="/src/assets/Typescript.png"
+                :src="TypescriptImg"
                 :max-width="50"
                 v-tooltip="{
                     text: 'TypeScript',
@@ -37,7 +37,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
-                src="/src/assets/vue-logo.png"
+                :src="VueImg"
                 :max-width="50"
                 v-tooltip="{
                     text: 'Vue.js',
@@ -47,7 +47,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
-                src="/src/assets/vuetify-logo-dark-atom.svg"
+                :src="VuetifyImg"
                 :max-width="50"
                 v-tooltip="{
                     text: 'Vuetify',
@@ -57,7 +57,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
-                src="/src/assets/Cesium_logo.png"
+                :src="CesiumImg"
                 :max-width="50"
                 v-tooltip="{
                     text: 'Cesium',
@@ -70,6 +70,11 @@
 </template>
 
 <script lang="ts" setup>
+import TypescriptImg from '../../assets/Typescript.png'
+import VueImg from '../../assets/vue-logo.png'
+import VuetifyImg from '../../assets/vuetify-logo-dark-atom.svg'
+import CesiumImg from '../../assets/Cesium_logo.png'
+
 const openLink = (link: string) => {
     window.open(link, '_blank')
 }
