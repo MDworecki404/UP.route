@@ -13,6 +13,9 @@ const i18n = createI18n({
         pl,
         en,
     },
+    missingWarn: false,
+    warnHtmlInMessage: 'off',
+    fallbackWarn: false,
 })
 
 export default i18n

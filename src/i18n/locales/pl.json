@@ -60,5 +60,13 @@
     "version": "Wersja",
     "githubRepoLink": "Repozytorium GitHub",
     "developer": "Deweloper",
-    "tools": "Narzędzia"
+    "tools": "Narzędzia",
+    "measurementTools": "Narzędzia pomiarowe",
+    "measureDistance": "Mierz odległość",
+    "measureArea": "Mierz powierzchnię",
+    "measureHeight": "Mierz wysokość",
+    "resetMeasure": "Resetuj pomiar",
+    "endMeasure": "Zakończ pomiar",
+    "stopMeasure": "Zatrzymaj pomiar",
+    "startMeasure": "Rozpocznij pomiar"
 }

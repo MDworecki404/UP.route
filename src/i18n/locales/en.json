@@ -56,5 +56,13 @@
     "version": "Version",
     "githubRepoLink": "GitHub Repository",
     "developer": "Developer",
-    "tools": "Tools"
+    "tools": "Tools",
+    "measurementTools": "Measurement Tools",
+    "measureDistance": "Measure Distance",
+    "measureArea": "Measure Area",
+    "measureHeight": "Measure Height",
+    "resetMeasure": "Reset Measure",
+    "endMeasure": "End Measure",
+    "stopMeasure": "Stop Measure",
+    "startMeasure": "Start Measure"
 }

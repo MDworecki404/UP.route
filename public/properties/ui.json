@@ -121,6 +121,22 @@
                 "icon": "mdi-weather-night",
                 "width": 450
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Measurement tools",
+                    "pl": "Narzędzia pomiarowe"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-ruler-square-compass",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "measurementTools",
+                "icon": "mdi-ruler-square-compass",
+                "width": 450
+            }
         }
     ],
     "navigationButtons": [
