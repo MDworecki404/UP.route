@@ -47,6 +47,7 @@ import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
 import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
+import { useDialogStore } from '@/stores'
 
 const buttonsList = ref<UiType>()
 
@@ -73,8 +74,14 @@ const ContextMenuItems: ContextMenuListType = [
     },
     {
         text: 'appInfo',
-        method: () => {
-            console.log('appInfo')
+        method: async () => {
+            const appInfo = (await import('@/components/tools/AppInfo.vue')).default
+            useDialogStore().openDialog({
+                component: appInfo,
+                title: 'appInfo',
+                width: 600,
+                icon: 'mdi-information-box',
+            })
         },
         icon: 'mdi-information-box',
     },

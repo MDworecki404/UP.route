@@ -55,5 +55,10 @@
     "globeSettingsDescription": "Za pomocą tych ustawień możesz dostosować wygląd i zachowanie globu 3D. Po zapisaniu ustawień będą one stosowane przy każdym uruchomieniu aplikacji.",
     "skyAtmosphereTooltip": "Włącz lub wyłącz wyświetlanie nieba i atmosfery na globie 3D.",
     "terrainShadowsTooltip": "Wybierz sposób wyświetlania cieni terenu na globie 3D.",
-    "resolutionScaleTooltip": "Dostosuj skalę rozdzielczości globu 3D (0.1 - niska jakość, wysoka wydajność; 2.0 - wysoka jakość, niska wydajność)."
+    "resolutionScaleTooltip": "Dostosuj skalę rozdzielczości globu 3D (0.1 - niska jakość, wysoka wydajność; 2.0 - wysoka jakość, niska wydajność).",
+    "appInfoContent": "Ta aplikacja została stworzona jako część pracy magisterskiej na temat opracowania metody wyznaczania tras pomiędzy budynkami kampusu Uniwersytetu Przyrodniczego we Wrocławiu z wykorzystaniem technologii 3D w środowisku webowym.",
+    "version": "Wersja",
+    "githubRepoLink": "Repozytorium GitHub",
+    "developer": "Deweloper",
+    "tools": "Narzędzia"
 }

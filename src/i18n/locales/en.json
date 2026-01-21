@@ -52,5 +52,9 @@
     "of": "of",
     "objectInfo": "Object info",
     "globeSettingsDescriptionTitle": "Globe Settings",
-    "globeSettingsDescription": "With these settings, you can customize the appearance and behavior of the 3D globe. Once saved, the settings will be applied every time the application is launched."
+    "globeSettingsDescription": "With these settings, you can customize the appearance and behavior of the 3D globe. Once saved, the settings will be applied every time the application is launched.",
+    "version": "Version",
+    "githubRepoLink": "GitHub Repository",
+    "developer": "Developer",
+    "tools": "Tools"
 }
