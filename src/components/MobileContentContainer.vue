@@ -52,6 +52,7 @@ import ToolsMenu from './ui/ToolsMenu.vue'
 import MobileToolsContainer from './MobileToolsContainer.vue'
 import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
+import { useDialogStore } from '@/stores'
 const { t } = useI18n()
 
 const buttonsList = ref<UiType>()
@@ -79,8 +80,14 @@ const ContextMenuItems: ContextMenuListType = [
     },
     {
         text: t('appInfo'),
-        method: () => {
-            console.log('appInfo')
+        method: async () => {
+            const appInfo = (await import('@/components/tools/AppInfo.vue')).default
+            useDialogStore().openDialog({
+                component: appInfo,
+                title: 'appInfo',
+                width: 600,
+                icon: 'mdi-information-box',
+            })
         },
         icon: 'mdi-information-box',
     },
