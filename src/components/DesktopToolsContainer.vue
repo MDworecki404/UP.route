@@ -7,7 +7,7 @@
             :width="tool.width"
             :max-height="tool.maxHeight"
             :icon="tool.icon"
-            class="mt-1"
+            class="mb-1"
         >
             <template #card-text>
                 <component :is="tool.component" v-bind="tool.props" />
@@ -29,8 +29,8 @@ const { activeToolsArray } = storeToRefs(toolsStore)
 .desktop-tools-container {
     position: absolute;
     top: 38px;
-    margin: 5px;
     right: 0;
+    margin: 6px;
     width: auto;
     min-height: min-content;
     pointer-events: none;
