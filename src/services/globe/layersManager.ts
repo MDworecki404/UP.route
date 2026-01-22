@@ -8,6 +8,7 @@ import {
 } from '@/types/layers'
 import {
     Cesium3DTileset,
+    Cesium3DTileStyle,
     CesiumTerrainProvider,
     CzmlDataSource,
     IonResource,
@@ -18,8 +19,8 @@ import {
 } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
+import { applyLayerFilter } from '../customs/layersFilters'
 import { fetchJsonFile } from '../utils'
-import { Cesium3DTileStyle } from '@cesium/engine'
 
 export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
 
@@ -65,6 +66,9 @@ export class LayersManager {
                 }
 
                 this._layers.set(layerConfig.id!, LayerClass)
+                if (layerConfig.id) {
+                    applyLayerFilter(layerConfig.id!)
+                }
             } catch (error) {
                 console.error(`Error initializing layer ${layerConfig.name}:`, error)
                 continue

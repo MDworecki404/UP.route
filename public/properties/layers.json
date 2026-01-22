@@ -52,7 +52,7 @@
     },
     {
         "type": "3dtiles",
-        "active": true,
+        "active": false,
         "name": {
             "pl": "Budynki LOD1",
             "en": "LOD 1 Buildings"
@@ -86,5 +86,16 @@
         "id": "upwrALSBuildings",
         "parent": "campus3D",
         "ionId": 4354406
+    },
+    {
+        "type": "3dtiles",
+        "active": true,
+        "name": {
+            "pl": "Budynki UPWr LoD1",
+            "en": "LOD 1 UPWr Buildings"
+        },
+        "id": "upwrLOD1Buildings",
+        "parent": "campus3D",
+        "ionId": 4352519
     }
 ]
