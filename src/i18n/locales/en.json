@@ -64,5 +64,7 @@
     "resetMeasure": "Reset Measure",
     "endMeasure": "End Measure",
     "stopMeasure": "Stop Measure",
-    "startMeasure": "Start Measure"
+    "startMeasure": "Start Measure",
+    "resetMeasureLayer": "Reset Measure Layer",
+    "measurementFinished": "Measurement finished"
 }

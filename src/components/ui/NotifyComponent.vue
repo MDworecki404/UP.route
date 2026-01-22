@@ -10,7 +10,7 @@
         <template #text>
             <div class="d-flex">
                 <v-icon left>{{ icon }}</v-icon>
-                <span class="ml-2">{{ message }}</span>
+                <span class="ml-2">{{ $t(message) }}</span>
             </div>
         </template>
     </v-snackbar>

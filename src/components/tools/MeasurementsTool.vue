@@ -79,6 +79,21 @@
                 @click="stopMeasure"
             />
         </v-row>
+        <v-divider class="my-4"></v-divider>
+        <v-row dense no-gutters justify="center">
+            <v-btn
+                icon="mdi-trash-can"
+                color="transparent"
+                v-tooltip="{
+                    text: $t('resetMeasureLayer'),
+                    location: 'bottom',
+                }"
+                class="text-primary"
+                elevation="0"
+                rounded="0"
+                @click="globeInstance.measurements.clearEverything()"
+            ></v-btn>
+        </v-row>
     </v-card-text>
 </template>
 

@@ -1,7 +1,7 @@
-import { BoundingSphere } from '@cesium/engine'
-import { globeInstance } from './globe/globe'
-import type { Cartesian3 } from '@cesium/engine'
 import type { Entity } from '@cesium/engine'
+import { BoundingSphere, Cartesian3 } from '@cesium/engine'
+import { globeInstance } from './globe/globe'
+import { Cartographic } from '@cesium/engine'
 
 export const fetchJsonFile = async <T>(url: string): Promise<T> => {
     const response = await fetch(url)
@@ -136,4 +136,63 @@ export const zoomToLayerById = (layerId: string): void => {
             })
         }
     }
+}
+
+export const calculateDistanceFromPositions = (positions: Cartesian3[]): number => {
+    let totalDistance = 0
+    for (let i = 1; i < positions.length; i++) {
+        totalDistance += Cartesian3.distance(positions[i - 1]!, positions[i]!)
+    }
+    return totalDistance
+}
+
+export const calculateAreaFromPositions = (positions: Cartesian3[]): number => {
+    if (positions.length < 3) return 0
+
+    let nx = 0
+    let ny = 0
+    let nz = 0
+    for (let i = 0; i < positions.length; i++) {
+        const j = (i + 1) % positions.length
+        const xi = positions[i]!.x,
+            yi = positions[i]!.y,
+            zi = positions[i]!.z
+        const xj = positions[j]!.x,
+            yj = positions[j]!.y,
+            zj = positions[j]!.z
+        nx += (yi - yj) * (zi + zj)
+        ny += (zi - zj) * (xi + xj)
+        nz += (xi - xj) * (yi + yj)
+    }
+    const normal = new Cartesian3(nx, ny, nz)
+    const normalMag = Cartesian3.magnitude(normal)
+    if (normalMag === 0) return 0
+    const nHat = new Cartesian3(normal.x / normalMag, normal.y / normalMag, normal.z / normalMag)
+
+    const arbitrary = Math.abs(nHat.x) > 0.9 ? new Cartesian3(0, 1, 0) : new Cartesian3(1, 0, 0)
+    const u = Cartesian3.cross(arbitrary, nHat, new Cartesian3(0, 0, 0))
+    Cartesian3.normalize(u, u)
+    const v = Cartesian3.cross(nHat, u, new Cartesian3(0, 0, 0))
+
+    const xs: number[] = []
+    const ys: number[] = []
+    for (let i = 0; i < positions.length; i++) {
+        xs.push(Cartesian3.dot(positions[i]!, u))
+        ys.push(Cartesian3.dot(positions[i]!, v))
+    }
+
+    let area2 = 0
+    for (let i = 0; i < positions.length; i++) {
+        const j = (i + 1) % positions.length
+        area2 += xs[i]! * ys[j]! - xs[j]! * ys[i]!
+    }
+
+    return Math.abs(area2) * 0.5
+}
+
+export const calculateHeihtDifference = (positions: Cartesian3[]): number => {
+    if (positions.length !== 2) return 0
+    const carto1 = Cartographic.fromCartesian(positions[0]!)
+    const carto2 = Cartographic.fromCartesian(positions[1]!)
+    return Math.abs(carto2.height - carto1.height)
 }

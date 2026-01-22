@@ -68,5 +68,7 @@
     "resetMeasure": "Resetuj pomiar",
     "endMeasure": "Zakończ pomiar",
     "stopMeasure": "Zatrzymaj pomiar",
-    "startMeasure": "Rozpocznij pomiar"
+    "startMeasure": "Rozpocznij pomiar",
+    "resetMeasureLayer": "Zresetuj warstwę pomiarową",
+    "measurementFinished": "Pomiar zakończony"
 }
