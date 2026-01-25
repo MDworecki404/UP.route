@@ -1,9 +1,10 @@
+import { useToolsStore } from '@/stores'
 import type { ScreenSpaceEventHandler } from '@cesium/engine'
 import { Cesium3DTileFeature, Color, defined, ScreenSpaceEventType } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
-import { objectClicked } from '../eventBus'
-import { useToolsStore } from '@/stores'
 import { performAction } from '../actions'
+import { customObjectClicked, objectClicked } from '../eventBus'
+import type { ToolsKeys } from '../tools'
 
 export class GlobeEvent {
     private selectColor = Color.fromCssColorString('#7a1f2f').withAlpha(0.7)
@@ -113,6 +114,31 @@ export class GlobeEvent {
             }
 
             const toolsStore = useToolsStore()
+
+            if (this.check(Cesium3DTileFeature, pickedObject)) {
+                if (pickedObject.tileset.customPopUpId) {
+                    if (
+                        toolsStore.activeTools.has(pickedObject.tileset.customPopUpId) ||
+                        toolsStore.mobileActiveTool?.id === pickedObject.tileset.customPopUpId
+                    ) {
+                        customObjectClicked.raiseEvent({
+                            id: pickedObject.tileset.customPopUpId as ToolsKeys,
+                            data: properties,
+                        })
+                    } else {
+                        performAction({
+                            actionId: 'toggleTool',
+                            icon: 'mdi-information-box-outline',
+                            toolId: pickedObject.tileset.customPopUpId as ToolsKeys,
+                            props: { initialData: properties },
+                            width: 450,
+                        })
+                    }
+
+                    return
+                }
+            }
+
             if (
                 toolsStore.activeTools.has('objectInfo') ||
                 toolsStore.mobileActiveTool?.id === 'objectInfo'

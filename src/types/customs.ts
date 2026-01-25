@@ -8,6 +8,7 @@ export const upwrBuildingsMetadataSchema = z.object({
     description: z.string().or(z.null()),
     height: z.number().or(z.null()),
     gmlIds: z.array(z.string()),
+    icon: z.string().optional(),
 })
 
 export type UpwrBuildingsMetadata = z.infer<typeof upwrBuildingsMetadataSchema>

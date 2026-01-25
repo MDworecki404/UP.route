@@ -70,5 +70,9 @@
     "stopMeasure": "Zatrzymaj pomiar",
     "startMeasure": "Rozpocznij pomiar",
     "resetMeasureLayer": "Zresetuj warstwę pomiarową",
-    "measurementFinished": "Pomiar zakończony"
+    "measurementFinished": "Pomiar zakończony",
+    "building": "Budynek",
+    "upwrBuildingInfoPopUp": "Informacje o budynku UPWr",
+    "address": "Adres",
+    "description": "Opis"
 }

@@ -1,4 +1,5 @@
 import type { Component } from 'vue'
+import { CUSTOM_TOOLS_IDS, CustomTools } from './customs/customPopUp'
 
 type Tool = Component
 
@@ -9,6 +10,9 @@ export const TOOLS_KEYS = [
     'shadowsSettings',
     'objectInfo',
     'measurementTools',
+
+    /// Add custom tool ids here
+    ...CUSTOM_TOOLS_IDS,
 ] as const
 
 export type ToolsKeys = (typeof TOOLS_KEYS)[number]
@@ -35,6 +39,9 @@ export const Tools: Record<ToolsKeys, Tool> = {
     shadowsSettings: (await import('@/components/tools/ShadowsSettings.vue')).default,
     objectInfo: (await import('@/components/tools/ObjectInfo.vue')).default,
     measurementTools: (await import('@/components/tools/MeasurementsTool.vue')).default,
+
+    /// Add custom tools here
+    ...CustomTools,
 }
 
 export const getTool = async (toolId: ToolsKeys): Promise<Tool | null> => {

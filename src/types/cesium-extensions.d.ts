@@ -5,6 +5,7 @@ declare module '@cesium/engine' {
         appId?: string
         name?: string
         parent?: string
+        customPopUpId?: string
     }
 
     interface ImageryLayer {

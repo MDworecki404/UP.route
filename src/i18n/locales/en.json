@@ -66,5 +66,9 @@
     "stopMeasure": "Stop Measure",
     "startMeasure": "Start Measure",
     "resetMeasureLayer": "Reset Measure Layer",
-    "measurementFinished": "Measurement finished"
+    "measurementFinished": "Measurement finished",
+    "building": "Building",
+    "upwrBuildingInfoPopUp": "UPWr Building Information",
+    "address": "Address",
+    "description": "Description"
 }

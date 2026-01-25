@@ -27,6 +27,8 @@ const upwrLoD1Filter = async (id: FilterIds) => {
 
     const tileset = layer._layer
 
+    tileset.customPopUpId = 'upwrBuildingInfoPopUp'
+
     const idsByPrefix: Record<string, string[]> = {}
 
     upwrBuildingsMetaData.forEach((item) => {
