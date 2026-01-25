@@ -38,7 +38,11 @@
             },
             "icon": "mdi-office-building-marker",
             "action": {
-                "actionId": "toggleLayersDrawer"
+                "actionId": "toggleTool",
+                "toolId": "buildingFinder",
+                "icon": "mdi-office-building-marker",
+                "width": 450,
+                "maxHeight": 500
             }
         }
     ],
@@ -84,7 +88,11 @@
             },
             "icon": "mdi-office-building-marker",
             "action": {
-                "actionId": "toggleLayersDrawer"
+                "actionId": "toggleTool",
+                "toolId": "buildingFinder",
+                "icon": "mdi-office-building-marker",
+                "width": 450,
+                "maxHeight": 500
             }
         }
     ],

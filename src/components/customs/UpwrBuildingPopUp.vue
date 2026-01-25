@@ -40,8 +40,9 @@ import { fetchJsonFile } from '@/services/utils'
 import type { UpwrBuildingsMetadata, UpwrBuildingsMetadataArray } from '@/types/customs'
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const { initialData } = defineProps<{
-    initialData: Record<string, unknown>
+const { initialData, buildingMetadata } = defineProps<{
+    initialData?: Record<string, unknown>
+    buildingMetadata?: UpwrBuildingsMetadata
 }>()
 
 const buildingInfoRef = ref<UpwrBuildingsMetadata>()
@@ -69,10 +70,18 @@ onMounted(async () => {
         new URL('/properties/customs/upwrBuildingsMetadata.json', import.meta.url).href,
     )
 
-    getBuildingInfo(initialData)
+    if (initialData) {
+        getBuildingInfo(initialData)
+    } else if (buildingMetadata) {
+        buildingInfoRef.value = buildingMetadata
+    }
 
     const listener = customObjectClicked.addEventListener((eventData) => {
         if (eventData.id === 'upwrBuildingInfoPopUp') {
+            if ('buildingNum' in eventData.data!) {
+                buildingInfoRef.value = eventData.data as UpwrBuildingsMetadata
+            }
+
             getBuildingInfo(eventData.data!)
         }
     })

@@ -74,5 +74,11 @@
     "building": "Budynek",
     "upwrBuildingInfoPopUp": "Informacje o budynku UPWr",
     "address": "Adres",
-    "description": "Opis"
+    "description": "Opis",
+    "nr": "Nr",
+    "actions": "Akcje",
+    "search": "Szukaj",
+    "zoomToBuilding": "Powiększ do budynku",
+    "openBuildingInfo": "Otwórz informacje o budynku",
+    "buildingFinder": "Wyszukiwarka budynków"
 }

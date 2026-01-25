@@ -70,5 +70,11 @@
     "building": "Building",
     "upwrBuildingInfoPopUp": "UPWr Building Information",
     "address": "Address",
-    "description": "Description"
+    "description": "Description",
+    "nr": "Nr",
+    "actions": "Actions",
+    "search": "Search",
+    "buildingFinder": "Building finder",
+    "zoomToBuilding": "Zoom to building",
+    "openBuildingInfo": "Open building information"
 }

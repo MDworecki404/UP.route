@@ -10,6 +10,7 @@ export const TOOLS_KEYS = [
     'shadowsSettings',
     'objectInfo',
     'measurementTools',
+    'buildingFinder',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -39,6 +40,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     shadowsSettings: (await import('@/components/tools/ShadowsSettings.vue')).default,
     objectInfo: (await import('@/components/tools/ObjectInfo.vue')).default,
     measurementTools: (await import('@/components/tools/MeasurementsTool.vue')).default,
+    buildingFinder: (await import('@/components/tools/BuildingFinder.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,
