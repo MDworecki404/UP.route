@@ -12,6 +12,18 @@
                 </v-card-title>
             </v-card>
         </v-row>
+        <v-row v-if="buildingInfoRef?.name" dense no-gutters>
+            <v-card
+                elevation="8"
+                variant="outlined"
+                color="primary"
+                style="width: 100%; margin-top: 10px"
+            >
+                <v-card-title class="d-flex justify-center align-center">
+                    <span class="ml-2 font-weight-bold">{{ buildingInfoRef?.name }}</span>
+                </v-card-title>
+            </v-card>
+        </v-row>
         <v-row dense no-gutters>
             <v-card
                 elevation="8"

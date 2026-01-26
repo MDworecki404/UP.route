@@ -111,7 +111,7 @@
                 "actionId": "toggleTool",
                 "toolId": "cameraPosition",
                 "icon": "mdi-camera-outline",
-                "width": 350
+                "width": 450
             }
         },
         {

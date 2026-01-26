@@ -77,5 +77,9 @@
     "buildingFinder": "Building finder",
     "zoomToBuilding": "Zoom to building",
     "openBuildingInfo": "Open building information",
-    "showAsTextArea": "Show as text area"
+    "showAsTextArea": "Show as text area",
+    "updateCameraPosition": "Update camera position",
+    "copyJSONObject": "Copy JSON object",
+    "copyJavaScriptObject": "Copy JavaScript object",
+    "cameraPositionCopied": "Camera position copied to clipboard"
 }

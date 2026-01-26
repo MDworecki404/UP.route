@@ -32,7 +32,10 @@ const { activeToolsArray } = storeToRefs(toolsStore)
     right: 0;
     margin: 6px;
     width: auto;
-    min-height: min-content;
-    pointer-events: none;
+    bottom: 6px;
+    overflow-y: auto;
+}
+.desktop-tools-container > * {
+    flex-shrink: 0;
 }
 </style>

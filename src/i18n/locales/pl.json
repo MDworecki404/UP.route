@@ -81,5 +81,9 @@
     "zoomToBuilding": "Powiększ do budynku",
     "openBuildingInfo": "Otwórz informacje o budynku",
     "buildingFinder": "Wyszukiwarka budynków",
-    "showAsTextArea": "Pokaż jako pole tekstowe"
+    "showAsTextArea": "Pokaż jako pole tekstowe",
+    "updateCameraPosition": "Zaktualizuj pozycję kamery",
+    "copyJSONObject": "Kopiuj obiekt JSON",
+    "copyJavaScriptObject": "Kopiuj obiekt JavaScript",
+    "cameraPositionCopied": "Pozycja kamery skopiowana do schowka"
 }
