@@ -1,4 +1,5 @@
 import z from 'zod'
+import { ViewConfigSchema } from './utils'
 
 export const upwrBuildingsMetadataSchema = z.object({
     type: z.string(),
@@ -9,6 +10,7 @@ export const upwrBuildingsMetadataSchema = z.object({
     height: z.number().or(z.null()),
     gmlIds: z.array(z.string()),
     icon: z.string().optional(),
+    view: ViewConfigSchema.optional(),
 })
 
 export type UpwrBuildingsMetadata = z.infer<typeof upwrBuildingsMetadataSchema>

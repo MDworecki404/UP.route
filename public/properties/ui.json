@@ -44,6 +44,22 @@
                 "width": 450,
                 "maxHeight": 500
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentations",
+                    "pl": "Prezentacje"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-presentation",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "presentations",
+                "icon": "mdi-presentation",
+                "width": 450
+            }
         }
     ],
     "toolbarEndActionButtons": [],
@@ -93,6 +109,22 @@
                 "icon": "mdi-office-building-marker",
                 "width": 450,
                 "maxHeight": 500
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentations",
+                    "pl": "Prezentacje"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-presentation",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "presentations",
+                "icon": "mdi-presentation",
+                "width": 450
             }
         }
     ],

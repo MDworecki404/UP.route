@@ -127,7 +127,19 @@
         "description": "Instytut Geodezji i Geoinformatyki<br>Instytut Nauk o Glebie, Żywienia Roślin i Ochrony Środowiska<br>Katedra Ochrony Roślin<br>Katedra Zastosowań Matematyki",
         "height": 22.75,
         "gmlIds": ["ID-0264-2881C5D6-813B-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-satellite-variant"
+        "icon": "mdi-satellite-variant",
+        "view": {
+            "destination": {
+                "x": 3836020.1313566,
+                "y": 1177310.4108320426,
+                "z": 4941628.269221343
+            },
+            "orientation": {
+                "heading": 0.2729219479015441,
+                "pitch": -0.7831193778035788,
+                "roll": 6.283178643366148
+            }
+        }
     },
     {
         "type": "university",
@@ -136,7 +148,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 24",
         "description": "Centrum Zasobów i Wparcia Dydaktyki<br>Instytut Inżynierii Środowiska<br>Instytut Kształtowania i Ochrony Środowiska<br>Katedra Architektury Krajobrazu<br>Katedra Budownictwa<br>Samorząd Studencki",
         "height": 21.84,
-        "gmlIds": ["ID-0264-2881C5D6-86FD-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-86FD-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835916.15030663,
+                "y": 1177330.205039577,
+                "z": 4941580.090085745
+            },
+            "orientation": {
+                "heading": 0.2729219454631604,
+                "pitch": -0.7831193690523399,
+                "roll": 6.283178646822441
+            }
+        }
     },
     {
         "type": "university",
@@ -149,7 +173,19 @@
             "ID-0264-2881C5D6-8659-CEB0-E053-CC2BA8C034D4",
             "ID-0264-3D6678DF-9FDC-42D1-9289-D71F1BC3AB6D",
             "ID-0264-968788DC-5656-44C6-912B-9AA3F02AEFB3"
-        ]
+        ],
+        "view": {
+            "destination": {
+                "x": 3836006.712194909,
+                "y": 1177396.353118596,
+                "z": 4941618.210106149
+            },
+            "orientation": {
+                "heading": 0.2729219469601709,
+                "pitch": -0.7831193744250449,
+                "roll": 6.283178644700509
+            }
+        }
     },
     {
         "type": "university",
@@ -158,7 +194,19 @@
         "buildingAddress": "Wrocław, Grunwaldzka 55",
         "description": "Dziekanat Wydziału Inżynierii Kształtowania Środowiska i Geodezji<br>Instytut Geodezji i Geoinformatyki<br>Instytut Gospodarki Przestrzennej<br>Instytut Inżynierii Środowiska<br>Instytut Kształtowania i Ochrony Środowiska<br>Katedra Architektury Krajobrazu",
         "height": 23.19,
-        "gmlIds": ["ID-0264-2881C5D7-3392-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D7-3392-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835805.757990213,
+                "y": 1177131.2031302697,
+                "z": 4941864.870340466
+            },
+            "orientation": {
+                "heading": 2.260171092426349,
+                "pitch": -0.903346605076726,
+                "roll": 6.283180029949932
+            }
+        }
     },
     {
         "type": "university",
@@ -380,7 +428,19 @@
         "buildingAddress": "Wrocław, Plac Grunwaldzki 24",
         "description": "Centrum Zarządzania Budynkami<br>Instytut Geodezji i Geoinformatyki<br>Instytut Inżynierii Środowiska<br>Katedra Budownictwa<br>",
         "height": 8.67,
-        "gmlIds": ["ID-0264-2881C5D6-6E9B-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-6E9B-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836004.2059463495,
+                "y": 1177246.5716658297,
+                "z": 4941711.099299704
+            },
+            "orientation": {
+                "heading": 0.8828380174887078,
+                "pitch": -1.0416030279894937,
+                "roll": 6.283176514124497
+            }
+        }
     },
     {
         "type": "university",

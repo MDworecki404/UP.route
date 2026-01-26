@@ -1,16 +1,12 @@
 <template>
-    <v-data-table
+    <table-component
         v-if="data"
         :headers="headers"
         :items="items"
         :items-per-page="5"
         :items-per-page-options="[5]"
-        :density="'compact'"
-        :striped="'odd'"
-        :items-per-page-text="$t('itemsPerPage')"
-        :page-text="''"
     >
-    </v-data-table>
+    </table-component>
 </template>
 
 <script lang="ts" setup>
@@ -18,6 +14,7 @@ import { objectClicked } from '@/services/eventBus'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import type { DataTableHeader } from 'vuetify'
 import { useI18n } from 'vue-i18n'
+import TableComponent from '../ui/TableComponent.vue'
 
 const { t } = useI18n()
 

@@ -10,21 +10,24 @@
             hide-details
             class="pb-3"
         ></v-text-field>
-        <v-data-table
+        <TableComponent
+            generic="UpwrBuildingsMetadata"
             :items="buildingsData"
             :headers="headers"
             :search="searchQuery"
-            density="compact"
             :items-per-page="5"
+            :items-per-page-options="[5, 7, 10, 15]"
         >
-            <template v-slot:[`item.actions`]="{ item }">
+            <template #actions="{ item }">
                 <ContextMenuButton
                     :icon="'mdi-dots-vertical'"
                     :elevation="0"
+                    size="24"
+                    :icon-size="20"
                     :context-menu-list="getContextMenuList(item)"
                 />
             </template>
-        </v-data-table>
+        </TableComponent>
     </v-card-text>
 </template>
 
@@ -38,6 +41,9 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DataTableHeader } from 'vuetify'
 import ContextMenuButton from '../ui/ContextMenuButton.vue'
+import { globeInstance } from '@/services/globe/globe'
+import { Cartesian3 } from '@cesium/engine'
+import TableComponent from '../ui/TableComponent.vue'
 
 const { t } = useI18n()
 
@@ -51,11 +57,13 @@ const headers: DataTableHeader[] = [
         title: t('nr'),
         value: 'buildingNum',
         align: 'start',
+        sortable: true,
     },
     {
         title: t('address'),
         value: 'buildingAddress',
         align: 'start',
+        sortable: true,
     },
     {
         title: t('actions'),
@@ -69,7 +77,17 @@ const getContextMenuList = (item: UpwrBuildingsMetadata): ContextMenuListType =>
         {
             text: t('zoomToBuilding'),
             icon: 'mdi-magnify-scan',
-            method: () => {},
+            method: () => {
+                globeInstance.viewer.camera.flyTo({
+                    destination: Cartesian3.fromElements(
+                        item.view?.destination.x ?? 0,
+                        item.view?.destination.y ?? 0,
+                        item.view?.destination.z ?? 0,
+                    ),
+                    orientation: item.view?.orientation,
+                    duration: 1.5,
+                })
+            },
         },
         {
             text: t('openBuildingInfo'),
