@@ -10,12 +10,13 @@
     },
     {
         "type": "university",
-        "name": null,
+        "name": "Gmach Główny UP",
         "buildingNum": "A2",
         "buildingAddress": "Wrocław, Norwida 25",
         "description": "Biuro Kontrolingu<br>Biuro Kwestora<br>Biuro Organizacyjne<br>Biuro Radców Prawnych<br>Biuro Rektora<br>Biuro Rozwoju i Organizacji Uczelni<br>Centrum Eksploatacji i Remontów Obiektów Budowlanych<br>Centrum Spraw Studenckich<br>Centrum Zamówień Publicznych i Zakupów<br>Centrum Zarządzania Budynkami<br>Dział Bezpieczeństwa i Higieny Pracy oraz Ochrony Przeciwpożarowej<br>Dział Kadr i Płac<br>Dział Międzynarodowych Projektów Badawczych<br>Dział Nauki<br>Kanclerz<br>Zastępca Kanclerza ds. administarcyjno-gospodarczych<br>Zastępca Kanclerza ds. inwestycji<br>Katedra Fizyki i Biofizyki<br>Kwestor<br>Kwestura-Dział Ewidencji Majątkowej<br>Kwestura-Dział Finansowy<br>Kwestura-Dział Księgowości Ogólnej<br>Pełnomocnik Rektora ds. 'Zielona Dolina'<br>Prorektor ds. nauki<br>Prorektor ds. orgaznizacji i rozwoju uczelni<br>Prorektor ds. umiędzynarodowienia<br>Rada Byłych Rektorów<br>Rektor<br>Samodzielne Stanowisko Audytora Wewnętrznego<br>Uczelniane Centrum Informatyzacji<br>Zastępca Kwestora ds. księgowości<br>Zastępca Kwestora ds. planowania i finansów",
         "height": 16.95,
-        "gmlIds": ["ID-0264-2881C5D6-81FD-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-81FD-CEB0-E053-CC2BA8C034D4"],
+        "icon": "mdi-town-hall"
     },
     {
         "type": "university",
@@ -121,7 +122,7 @@
     },
     {
         "type": "university",
-        "name": null,
+        "name": "Budynek Geodezji",
         "buildingNum": "C1",
         "buildingAddress": "Wrocław, Grunwaldzka 53",
         "description": "Instytut Geodezji i Geoinformatyki<br>Instytut Nauk o Glebie, Żywienia Roślin i Ochrony Środowiska<br>Katedra Ochrony Roślin<br>Katedra Zastosowań Matematyki",
