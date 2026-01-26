@@ -80,5 +80,6 @@
     "search": "Szukaj",
     "zoomToBuilding": "Powiększ do budynku",
     "openBuildingInfo": "Otwórz informacje o budynku",
-    "buildingFinder": "Wyszukiwarka budynków"
+    "buildingFinder": "Wyszukiwarka budynków",
+    "showAsTextArea": "Pokaż jako pole tekstowe"
 }

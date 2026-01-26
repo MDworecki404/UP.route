@@ -76,5 +76,6 @@
     "search": "Search",
     "buildingFinder": "Building finder",
     "zoomToBuilding": "Zoom to building",
-    "openBuildingInfo": "Open building information"
+    "openBuildingInfo": "Open building information",
+    "showAsTextArea": "Show as text area"
 }
