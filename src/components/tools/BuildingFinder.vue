@@ -77,6 +77,7 @@ const getContextMenuList = (item: UpwrBuildingsMetadata): ContextMenuListType =>
         {
             text: t('zoomToBuilding'),
             icon: 'mdi-magnify-scan',
+            disabled: !item.view,
             method: () => {
                 globeInstance.viewer.camera.flyTo({
                     destination: Cartesian3.fromElements(

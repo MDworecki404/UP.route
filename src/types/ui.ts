@@ -39,6 +39,7 @@ export const ContextMenuListSchema = z.array(
         text: z.string(),
         method: z.function(),
         icon: z.string().optional(),
+        disabled: z.boolean().optional(),
     }),
 )
 

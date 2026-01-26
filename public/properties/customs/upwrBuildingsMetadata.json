@@ -6,7 +6,19 @@
         "buildingAddress": "Wrocław, Skłodowskiej-Curie 42",
         "description": "Akademicki Inkubator Przedsiębiorczości<br>Biuro Rzecznika Patentowego<br>Centrum Badawczo-Rozwojowe<br>Centrum Inwestycji <br>Centrum Realizacji i Rozliczania Projektów<br>Centrum Spraw Studenckich<br>Dział Współpracy z Zagranicą<br>Kancelaria Informacji Niejawnych<br>Katedra Fizyki i Biofizyki<br>Prorektor ds. studenckich i edukacji<br>Samodzielne stanowisko ds. monitoringu i ewaluacji<br>Samorząd Doktorantów<br>Samorząd Studencki<br>Szkoła Doktorska<br>Zespół ds. Obronnych",
         "height": 19.95,
-        "gmlIds": ["ID-0264-2881C5D6-8376-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-8376-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836081.938132876,
+                "y": 1177298.603644611,
+                "z": 4941497.114017565
+            },
+            "orientation": {
+                "heading": 1.4064658929811253,
+                "pitch": -0.7047946856696199,
+                "roll": 0.000003539779813266364
+            }
+        }
     },
     {
         "type": "university",
@@ -16,7 +28,19 @@
         "description": "Biuro Kontrolingu<br>Biuro Kwestora<br>Biuro Organizacyjne<br>Biuro Radców Prawnych<br>Biuro Rektora<br>Biuro Rozwoju i Organizacji Uczelni<br>Centrum Eksploatacji i Remontów Obiektów Budowlanych<br>Centrum Spraw Studenckich<br>Centrum Zamówień Publicznych i Zakupów<br>Centrum Zarządzania Budynkami<br>Dział Bezpieczeństwa i Higieny Pracy oraz Ochrony Przeciwpożarowej<br>Dział Kadr i Płac<br>Dział Międzynarodowych Projektów Badawczych<br>Dział Nauki<br>Kanclerz<br>Zastępca Kanclerza ds. administarcyjno-gospodarczych<br>Zastępca Kanclerza ds. inwestycji<br>Katedra Fizyki i Biofizyki<br>Kwestor<br>Kwestura-Dział Ewidencji Majątkowej<br>Kwestura-Dział Finansowy<br>Kwestura-Dział Księgowości Ogólnej<br>Pełnomocnik Rektora ds. 'Zielona Dolina'<br>Prorektor ds. nauki<br>Prorektor ds. orgaznizacji i rozwoju uczelni<br>Prorektor ds. umiędzynarodowienia<br>Rada Byłych Rektorów<br>Rektor<br>Samodzielne Stanowisko Audytora Wewnętrznego<br>Uczelniane Centrum Informatyzacji<br>Zastępca Kwestora ds. księgowości<br>Zastępca Kwestora ds. planowania i finansów",
         "height": 16.95,
         "gmlIds": ["ID-0264-2881C5D6-81FD-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-town-hall"
+        "icon": "mdi-town-hall",
+        "view": {
+            "destination": {
+                "x": 3836142.841536042,
+                "y": 1177211.6843609149,
+                "z": 4941630.0583579615
+            },
+            "orientation": {
+                "heading": 1.4299924926807188,
+                "pitch": -0.7348522233998027,
+                "roll": 6.283177867263748
+            }
+        }
     },
     {
         "type": "university",
@@ -28,7 +52,19 @@
         "gmlIds": [
             "ID-0264-2881C5D6-7C48-CEB0-E053-CC2BA8C034D4",
             "ID-0264-2881C5D6-7CF2-CEB0-E053-CC2BA8C034D4"
-        ]
+        ],
+        "view": {
+            "destination": {
+                "x": 3835794.3096968606,
+                "y": 1177372.7118366545,
+                "z": 4941851.520737673
+            },
+            "orientation": {
+                "heading": 2.826884528124758,
+                "pitch": -0.8049090129046195,
+                "roll": 6.283181955283632
+            }
+        }
     },
     {
         "type": "office",
@@ -37,7 +73,19 @@
         "buildingAddress": "Wrocław, Norwida 27",
         "description": "Centrum Eksploatacji i Remontów Obiektów Budowlanych<br>Centrum Zamówień Publicznych i Zakupów<br>Centrum Zarządzania Budynkami<br>Dział Ewidencji Majątkowej – Sekcja Inwentaryzacji<br>Dział Promocji <br>NSZZ Solidarność<br>Stowarzyszenie Absolwentów UP<br>Związek Nauczycielstwa Polskiego",
         "height": 7.41,
-        "gmlIds": ["ID-0264-2881C5D6-4DD7-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-4DD7-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836101.8397446433,
+                "y": 1177537.1411702475,
+                "z": 4941480.058852273
+            },
+            "orientation": {
+                "heading": 6.227691436015636,
+                "pitch": -0.91311102097101,
+                "roll": 6.283174112006037
+            }
+        }
     },
     {
         "type": "outbuilding",
@@ -46,7 +94,19 @@
         "buildingAddress": "Wrocław, Norwida 27A",
         "description": "Centrum Eksploatacji i Remontów Obiektów Budowlanych – Sekcja eksploatacji",
         "height": 4.49,
-        "gmlIds": ["ID-0264-2881C5D6-7FA0-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-7FA0-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836000.210620534,
+                "y": 1177523.8640323204,
+                "z": 4941457.011272461
+            },
+            "orientation": {
+                "heading": 6.2276914359874,
+                "pitch": -0.9131110213634792,
+                "roll": 6.283174112041701
+            }
+        }
     },
     {
         "type": "university",
@@ -55,7 +115,19 @@
         "buildingAddress": "Wrocław, Norwida 27B",
         "description": "Katedra Biologii Eksperymentalnej",
         "height": 9.1,
-        "gmlIds": ["ID-0264-8554BCF7-CD31-4204-B8F3-B3ED6E17241C"]
+        "gmlIds": ["ID-0264-8554BCF7-CD31-4204-B8F3-B3ED6E17241C"],
+        "view": {
+            "destination": {
+                "x": 3835842.2809949224,
+                "y": 1177466.134410972,
+                "z": 4941595.905434052
+            },
+            "orientation": {
+                "heading": 2.762396426195362,
+                "pitch": -0.9071009781564165,
+                "roll": 6.064437103603382e-7
+            }
+        }
     },
     {
         "type": "university",
@@ -64,7 +136,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 45",
         "description": "Katedra Epizootiologii z Kliniką Ptaków i Zwierząt Egzotycznych",
         "height": 4.68,
-        "gmlIds": ["ID-0264-2881C5D6-8704-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-8704-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835848.805574339,
+                "y": 1177397.3063021821,
+                "z": 4941712.319430438
+            },
+            "orientation": {
+                "heading": 1.9438526845872897,
+                "pitch": -0.874007680096577,
+                "roll": 6.283181096492202
+            }
+        }
     },
     {
         "type": "university",
@@ -73,7 +157,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 47",
         "description": "Katedra Chorób Wewnętrznych z Kliniką Koni, Psów i Kotów",
         "height": 0.04,
-        "gmlIds": ["ID-0264-2881C5D6-7F1C-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-7F1C-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835804.8250420694,
+                "y": 1177450.266850689,
+                "z": 4941733.839190575
+            },
+            "orientation": {
+                "heading": 1.9438526929422482,
+                "pitch": -0.8740076773602325,
+                "roll": 6.283181085597872
+            }
+        }
     },
     {
         "type": "university",
@@ -82,7 +178,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 49",
         "description": "Centrum Zarządzania Budynkami<br>Katedra Rozrodu z Kliniką Zwierząt Gospodarskich",
         "height": 0.01,
-        "gmlIds": ["ID-0264-9F2D94AC-1811-4B40-A2F4-8AD007DCC289"]
+        "gmlIds": ["ID-0264-9F2D94AC-1811-4B40-A2F4-8AD007DCC289"],
+        "view": {
+            "destination": {
+                "x": 3835757.4935419294,
+                "y": 1177516.3230647375,
+                "z": 4941754.838493821
+            },
+            "orientation": {
+                "heading": 1.9438527010955884,
+                "pitch": -0.8740076746899001,
+                "roll": 6.283181074966423
+            }
+        }
     },
     {
         "type": "university",
@@ -91,7 +199,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 51",
         "description": "Katedra i Klinika Chirurgii",
         "height": 12.02,
-        "gmlIds": ["ID-0264-2881C5D6-D07A-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-D07A-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835720.3194801034,
+                "y": 1177569.7992047176,
+                "z": 4941770.950059544
+            },
+            "orientation": {
+                "heading": 1.9438527073514784,
+                "pitch": -0.874007672641016,
+                "roll": 6.2831810668091235
+            }
+        }
     },
     {
         "type": "university",
@@ -100,7 +220,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 51A",
         "description": "Dział Transportu",
         "height": 3.13,
-        "gmlIds": ["ID-0264-2881C5D6-836F-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-836F-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835602.133569408,
+                "y": 1177662.892323936,
+                "z": 4941716.600276989
+            },
+            "orientation": {
+                "heading": 1.9438527219092068,
+                "pitch": -0.8740076678731423,
+                "roll": 6.283181047826724
+            }
+        }
     },
     {
         "type": "university",
@@ -109,7 +241,19 @@
         "buildingAddress": "Wrocław, Mikulicza-Radeckiego 6",
         "description": "Studium Języków Obcych i Nauk Humanistyczno-Społecznych",
         "height": 12.08,
-        "gmlIds": ["ID-0264-2881C5D6-7F1D-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-7F1D-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835949.6350131813,
+                "y": 1177646.4431872563,
+                "z": 4941571.403073234
+            },
+            "orientation": {
+                "heading": 0.16415882825081063,
+                "pitch": -0.8920408970391844,
+                "roll": 0.0000057612421473507425
+            }
+        }
     },
     {
         "type": "university",
@@ -118,7 +262,19 @@
         "buildingAddress": "Wrocław, pl. Grunwaldzki 47A",
         "description": "Katedra Chorób Wewnętrznych z Kliniką Koni, Psów i Kotów<br>Katedra i Klinika Chirurgii",
         "height": 7.01,
-        "gmlIds": ["ID-0264-2881C5D6-81D4-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-81D4-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835833.3336370434,
+                "y": 1177580.540894128,
+                "z": 4941557.377097172
+            },
+            "orientation": {
+                "heading": 0.16415882911897128,
+                "pitch": -0.8920409012665775,
+                "roll": 0.000005760126768450391
+            }
+        }
     },
     {
         "type": "university",
@@ -216,7 +372,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 1",
         "description": "Katedra Biostruktury i Fizjologii Zwierząt",
         "height": 5.06,
-        "gmlIds": ["ID-0264-2881C5D6-84E5-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-84E5-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836442.1663170774,
+                "y": 1179716.4502716532,
+                "z": 4940654.866253371
+            },
+            "orientation": {
+                "heading": 1.1139232949168436,
+                "pitch": -0.7838365834838115,
+                "roll": 6.283183833013709
+            }
+        }
     },
     {
         "type": null,
@@ -225,7 +393,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 5B",
         "description": "Instytut Biologii<br>Instytut Hodowli Zwierząt<br>Katedra Genetyki<br>Pracownia Mikroskopii Elektronowej",
         "height": 10.2,
-        "gmlIds": ["ID-0264-2881C5D6-84E7-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-84E7-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836508.991805256,
+                "y": 1179811.4660903043,
+                "z": 4940599.831651155
+            },
+            "orientation": {
+                "heading": 0.6270181295607822,
+                "pitch": -0.8980512849112898,
+                "roll": 6.283181257846663
+            }
+        }
     },
     {
         "type": "university",
@@ -234,7 +414,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 5",
         "description": "Instytut Biologii Środowiskowej",
         "height": 14.47,
-        "gmlIds": ["ID-0264-2881C5D6-6EFB-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-6EFB-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836514.216657942,
+                "y": 1179842.924589475,
+                "z": 4940583.111980705
+            },
+            "orientation": {
+                "heading": 0.6270181260408858,
+                "pitch": -0.8980512810407659,
+                "roll": 6.283181262347138
+            }
+        }
     },
     {
         "type": "university",
@@ -243,7 +435,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 7A",
         "description": "Instytut Biologii",
         "height": 9.82,
-        "gmlIds": ["ID-0264-2881C5D6-8433-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-8433-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836345.0863739797,
+                "y": 1179889.3099903418,
+                "z": 4940600.305990793
+            },
+            "orientation": {
+                "heading": 3.0220560107147256,
+                "pitch": -0.8232645945961261,
+                "roll": 6.283181115984469
+            }
+        }
     },
     {
         "type": null,
@@ -252,7 +456,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 7",
         "description": "Katedra Genetyki<br>Uczelniane Centrum Informatyzacji",
         "height": 13.94,
-        "gmlIds": ["ID-0264-2881C5D6-6EFC-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-6EFC-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836502.21866699,
+                "y": 1179889.183189703,
+                "z": 4940560.711348047
+            },
+            "orientation": {
+                "heading": 0.954804799600872,
+                "pitch": -0.8052306066676551,
+                "roll": 6.283181035406671
+            }
+        }
     },
     {
         "type": null,
@@ -261,7 +477,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 5A",
         "description": "Instytut Hodowli Zwierząt",
         "height": 4.95,
-        "gmlIds": ["ID-0264-2881C5D6-6E97-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-6E97-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836402.009960706,
+                "y": 1179931.0122947358,
+                "z": 4940552.750038567
+            },
+            "orientation": {
+                "heading": 5.963359166648098,
+                "pitch": -0.8709059046748582,
+                "roll": 6.28318025515219
+            }
+        }
     },
     {
         "type": null,
@@ -270,7 +498,19 @@
         "buildingAddress": "Wrocław, Kożuchowska 5C",
         "description": "Katedra Biostruktury i Fizjologii Zwierząt – chłodnia",
         "height": 3.87,
-        "gmlIds": ["ID-0264-2881C5D6-84E6-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-84E6-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836377.654350568,
+                "y": 1179822.0904090113,
+                "z": 4940605.524701912
+            },
+            "orientation": {
+                "heading": 1.3603670396220897,
+                "pitch": -0.9731004972739989,
+                "roll": 0.0000014380341477604475
+            }
+        }
     },
     {
         "type": "university",
@@ -279,7 +519,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 38D",
         "description": "Instytut Hodowli Zwierząt<br>Katedra Żywienia Zwierząt i Paszoznawstwa<br>Muzeum Bioróżnorodności",
         "height": 2.95,
-        "gmlIds": ["ID-0264-2881C5D6-8377-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-8377-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836285.9071460296,
+                "y": 1180001.989309242,
+                "z": 4940757.218077415
+            },
+            "orientation": {
+                "heading": 4.082561891429771,
+                "pitch": -0.9670950093225641,
+                "roll": 6.283182835270618
+            }
+        }
     },
     {
         "type": "university",
@@ -288,7 +540,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 38C",
         "description": "Dziekanat Wydziału Biologii i Hodowli Zwierząt<br>Biblioteka Wydziału BiHZ<br>Wydziałowe Biuro Obsługi Projektów Unijnych",
         "height": 11.51,
-        "gmlIds": ["ID-0264-2881C5D6-6E96-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-6E96-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836248.1891230205,
+                "y": 1179801.760964744,
+                "z": 4940709.675616386
+            },
+            "orientation": {
+                "heading": 2.4118973558315164,
+                "pitch": -0.7897695306211023,
+                "roll": 6.283182909047693
+            }
+        }
     },
     {
         "type": "university",
@@ -297,7 +561,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 38E",
         "description": "Instytut Hodowli Zwierząt<br>Katedra Higieny Środowiska i Dobrostanu Zwierząt",
         "height": 11.6,
-        "gmlIds": ["ID-0264-2881C5D6-842C-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-842C-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836456.108017285,
+                "y": 1179807.9808397188,
+                "z": 4940660.694762077
+            },
+            "orientation": {
+                "heading": 0.85129952228659,
+                "pitch": -0.9400519455650063,
+                "roll": 6.283183659000944
+            }
+        }
     },
     {
         "type": null,
@@ -306,7 +582,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 37B",
         "description": "Instytut Inżynierii Rolniczej<br>Otwarty Uniwersytet Trzeciego Wieku",
         "height": 8.9,
-        "gmlIds": ["ID-0264-2881C5D6-85A3-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-85A3-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836256.120419127,
+                "y": 1179954.327936908,
+                "z": 4940728.953981464
+            },
+            "orientation": {
+                "heading": 5.519444050204901,
+                "pitch": -0.8799411212866768,
+                "roll": 6.2831822787921014
+            }
+        }
     },
     {
         "type": "university",
@@ -315,7 +603,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 37",
         "description": "Instytut Inżynierii Rolniczej - hala maszyn",
         "height": 15.67,
-        "gmlIds": ["ID-0264-2881C5D6-82B3-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-82B3-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836409.3542348207,
+                "y": 1180017.2991006586,
+                "z": 4940733.6451188475
+            },
+            "orientation": {
+                "heading": 5.6440269357167185,
+                "pitch": -0.88595244761897,
+                "roll": 6.283182632334838
+            }
+        }
     },
     {
         "type": null,
@@ -324,7 +624,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 39A",
         "description": "Instytut Inżynierii Rolniczej<br>Centrum Odnawialnych Źródeł Energii",
         "height": 6.61,
-        "gmlIds": ["ID-0264-2881C5D6-85A4-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-85A4-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836218.204408371,
+                "y": 1179965.9538927567,
+                "z": 4940739.447163091
+            },
+            "orientation": {
+                "heading": 5.638126134793716,
+                "pitch": -0.8919637898374675,
+                "roll": 7.049979560136421e-7
+            }
+        }
     },
     {
         "type": null,
@@ -333,7 +645,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 41",
         "description": "Instytut Inżynierii Rolniczej<br>Warsztaty Wydziału Przyrodniczo-Technologicznego",
         "height": 14.61,
-        "gmlIds": ["ID-0264-2881C5D6-85A0-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-85A0-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836407.9083638564,
+                "y": 1179902.3613429745,
+                "z": 4940758.5731315715
+            },
+            "orientation": {
+                "heading": 0.6698538644657352,
+                "pitch": -1.0242198144054102,
+                "roll": 6.283173775780775
+            }
+        }
     },
     {
         "type": null,
@@ -342,7 +666,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 37A",
         "description": "Instytut Inżynierii Rolniczej<br>Katedra Biogospodarki Stosowanej",
         "height": 12.35,
-        "gmlIds": ["ID-0264-2881C5D6-842D-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-842D-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836326.5461505204,
+                "y": 1179747.9058871586,
+                "z": 4940759.487470397
+            },
+            "orientation": {
+                "heading": 0.9317651472099957,
+                "pitch": -0.8979834313804882,
+                "roll": 6.283176590190554
+            }
+        }
     },
     {
         "type": null,
@@ -351,7 +687,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 43A",
         "description": "Kryta Pływalnia",
         "height": 7.41,
-        "gmlIds": ["ID-0264-2881C5D6-7D96-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-7D96-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836254.567564031,
+                "y": 1180105.2446094565,
+                "z": 4940731.5214004805
+            },
+            "orientation": {
+                "heading": 5.626006083712243,
+                "pitch": -0.9400627332115352,
+                "roll": 6.283183957793063
+            }
+        }
     },
     {
         "type": null,
@@ -360,7 +708,19 @@
         "buildingAddress": "Wrocław, Chełmońskiego 43",
         "description": "Studium Wychowania Fizycznego i Sportu<br>Hala Sportowa",
         "height": 12.11,
-        "gmlIds": ["ID-0264-2881C5D6-8642-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-8642-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836228.7106940164,
+                "y": 1179897.7973672927,
+                "z": 4940806.5010379525
+            },
+            "orientation": {
+                "heading": 1.159480380277027,
+                "pitch": -1.0001753862062555,
+                "roll": 6.2831797200333055
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -370,7 +730,19 @@
         "description": "Dom Studencki \"Arka\"",
         "height": 34.6,
         "gmlIds": ["ID-0264-2881C5D6-6911-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3836145.0760404053,
+                "y": 1179850.7461715562,
+                "z": 4940893.895344955
+            },
+            "orientation": {
+                "heading": 0.9587217453701191,
+                "pitch": -0.8982231137839571,
+                "roll": 6.283181326079571
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -380,7 +752,19 @@
         "description": "Dom Studencki \"Centaur\"",
         "height": 18.38,
         "gmlIds": ["ID-0264-2881C5D6-69C9-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3835716.541759075,
+                "y": 1177395.0527230294,
+                "z": 4941884.716970163
+            },
+            "orientation": {
+                "heading": 2.059669356452476,
+                "pitch": -1.0062717000873813,
+                "roll": 0.000001997812324461279
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -390,7 +774,19 @@
         "description": "Dom Studencki \"Labirynt\"",
         "height": 4.6,
         "gmlIds": ["ID-0264-2881C5D6-6A29-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3835598.8281915607,
+                "y": 1178060.442188132,
+                "z": 4941954.342000144
+            },
+            "orientation": {
+                "heading": 5.316761584617986,
+                "pitch": -0.9341332622439982,
+                "roll": 6.2831831090795
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -400,7 +796,19 @@
         "description": "Dom Studencki \"Talizman\"",
         "height": 19.44,
         "gmlIds": ["ID-0264-2881C5D6-69C8-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3835733.3330664984,
+                "y": 1177350.9916735622,
+                "z": 4941779.393716538
+            },
+            "orientation": {
+                "heading": 1.7561167092528143,
+                "pitch": -0.8559895622090865,
+                "roll": 7.049380883472622e-7
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -410,7 +818,19 @@
         "description": "Dom Studencki \"Zodiak\"",
         "height": 30.89,
         "gmlIds": ["ID-0264-2881C5D6-73BC-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3835612.2156069875,
+                "y": 1177706.4841273832,
+                "z": 4941813.801243436
+            },
+            "orientation": {
+                "heading": 1.1214447978611446,
+                "pitch": -0.8620008279929134,
+                "roll": 6.283181186073128
+            }
+        }
     },
     {
         "type": "dormitory",
@@ -420,7 +840,19 @@
         "description": "Dom Studencki \"Raj\"",
         "height": 28.99,
         "gmlIds": ["ID-0264-2881C5D6-6967-CEB0-E053-CC2BA8C034D4"],
-        "icon": "mdi-bed-outline"
+        "icon": "mdi-bed-outline",
+        "view": {
+            "destination": {
+                "x": 3836172.243254419,
+                "y": 1179993.618897324,
+                "z": 4940853.945052163
+            },
+            "orientation": {
+                "heading": 1.1214443798965847,
+                "pitch": -0.8620006551629911,
+                "roll": 6.283181736644821
+            }
+        }
     },
     {
         "type": "university",
@@ -450,7 +882,19 @@
         "buildingAddress": "Wrocław, Norwida 25",
         "description": "Biblioteka Główna",
         "height": 7.74,
-        "gmlIds": ["ID-0264-2881C5D6-7C43-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-7C43-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3835850.80459062,
+                "y": 1177455.3994724262,
+                "z": 4941625.229772722
+            },
+            "orientation": {
+                "heading": 2.3597171052041404,
+                "pitch": -1.0122825217551479,
+                "roll": 0.0000016585099738009035
+            }
+        }
     },
     {
         "type": "service",
@@ -459,6 +903,18 @@
         "buildingAddress": "Wrocław, Chełmońskiego 41",
         "description": "Instytut Inżynierii Rolniczej<br>Warsztaty Wydziału Przyrodniczo-Technologicznego",
         "height": 3.45,
-        "gmlIds": ["ID-0264-2881C5D6-85A0-CEB0-E053-CC2BA8C034D4"]
+        "gmlIds": ["ID-0264-2881C5D6-85A0-CEB0-E053-CC2BA8C034D4"],
+        "view": {
+            "destination": {
+                "x": 3836407.9083638564,
+                "y": 1179902.3613429745,
+                "z": 4940758.5731315715
+            },
+            "orientation": {
+                "heading": 0.6698538644657352,
+                "pitch": -1.0242198144054102,
+                "roll": 6.283173775780775
+            }
+        }
     }
 ]
