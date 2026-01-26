@@ -9,6 +9,10 @@ const toggleTool = async (config: Action) => {
     const toolsStore = useToolsStore()
 
     const tool = await getTool(config.toolId)
+    if (!tool) {
+        console.warn(`Tool with id ${config.toolId} not found.`)
+        return
+    }
     toolsStore.openTool({
         id: config.toolId,
         component: tool!,

@@ -37,23 +37,32 @@
         <GlobeNavigationPanel />
 
         <NotifyComponent />
+
+        <v-scroll-y-transition>
+            <MobileBottomNavigation v-if="activeToolsArray.length > 0" />
+        </v-scroll-y-transition>
     </div>
 </template>
 
 <script setup lang="ts">
 import { performAction } from '@/services/actions'
 import { fetchJsonFile } from '@/services/utils'
+import { useDialogStore } from '@/stores'
 import type { ContextMenuListType, UiType } from '@/types/ui'
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import MobileToolsContainer from './MobileToolsContainer.vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
-import ToolsMenu from './ui/ToolsMenu.vue'
-import MobileToolsContainer from './MobileToolsContainer.vue'
 import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
+import MobileBottomNavigation from './ui/MobileBottomNavigation.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
-import { useDialogStore } from '@/stores'
+import ToolsMenu from './ui/ToolsMenu.vue'
+import { useToolsStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+
 const { t } = useI18n()
+const { activeToolsArray } = storeToRefs(useToolsStore())
 
 const buttonsList = ref<UiType>()
 

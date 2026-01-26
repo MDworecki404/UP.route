@@ -19,7 +19,7 @@
                     isMinimizedTool(id) ? () => restoreTool(id) : () => minimizeTool(id)
                 "
                 :fullscreen="fullscreen"
-                :set-fullscreen-custom-func="toggleFullScreenMobileTool"
+                :set-fullscreen-custom-func="() => toggleFullScreenMobileTool(id)"
                 :minimized="isMinimizedTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>

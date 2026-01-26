@@ -76,7 +76,7 @@
         "type": "3dtiles",
         "tilesProps": {
             "type": "pointCloud",
-            "pointSize": 100
+            "pointSize": 2
         },
         "active": false,
         "name": {

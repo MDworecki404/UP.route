@@ -13,7 +13,7 @@
                     location: 'bottom',
                 }"
                 icon="mdi-tools"
-                class="rounded-0 pa-0 ma-0"
+                class="rounded-0 pa-0 ma-0 menuButton"
             >
                 <v-icon color="primary" icon="mdi-tools" />
             </v-btn>
@@ -49,4 +49,15 @@ onMounted(async () => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.menuButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    position: relative;
+}
+</style>

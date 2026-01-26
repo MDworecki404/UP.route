@@ -94,10 +94,11 @@ const getContextMenuList = (item: UpwrBuildingsMetadata): ContextMenuListType =>
             text: t('openBuildingInfo'),
             icon: ' mdi-information-outline',
             method: async () => {
-                if (
-                    toolsStore.activeTools.has('upwrBuildingInfoPopUp') ||
-                    toolsStore.mobileActiveTool?.id === 'upwrBuildingInfoPopUp'
-                ) {
+                if (toolsStore.activeTools.has('upwrBuildingInfoPopUp')) {
+                    if (toolsStore.activeTools.get('upwrBuildingInfoPopUp')?.isMinimized) {
+                        toolsStore.restoreTool('upwrBuildingInfoPopUp')
+                    }
+
                     customObjectClicked.raiseEvent({
                         id: 'upwrBuildingInfoPopUp',
                         data: item,

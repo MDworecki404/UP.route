@@ -1,21 +1,21 @@
 <template>
     <div
         class="mobile-tools-container d-flex flex-column align-end"
-        :class="{ fullscreen: mobileActiveTool?.fullscreen && !mobileActiveTool?.isMinimized }"
+        :class="{ fullscreen: currentTool?.fullscreen && !currentTool?.isMinimized }"
     >
         <ToolsWrapper
-            v-if="mobileActiveTool"
-            :id="mobileActiveTool?.id"
+            v-if="currentTool && !currentTool.isMinimized"
+            :id="currentTool?.id"
             :style="
-                mobileActiveTool?.fullscreen
+                currentTool?.fullscreen
                     ? { width: '100dvw', maxHeight: '100dvh' }
                     : { width: '100dvw' }
             "
-            :icon="mobileActiveTool?.icon"
-            :fullscreen="mobileActiveTool?.fullscreen"
+            :icon="currentTool?.icon"
+            :fullscreen="currentTool?.fullscreen"
         >
             <template #card-text>
-                <component :is="mobileActiveTool?.component" v-bind="mobileActiveTool?.props" />
+                <component :is="currentTool?.component" v-bind="currentTool?.props" />
             </template>
         </ToolsWrapper>
     </div>
@@ -27,13 +27,13 @@ import { storeToRefs } from 'pinia'
 import ToolsWrapper from './ui/ToolsWrapper.vue'
 
 const toolsStore = useToolsStore()
-const { mobileActiveTool } = storeToRefs(toolsStore)
+const { currentTool } = storeToRefs(toolsStore)
 </script>
 
 <style scoped>
 .mobile-tools-container {
     position: absolute;
-    bottom: 0;
+    bottom: 55px;
     left: 0;
     width: 100dvw;
     pointer-events: auto;

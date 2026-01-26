@@ -117,10 +117,17 @@ export class GlobeEvent {
 
             if (this.check(Cesium3DTileFeature, pickedObject)) {
                 if (pickedObject.tileset.customPopUpId) {
-                    if (
-                        toolsStore.activeTools.has(pickedObject.tileset.customPopUpId) ||
-                        toolsStore.mobileActiveTool?.id === pickedObject.tileset.customPopUpId
-                    ) {
+                    if (toolsStore.activeTools.has(pickedObject.tileset.customPopUpId)) {
+                        if (
+                            toolsStore.activeTools.get(pickedObject.tileset.customPopUpId)
+                                ?.isMinimized
+                        ) {
+                            toolsStore.restoreTool(pickedObject.tileset.customPopUpId)
+                            toolsStore.activeTools.get(pickedObject.tileset.customPopUpId)!.props =
+                                { initialData: properties }
+                            return
+                        }
+
                         customObjectClicked.raiseEvent({
                             id: pickedObject.tileset.customPopUpId as ToolsKeys,
                             data: properties,
@@ -139,10 +146,7 @@ export class GlobeEvent {
                 }
             }
 
-            if (
-                toolsStore.activeTools.has('objectInfo') ||
-                toolsStore.mobileActiveTool?.id === 'objectInfo'
-            ) {
+            if (toolsStore.activeTools.has('objectInfo')) {
                 objectClicked.raiseEvent(properties)
             } else {
                 performAction({

@@ -189,11 +189,11 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
 
         switch (this._config.tilesProps?.type) {
             case 'pointCloud':
-                if (this._layer.style) {
-                    this._layer!.style = new Cesium3DTileStyle({
-                        pointSize: this._config.tilesProps.pointSize ?? 1,
-                    })
-                }
+                console.log('Setting point cloud properties')
+                this._layer!.style = new Cesium3DTileStyle({
+                    pointSize: this._config.tilesProps.pointSize,
+                })
+                break
         }
     }
 
