@@ -1,5 +1,5 @@
 import type { Component } from 'vue'
-import { CUSTOM_TOOLS_IDS, CustomTools } from './customs/customPopUp'
+import { CUSTOM_TOOLS_IDS, CustomTools } from './customs/customTools'
 
 type Tool = Component
 
