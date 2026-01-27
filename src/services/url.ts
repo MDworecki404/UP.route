@@ -4,6 +4,7 @@ import LZstring from 'lz-string'
 import { globeInstance } from './globe/globe'
 import type { ToolsMap } from './tools'
 import { getCameraPositionAndOrientation } from './utils'
+import { ShadowMode } from '@cesium/engine'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -23,6 +24,13 @@ type UrlParams = {
         }
     }
     tools?: Array<ToolsMap>
+    lang?: 'en' | 'pl'
+    theme?: 'light' | 'dark'
+    shadows?: {
+        shadowsEnabled: boolean
+        terrainShadows: boolean
+        smoothShadows: boolean
+    }
 }
 
 ///////////////////////////////////
@@ -148,6 +156,43 @@ const setLangAndThemeFromParams = async (params: URLSearchParams) => {
 }
 
 ///////////////////////////////////
+// ? MARK: SHADOWS PARAMS
+///////////////////////////////////
+
+const setShadowsToUrl = () => {
+    const shadowsEnabled = globeInstance.viewer.shadows
+
+    const terrainShadows = globeInstance.viewer.terrainShadows
+    const terrainShadowsBool = terrainShadows === ShadowMode.ENABLED
+
+    const smoothShadows = globeInstance.viewer.scene.shadowMap?.softShadows || false
+
+    return {
+        shadowsEnabled,
+        terrainShadows: terrainShadowsBool,
+        smoothShadows,
+    }
+}
+
+const setShadowsFromParams = (params: URLSearchParams) => {
+    const shadowsParam = params.get('shadows')
+    if (shadowsParam) {
+        try {
+            const shadows: UrlParams['shadows'] = JSON.parse(shadowsParam)
+            globeInstance.viewer.shadows = shadows?.shadowsEnabled || false
+            globeInstance.viewer.terrainShadows = shadows?.terrainShadows
+                ? ShadowMode.ENABLED
+                : ShadowMode.DISABLED
+            if (globeInstance.viewer.scene.shadowMap) {
+                globeInstance.viewer.scene.shadowMap.softShadows = shadows?.smoothShadows || false
+            }
+        } catch (e) {
+            console.warn('Failed to parse shadows parameters from URL', e)
+        }
+    }
+}
+
+///////////////////////////////////
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
@@ -165,6 +210,9 @@ export const prepareUrl = async () => {
     urlParams.set('lang', lang as string)
     urlParams.set('theme', theme as string)
 
+    const shadowsParams = setShadowsToUrl()
+    urlParams.set('shadows', JSON.stringify(shadowsParams))
+
     const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
 
     return baseUrl + compressedParams
@@ -181,4 +229,5 @@ export const applyUrlParams = () => {
     setCameraViewFromParams(decompressedParams)
     openToolsFromParams(decompressedParams)
     setLangAndThemeFromParams(decompressedParams)
+    setShadowsFromParams(decompressedParams)
 }

@@ -276,6 +276,8 @@ onMounted(() => {
     } else {
         shadowsTerrainEnabled.value = false
     }
+
+    smoothShadowsEnabled.value = globeInstance.viewer.scene.shadowMap?.softShadows || false
 })
 </script>
 

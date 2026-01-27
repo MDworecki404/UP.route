@@ -13,12 +13,14 @@
                     <v-icon
                         style="cursor: pointer"
                         v-tooltip="{ text: $t('updateLink'), location: 'left' }"
+                        color="primary"
                         @click="updateLink"
                         >mdi-restore</v-icon
                     >
                     <v-icon
                         style="cursor: pointer"
                         v-tooltip="{ text: $t('copyLink'), location: 'left' }"
+                        color="primary"
                         @click="clickCopy"
                         >mdi-content-copy</v-icon
                     >
