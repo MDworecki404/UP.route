@@ -1,7 +1,8 @@
 import { Cartesian3 } from '@cesium/engine'
+import LZstring from 'lz-string'
 import { globeInstance } from './globe/globe'
 import { getCameraPositionAndOrientation } from './utils'
-import LZstring from 'lz-string'
+import type { ToolsMap } from './tools'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -20,6 +21,7 @@ type UrlParams = {
             roll: number
         }
     }
+    tools?: Array<ToolsMap>
 }
 
 ///////////////////////////////////
@@ -67,15 +69,67 @@ const setCameraViewFromParams = (params: URLSearchParams) => {
 }
 
 ///////////////////////////////////
+// ? MARK: TOOLS PARAMS
+///////////////////////////////////
+
+const setToolParamsToUrl = async () => {
+    const { useToolsStore } = await import('@/stores/index')
+    const { activeToolsArray } = useToolsStore()
+
+    const arrrayToUrl = activeToolsArray
+        .filter((tool) => tool.id !== 'shareMap')
+        .map((tool) => {
+            return {
+                id: tool.id,
+                props: tool.props || {},
+                width: tool.width,
+                isMimized: tool.isMinimized,
+                fullscreen: tool.fullscreen,
+                icon: tool.icon,
+            }
+        })
+
+    return arrrayToUrl
+}
+
+const openToolsFromParams = async (params: URLSearchParams) => {
+    const toolsParam = params.get('tools')
+    if (toolsParam) {
+        try {
+            const tools: UrlParams['tools'] = JSON.parse(toolsParam)
+            console.log('Parsed tools from URL:', tools)
+            if (tools && tools.length > 0) {
+                tools.reverse()
+                const { performAction } = await import('./actions')
+                for (const tool of tools) {
+                    performAction({
+                        actionId: 'toggleTool',
+                        toolId: tool.id,
+                        props: tool.props,
+                        width: tool.width,
+                        icon: tool.icon!,
+                    })
+                }
+            }
+        } catch (e) {
+            console.warn('Failed to parse tools parameters from URL', e)
+        }
+    }
+}
+
+///////////////////////////////////
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
-export const prepareUrl = () => {
+export const prepareUrl = async () => {
     const baseUrl = window.location.origin + window.location.pathname + '?'
     const urlParams = new URLSearchParams()
 
     const cameraParams = setCameraParamsToUrl()
     urlParams.set('camera', JSON.stringify(cameraParams))
+
+    const toolsParams = await setToolParamsToUrl()
+    urlParams.set('tools', JSON.stringify(toolsParams))
 
     const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
 
@@ -91,4 +145,5 @@ export const applyUrlParams = () => {
     const decompressedParams = new URLSearchParams(decompressed)
 
     setCameraViewFromParams(decompressedParams)
+    openToolsFromParams(decompressedParams)
 }

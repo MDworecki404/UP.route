@@ -35,8 +35,8 @@ import { onMounted, ref } from 'vue'
 
 const mapLink = ref('')
 
-const updateLink = () => {
-    mapLink.value = prepareUrl()
+const updateLink = async () => {
+    mapLink.value = await prepareUrl()
 }
 
 const clickCopy = () => {
@@ -51,7 +51,7 @@ const clickCopy = () => {
     })
 }
 
-onMounted(() => {
-    updateLink()
+onMounted(async () => {
+    await updateLink()
 })
 </script>
