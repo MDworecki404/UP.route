@@ -14,7 +14,40 @@
             "en": "Esri World Imagery"
         },
         "url": "https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-        "id": "xyz",
+        "id": "esriWorldImagery",
+        "parent": "basemaps"
+    },
+    {
+        "type": "xyz",
+        "active": false,
+        "name": {
+            "pl": "OpenStreetMap HOT",
+            "en": "OpenStreetMap HOT"
+        },
+        "url": "https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png",
+        "id": "openStreetMapHOT",
+        "parent": "basemaps"
+    },
+    {
+        "type": "xyz",
+        "active": false,
+        "name": {
+            "pl": "Esri World Street Map",
+            "en": "Esri World Street Map"
+        },
+        "url": "https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}",
+        "id": "esriWorldStreetMap",
+        "parent": "basemaps"
+    },
+    {
+        "type": "xyz",
+        "active": false,
+        "name": {
+            "pl": "Google Maps",
+            "en": "Google Maps"
+        },
+        "url": "http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}",
+        "id": "googleMaps",
         "parent": "basemaps"
     },
     {

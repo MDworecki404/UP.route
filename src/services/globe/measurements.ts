@@ -24,7 +24,7 @@ import { useNotifyStore } from '@/stores/notify'
 
 export const getPolylineStyle = (): PolylineGraphics.ConstructorOptions => {
     return {
-        material: Color.fromBytes(0, 180, 255, 255),
+        material: Color.fromCssColorString('#7a1f2f'),
         width: 3,
         clampToGround: true,
     }
@@ -32,7 +32,7 @@ export const getPolylineStyle = (): PolylineGraphics.ConstructorOptions => {
 
 export const getPointStyle = (): PointGraphics.ConstructorOptions => {
     return {
-        color: Color.fromBytes(0, 180, 255, 255),
+        color: Color.fromCssColorString('#7a1f2f'),
         pixelSize: 8,
         outlineColor: Color.WHITE,
         outlineWidth: 2,
@@ -42,9 +42,9 @@ export const getPointStyle = (): PointGraphics.ConstructorOptions => {
 
 export const getPolygonStyle = (): PolygonGraphics.ConstructorOptions => {
     return {
-        material: Color.fromBytes(0, 180, 255, 80),
+        material: Color.fromCssColorString('#7a1f2f').withAlpha(0.31),
         outline: true,
-        outlineColor: Color.fromBytes(0, 180, 255, 200),
+        outlineColor: Color.fromCssColorString('#7a1f2f').withAlpha(0.78),
         outlineWidth: 2,
     }
 }
