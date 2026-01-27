@@ -1,8 +1,9 @@
+import i18n from '@/i18n'
 import { Cartesian3 } from '@cesium/engine'
 import LZstring from 'lz-string'
 import { globeInstance } from './globe/globe'
-import { getCameraPositionAndOrientation } from './utils'
 import type { ToolsMap } from './tools'
+import { getCameraPositionAndOrientation } from './utils'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -118,6 +119,35 @@ const openToolsFromParams = async (params: URLSearchParams) => {
 }
 
 ///////////////////////////////////
+// ? MARK: LANG & THEME PARAMS
+///////////////////////////////////
+
+const setLangAndThemeToUrl = async () => {
+    const lang = i18n.global.locale.value
+
+    const { vuetify } = await import('@/vuetify')
+    const currentTheme = vuetify.theme.current.value.dark ? 'dark' : 'light'
+    const theme = currentTheme === 'dark' ? 'dark' : 'light'
+
+    return { lang, theme }
+}
+
+const setLangAndThemeFromParams = async (params: URLSearchParams) => {
+    const langParam = params.get('lang')
+    if (langParam) {
+        console.log('Parsed lang from URL:', langParam)
+        i18n.global.locale.value = langParam as 'pl' | 'en'
+    }
+
+    const themeParam = params.get('theme')
+    if (themeParam) {
+        const isDark = themeParam === 'dark'
+        const { vuetify } = await import('@/vuetify')
+        vuetify.theme.change(isDark ? 'dark' : 'light')
+    }
+}
+
+///////////////////////////////////
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
@@ -130,6 +160,10 @@ export const prepareUrl = async () => {
 
     const toolsParams = await setToolParamsToUrl()
     urlParams.set('tools', JSON.stringify(toolsParams))
+
+    const { lang, theme } = await setLangAndThemeToUrl()
+    urlParams.set('lang', lang as string)
+    urlParams.set('theme', theme as string)
 
     const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
 
@@ -146,4 +180,5 @@ export const applyUrlParams = () => {
 
     setCameraViewFromParams(decompressedParams)
     openToolsFromParams(decompressedParams)
+    setLangAndThemeFromParams(decompressedParams)
 }
