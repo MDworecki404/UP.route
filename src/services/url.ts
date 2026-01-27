@@ -1,6 +1,7 @@
 import { Cartesian3 } from '@cesium/engine'
 import { globeInstance } from './globe/globe'
 import { getCameraPositionAndOrientation } from './utils'
+import LZstring from 'lz-string'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -29,14 +30,14 @@ const setCameraParamsToUrl = () => {
     const camera = getCameraPositionAndOrientation()
     const cameraConfig: UrlParams['camera'] = {
         destination: {
-            x: camera.x,
-            y: camera.y,
-            z: camera.z,
+            x: Number(camera.x.toFixed(2)),
+            y: Number(camera.y.toFixed(2)),
+            z: Number(camera.z.toFixed(2)),
         },
         orientation: {
-            heading: camera.heading,
-            pitch: camera.pitch,
-            roll: camera.roll,
+            heading: Number(camera.heading.toFixed(2)),
+            pitch: Number(camera.pitch.toFixed(2)),
+            roll: Number(camera.roll.toFixed(2)),
         },
     }
 
@@ -76,11 +77,18 @@ export const prepareUrl = () => {
     const cameraParams = setCameraParamsToUrl()
     urlParams.set('camera', JSON.stringify(cameraParams))
 
-    return baseUrl + urlParams.toString()
+    const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
+
+    return baseUrl + compressedParams
 }
 
 export const applyUrlParams = () => {
     const params = new URLSearchParams(window.location.search)
+    const decompressed = LZstring.decompressFromEncodedURIComponent(params.toString())
+    if (!decompressed) {
+        return
+    }
+    const decompressedParams = new URLSearchParams(decompressed)
 
-    setCameraViewFromParams(params)
+    setCameraViewFromParams(decompressedParams)
 }
