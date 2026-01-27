@@ -1,5 +1,7 @@
 <template>
-    <v-bottom-navigation class="mobile-bottom-navigation">
+    <v-bottom-navigation
+        class="mobile-bottom-navigation border-t-lg border-primary border-opacity-50"
+    >
         <div class="wrapper">
             <ActionButton
                 v-for="tool in toolsArray"
