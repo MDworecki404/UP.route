@@ -85,5 +85,10 @@
     "updateCameraPosition": "Zaktualizuj pozycję kamery",
     "copyJSONObject": "Kopiuj obiekt JSON",
     "copyJavaScriptObject": "Kopiuj obiekt JavaScript",
-    "cameraPositionCopied": "Pozycja kamery skopiowana do schowka"
+    "cameraPositionCopied": "Pozycja kamery skopiowana do schowka",
+    "shareMap": "Udostępnij mapę",
+    "updateLink": "Aktualizuj link",
+    "copyLink": "Kopiuj link",
+    "shareableLink": "Link do udostępniania",
+    "linkCopied": "Link skopiowany do schowka"
 }

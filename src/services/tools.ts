@@ -11,6 +11,7 @@ export const TOOLS_KEYS = [
     'objectInfo',
     'measurementTools',
     'buildingFinder',
+    'shareMap',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -41,6 +42,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     objectInfo: (await import('@/components/tools/ObjectInfo.vue')).default,
     measurementTools: (await import('@/components/tools/MeasurementsTool.vue')).default,
     buildingFinder: (await import('@/components/tools/BuildingFinder.vue')).default,
+    shareMap: (await import('@/components/tools/ShareMap.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

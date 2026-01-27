@@ -81,5 +81,10 @@
     "updateCameraPosition": "Update camera position",
     "copyJSONObject": "Copy JSON object",
     "copyJavaScriptObject": "Copy JavaScript object",
-    "cameraPositionCopied": "Camera position copied to clipboard"
+    "cameraPositionCopied": "Camera position copied to clipboard",
+    "shareMap": "Share map",
+    "updateLink": "Update link",
+    "copyLink": "Copy link",
+    "shareableLink": "Shareable link",
+    "linkCopied": "Link copied to clipboard"
 }

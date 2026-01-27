@@ -62,7 +62,24 @@
             }
         }
     ],
-    "toolbarEndActionButtons": [],
+    "toolbarEndActionButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Share map",
+                    "pl": "Udostępnij mapę"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-share-variant-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "shareMap",
+                "icon": "mdi-share-variant-outline",
+                "width": 450
+            }
+        }
+    ],
     "mobileToolbarActionButtons": [
         {
             "tooltip": {
@@ -128,7 +145,24 @@
             }
         }
     ],
-    "mobileToolbarEndActionButtons": [],
+    "mobileToolbarEndActionButtons": [
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Share map",
+                    "pl": "Udostępnij mapę"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-share-variant-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "shareMap",
+                "icon": "mdi-share-variant-outline",
+                "width": 450
+            }
+        }
+    ],
     "toolsButtons": [
         {
             "tooltip": {

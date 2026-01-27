@@ -1,5 +1,5 @@
 <template>
-    <v-card-text>
+    <v-card-text class="pa-1 ma-0">
         <v-text-field
             v-model="searchQuery"
             variant="outlined"
