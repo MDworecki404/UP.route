@@ -4,6 +4,7 @@
             v-model="mapLink"
             :label="$t('shareableLink')"
             variant="outlined"
+            color="primary"
             readonly
             no-resize
             prepend-inner-icon="mdi-link"

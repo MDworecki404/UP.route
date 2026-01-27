@@ -1,81 +1,84 @@
 <template>
-    <v-row dense no-gutters>
-        <v-text-field
-            v-model="search"
-            hide-details
-            :label="$t('searchLayers')"
-            clearable
-            :density="'compact'"
-            variant="outlined"
-            prepend-inner-icon="mdi-magnify"
-            class="pa-2"
-        ></v-text-field>
-    </v-row>
-    <v-treeview
-        v-model:selected="activeLayers"
-        v-model:opened="openIds"
-        :items="treeItems"
-        :item-value="'id'"
-        :activatable="false"
-        density="compact"
-        :selectable="true"
-        :select-strategy="'classic'"
-        :collapse-icon="'mdi-chevron-down'"
-        :expand-icon="'mdi-chevron-right'"
-        :selected-color="'primary'"
-        slim
-        :search="search"
-        :indent="32"
-    >
-        <template #no-data>
-            <div class="px-5 text-medium-emphasis">
-                {{ $t('noLayersInSearch') }}
-            </div>
-        </template>
-        <template #append="{ item }">
-            <template
-                v-if="
-                    item.type === 'layer' && (item.layerType === 'xyz' || item.layerType === 'osm')
-                "
-            >
-                <context-menu-button
-                    :context-menu-list="getImageryLayerContextMenuList(item)"
-                    :icon="'mdi-dots-vertical'"
-                    :location="'right'"
-                    :size="'x-small'"
-                    :iconSize="18"
-                    :elevation="0"
-                />
+    <v-card-text class="pa-1 ma-0">
+        <v-row dense no-gutters>
+            <v-text-field
+                v-model="search"
+                hide-details
+                :label="$t('searchLayers')"
+                clearable
+                :density="'compact'"
+                variant="outlined"
+                prepend-inner-icon="mdi-magnify"
+                class="pa-2"
+            ></v-text-field>
+        </v-row>
+        <v-treeview
+            v-model:selected="activeLayers"
+            v-model:opened="openIds"
+            :items="treeItems"
+            :item-value="'id'"
+            :activatable="false"
+            density="compact"
+            :selectable="true"
+            :select-strategy="'classic'"
+            :collapse-icon="'mdi-chevron-down'"
+            :expand-icon="'mdi-chevron-right'"
+            :selected-color="'primary'"
+            slim
+            :search="search"
+            :indent="32"
+        >
+            <template #no-data>
+                <div class="px-5 text-medium-emphasis">
+                    {{ $t('noLayersInSearch') }}
+                </div>
             </template>
-            <template
-                v-if="
-                    item.type === 'layer' &&
-                    (item.layerType === '3dtiles' || item.layerType === 'czml')
-                "
-            >
-                <context-menu-button
-                    :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
-                    :icon="'mdi-dots-vertical'"
-                    :location="'right'"
-                    :size="'x-small'"
-                    :iconSize="18"
-                    :elevation="0"
-                />
+            <template #append="{ item }">
+                <template
+                    v-if="
+                        item.type === 'layer' &&
+                        (item.layerType === 'xyz' || item.layerType === 'osm')
+                    "
+                >
+                    <context-menu-button
+                        :context-menu-list="getImageryLayerContextMenuList(item)"
+                        :icon="'mdi-dots-vertical'"
+                        :location="'right'"
+                        :size="'x-small'"
+                        :iconSize="18"
+                        :elevation="0"
+                    />
+                </template>
+                <template
+                    v-if="
+                        item.type === 'layer' &&
+                        (item.layerType === '3dtiles' || item.layerType === 'czml')
+                    "
+                >
+                    <context-menu-button
+                        :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
+                        :icon="'mdi-dots-vertical'"
+                        :location="'right'"
+                        :size="'x-small'"
+                        :iconSize="18"
+                        :elevation="0"
+                    />
+                </template>
             </template>
-        </template>
-    </v-treeview>
+        </v-treeview>
+    </v-card-text>
 </template>
 
 <script setup lang="ts">
 import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import { globeInstance } from '@/services/globe/globe'
+import { zoomToLayerById } from '@/services/utils'
 import { LayerParents, type LayersUnionType } from '@/types/layers'
 import type { ContextMenuListType } from '@/types/ui'
 import _ from 'lodash'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ContextMenuButton from './ContextMenuButton.vue'
-import { zoomToLayerById } from '@/services/utils'
 
 const { t } = useI18n()
 const search = ref('')

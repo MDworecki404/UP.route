@@ -1,5 +1,5 @@
 <template>
-    <v-card-text>
+    <v-card-text class="pa-1 ma-0">
         <v-row dense no-gutters>
             <v-card elevation="8" variant="outlined" color="primary" style="width: 100%">
                 <v-card-title class="d-flex justify-center align-center">

@@ -1,5 +1,5 @@
 <template>
-    <v-card-text>
+    <v-card-text class="pa-1 ma-0">
         <v-row dense no-gutters justify="space-between">
             <v-checkbox
                 v-model="shadowsObjectsEnabled"

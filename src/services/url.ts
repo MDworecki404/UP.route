@@ -5,6 +5,7 @@ import { globeInstance } from './globe/globe'
 import type { ToolsMap } from './tools'
 import { getCameraPositionAndOrientation } from './utils'
 import { ShadowMode } from '@cesium/engine'
+import { JulianDate } from '@cesium/engine'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -30,6 +31,13 @@ type UrlParams = {
         shadowsEnabled: boolean
         terrainShadows: boolean
         smoothShadows: boolean
+    }
+    layers?: string[]
+    time?: {
+        year: number
+        month: number
+        day: number
+        timeOfDay: number
     }
 }
 
@@ -60,7 +68,6 @@ const setCameraViewFromParams = (params: URLSearchParams) => {
     if (cameraParam) {
         try {
             const camera: UrlParams['camera'] = JSON.parse(cameraParam)
-            console.log('Parsed camera from URL:', camera)
             if (camera?.destination && camera?.orientation) {
                 globeInstance.setView({
                     destination: Cartesian3.fromElements(
@@ -106,7 +113,6 @@ const openToolsFromParams = async (params: URLSearchParams) => {
     if (toolsParam) {
         try {
             const tools: UrlParams['tools'] = JSON.parse(toolsParam)
-            console.log('Parsed tools from URL:', tools)
             if (tools && tools.length > 0) {
                 tools.reverse()
                 const { performAction } = await import('./actions')
@@ -143,7 +149,6 @@ const setLangAndThemeToUrl = async () => {
 const setLangAndThemeFromParams = async (params: URLSearchParams) => {
     const langParam = params.get('lang')
     if (langParam) {
-        console.log('Parsed lang from URL:', langParam)
         i18n.global.locale.value = langParam as 'pl' | 'en'
     }
 
@@ -193,6 +198,84 @@ const setShadowsFromParams = (params: URLSearchParams) => {
 }
 
 ///////////////////////////////////
+// ? MARK: TIME PARAMS
+///////////////////////////////////
+
+const setTimeParamsToUrl = () => {
+    const date = JulianDate.toDate(globeInstance.viewer.clock.currentTime)
+
+    const yearMonthDay = {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate(),
+    }
+
+    const timeOfDay = date.getHours() * 60 + date.getMinutes()
+
+    return {
+        ...yearMonthDay,
+        timeOfDay: Number(timeOfDay.toFixed(4)),
+    }
+}
+
+const setTimeFromParams = (params: URLSearchParams) => {
+    const timeParam = params.get('time')
+    if (timeParam) {
+        try {
+            const time: UrlParams['time'] = JSON.parse(timeParam)
+            if (time) {
+                const { year, month, day, timeOfDay } = time
+                const newDate = new Date(
+                    year,
+                    month - 1,
+                    day,
+                    Math.floor(timeOfDay / 60),
+                    timeOfDay % 60,
+                    0,
+                )
+                const julianDate = JulianDate.fromDate(newDate)
+                globeInstance.viewer.clock.currentTime = julianDate
+            }
+        } catch (e) {
+            console.warn('Failed to parse time parameters from URL', e)
+        }
+    }
+}
+
+///////////////////////////////////
+// ? MARK: ENABLED LAYERS
+///////////////////////////////////
+
+const setEnabledLayersToUrl = () => {
+    const ids: string[] = []
+    globeInstance.layers.layers.forEach((layer, id) => {
+        if (layer.isVisible()) {
+            ids.push(id)
+        }
+    })
+
+    return ids
+}
+
+const setEnabledLayersFromParams = (params: URLSearchParams) => {
+    const layersParam = params.get('layers')
+    if (layersParam) {
+        try {
+            const layerIds: string[] = JSON.parse(layersParam)
+            globeInstance.layers.layers.forEach((layer, id) => {
+                if (layerIds.includes(id)) {
+                    layer.setVisibility(true)
+                } else {
+                    layer.setVisibility(false)
+                }
+            })
+        } catch (e) {
+            console.warn('Failed to parse layers parameters from URL', e)
+        }
+    }
+}
+
+///////////////////////////////////
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
@@ -213,6 +296,12 @@ export const prepareUrl = async () => {
     const shadowsParams = setShadowsToUrl()
     urlParams.set('shadows', JSON.stringify(shadowsParams))
 
+    const enabledLayers = setEnabledLayersToUrl()
+    urlParams.set('layers', JSON.stringify(enabledLayers))
+
+    const timeParams = setTimeParamsToUrl()
+    urlParams.set('time', JSON.stringify(timeParams))
+
     const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
 
     return baseUrl + compressedParams
@@ -226,8 +315,10 @@ export const applyUrlParams = () => {
     }
     const decompressedParams = new URLSearchParams(decompressed)
 
-    setCameraViewFromParams(decompressedParams)
-    openToolsFromParams(decompressedParams)
-    setLangAndThemeFromParams(decompressedParams)
+    setTimeFromParams(decompressedParams)
     setShadowsFromParams(decompressedParams)
+    setCameraViewFromParams(decompressedParams)
+    setEnabledLayersFromParams(decompressedParams)
+    setLangAndThemeFromParams(decompressedParams)
+    openToolsFromParams(decompressedParams)
 }

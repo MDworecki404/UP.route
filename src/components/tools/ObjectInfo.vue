@@ -1,19 +1,21 @@
 <template>
-    <table-component
-        v-if="data"
-        :headers="headers"
-        :items="items"
-        :items-per-page="5"
-        :items-per-page-options="[5]"
-    >
-    </table-component>
+    <v-card-text class="pa-1 ma-0">
+        <table-component
+            v-if="data"
+            :headers="headers"
+            :items="items"
+            :items-per-page="5"
+            :items-per-page-options="[5]"
+        >
+        </table-component>
+    </v-card-text>
 </template>
 
 <script lang="ts" setup>
 import { objectClicked } from '@/services/eventBus'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import type { DataTableHeader } from 'vuetify'
 import { useI18n } from 'vue-i18n'
+import type { DataTableHeader } from 'vuetify'
 import TableComponent from '../ui/TableComponent.vue'
 
 const { t } = useI18n()

@@ -1,58 +1,60 @@
 <template>
-    <v-textarea
-        :value="formatAsJsObject(cameraPosition)"
-        readonly
-        auto-grow
-        variant="outlined"
-        color="primary"
-        density="compact"
-        hide-details
-    >
-        <template #prepend>
-            <div class="d-flex flex-column align-center pa-2 ga-5">
-                <v-icon
-                    color="primary"
-                    v-tooltip="{
-                        text: $t('updateCameraPosition'),
-                        location: 'left',
-                    }"
-                    style="cursor: pointer"
-                    @click="updateCameraPosition"
-                    >mdi-update</v-icon
-                >
-                <v-badge color="transparent">
+    <v-card-text class="pa-1 ma-0">
+        <v-textarea
+            :value="formatAsJsObject(cameraPosition)"
+            readonly
+            auto-grow
+            variant="outlined"
+            color="primary"
+            density="compact"
+            hide-details
+        >
+            <template #prepend>
+                <div class="d-flex flex-column align-center pa-2 ga-5">
                     <v-icon
                         color="primary"
                         v-tooltip="{
-                            text: $t('copyJSONObject'),
+                            text: $t('updateCameraPosition'),
                             location: 'left',
                         }"
                         style="cursor: pointer"
-                        @click="copyCameraPositionToClipboard('json')"
-                        >mdi-content-copy</v-icon
+                        @click="updateCameraPosition"
+                        >mdi-update</v-icon
                     >
-                    <template #badge>
-                        <v-icon size="16" color="secondary">mdi-code-json</v-icon>
-                    </template>
-                </v-badge>
-                <v-badge color="transparent">
-                    <v-icon
-                        color="primary"
-                        v-tooltip="{
-                            text: $t('copyJavaScriptObject'),
-                            location: 'left',
-                        }"
-                        style="cursor: pointer"
-                        @click="copyCameraPositionToClipboard('js')"
-                        >mdi-content-copy</v-icon
-                    >
-                    <template #badge>
-                        <v-icon size="16" color="#f7df1e">mdi-language-javascript</v-icon>
-                    </template>
-                </v-badge>
-            </div>
-        </template>
-    </v-textarea>
+                    <v-badge color="transparent">
+                        <v-icon
+                            color="primary"
+                            v-tooltip="{
+                                text: $t('copyJSONObject'),
+                                location: 'left',
+                            }"
+                            style="cursor: pointer"
+                            @click="copyCameraPositionToClipboard('json')"
+                            >mdi-content-copy</v-icon
+                        >
+                        <template #badge>
+                            <v-icon size="16" color="secondary">mdi-code-json</v-icon>
+                        </template>
+                    </v-badge>
+                    <v-badge color="transparent">
+                        <v-icon
+                            color="primary"
+                            v-tooltip="{
+                                text: $t('copyJavaScriptObject'),
+                                location: 'left',
+                            }"
+                            style="cursor: pointer"
+                            @click="copyCameraPositionToClipboard('js')"
+                            >mdi-content-copy</v-icon
+                        >
+                        <template #badge>
+                            <v-icon size="16" color="#f7df1e">mdi-language-javascript</v-icon>
+                        </template>
+                    </v-badge>
+                </div>
+            </template>
+        </v-textarea>
+    </v-card-text>
 </template>
 
 <script lang="ts" setup>
