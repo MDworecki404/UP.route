@@ -7,9 +7,9 @@
         }"
         @click="onClick"
         rounded="0"
-        size="32"
+        :size="size"
     >
-        <v-icon size="27" :color="iconColor">{{ icon }}</v-icon>
+        <v-icon :size="iconSize" :color="iconColor">{{ icon }}</v-icon>
     </v-btn>
 </template>
 
@@ -17,11 +17,18 @@
 import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import type { ActionButtonWithActionType } from '@/types/ui'
 
-const { tooltip, iconColor = 'primary' } = defineProps<{
+const {
+    tooltip,
+    iconColor = 'primary',
+    size = 32,
+    iconSize = 27,
+} = defineProps<{
     icon: string
     tooltip: ActionButtonWithActionType['tooltip']
     onClick?: () => void
     iconColor?: string
+    size?: number
+    iconSize?: number
 }>()
 
 const { translate } = useDynamicTranslation()

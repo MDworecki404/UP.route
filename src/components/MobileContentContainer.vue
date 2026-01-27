@@ -12,6 +12,8 @@
                     v-if="buttonsList?.mobileToolbarActionButtons"
                     :buttons-list="buttonsList?.mobileToolbarActionButtons"
                     :orientation="'horizontal'"
+                    :buttons-size="29"
+                    :buttons-icon-size="24"
                 />
             </template>
 
@@ -24,6 +26,8 @@
                     v-if="buttonsList?.mobileToolbarEndActionButtons"
                     :buttons-list="buttonsList?.mobileToolbarEndActionButtons"
                     :orientation="'horizontal'"
+                    :buttons-size="29"
+                    :buttons-icon-size="24"
                 />
                 <ContextMenuButton
                     :icon="'mdi-dots-horizontal'"

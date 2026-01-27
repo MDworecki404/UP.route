@@ -12,6 +12,8 @@
             :icon="button.icon"
             :color="buttonColor"
             :tooltip="button.tooltip"
+            :size="buttonsSize"
+            :iconSize="buttonsIconSize"
             :variant="buttonVariant"
             @click="performAction(button.action)"
         ></ActionButton>
@@ -28,5 +30,7 @@ const { orientation = 'horizontal' } = defineProps<{
     buttonVariant?: string
     buttonCustomClass?: string
     buttonColor?: string
+    buttonsSize?: number
+    buttonsIconSize?: number
 }>()
 </script>

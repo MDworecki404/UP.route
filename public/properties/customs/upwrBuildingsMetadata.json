@@ -300,7 +300,7 @@
     },
     {
         "type": "university",
-        "name": null,
+        "name": "Budynek Melioracji",
         "buildingNum": "C2",
         "buildingAddress": "Wrocław, pl. Grunwaldzki 24",
         "description": "Centrum Zasobów i Wparcia Dydaktyki<br>Instytut Inżynierii Środowiska<br>Instytut Kształtowania i Ochrony Środowiska<br>Katedra Architektury Krajobrazu<br>Katedra Budownictwa<br>Samorząd Studencki",
@@ -321,7 +321,7 @@
     },
     {
         "type": "university",
-        "name": null,
+        "name": "\"Akwarium\"",
         "buildingNum": "C3",
         "buildingAddress": "Wrocław, pl. Grunwaldzki 24A",
         "description": "Centrum Wsparcia i Dostępności<br>Centrum Zasobów i Wsparcia Dydaktyki <br>Dziekanat Wydziału Przyrodniczo-Technologicznego<br>Instytut Agroekologii i Produkcji Roślinnej<br>Instytut Nauk o Glebie, Żywienia Roślin i Ochrony Środowiska<br>Katedra Botaniki i Ekologii Roślin<br>Katedra Ekonomii Stosowanej<br>Katedra Genetyki, Hodowli Roślin i Nasiennictwa<br>Katedra Ochrony Roślin<br>Katedra Ogrodnictwa",

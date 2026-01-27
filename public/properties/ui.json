@@ -211,6 +211,86 @@
                 "icon": "mdi-ruler-square-compass",
                 "width": 450
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Sketching tools",
+                    "pl": "Narzędzia szkicowe"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-drawing-box",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "sketchingTools",
+                "icon": "mdi-drawing-box",
+                "width": 450
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Sections",
+                    "pl": "Przekroje"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-elevation-rise",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "sectionsTool",
+                "icon": "mdi-elevation-rise",
+                "width": 450
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Flood simulation",
+                    "pl": "Symulacja powodzi"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-water-percent",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "floodSimulationTool",
+                "icon": "mdi-water-percent",
+                "width": 400
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Screenshot",
+                    "pl": "Zrzut ekranu"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-monitor-screenshot",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "screenshotTool",
+                "icon": "mdi-monitor-screenshot",
+                "width": 350
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Saved views",
+                    "pl": "Zakładki widoków"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-bookmark-multiple-outline",
+            "action": {
+                "actionId": "toggleTool",
+                "toolId": "bookmarksTool",
+                "icon": "mdi-bookmark-multiple-outline",
+                "width": 400
+            }
         }
     ],
     "navigationButtons": [

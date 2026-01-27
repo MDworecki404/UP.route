@@ -18,12 +18,15 @@
                 <v-icon color="primary" icon="mdi-tools" />
             </v-btn>
         </template>
-        <v-list :width="mobile ? 300 : 600" class="rounded-t-0" density="compact">
+        <v-list class="rounded-t-0" density="compact">
             <v-list-item>
                 <ActionButtonsList
                     v-if="buttonsList?.toolsButtons"
                     :buttons-list="buttonsList?.toolsButtons"
                     :orientation="'horizontal'"
+                    :buttons-size="29"
+                    :buttons-icon-size="24"
+                    class="d-flex justify-center ga-5 flex-wrap"
                 />
             </v-list-item>
         </v-list>
@@ -36,9 +39,6 @@ import ActionButtonsList from './ActionButtonsList.vue'
 import { fetchJsonFile } from '@/services/utils'
 import type { UiType } from '@/types/ui'
 import { ref } from 'vue'
-import { useDisplay } from 'vuetify'
-
-const { mobile } = useDisplay()
 
 const buttonsList = ref<UiType | null>(null)
 

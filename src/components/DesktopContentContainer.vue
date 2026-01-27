@@ -6,6 +6,8 @@
                     v-if="buttonsList?.toolbarActionButtons"
                     :buttons-list="buttonsList?.toolbarActionButtons"
                     :orientation="'horizontal'"
+                    :buttons-size="29"
+                    :buttons-icon-size="24"
                 />
             </template>
             <template #append>
@@ -13,6 +15,8 @@
                     v-if="buttonsList?.toolbarEndActionButtons"
                     :buttons-list="buttonsList?.toolbarEndActionButtons"
                     :orientation="'horizontal'"
+                    :buttons-size="29"
+                    :buttons-icon-size="24"
                 />
                 <ContextMenuButton
                     :icon="'mdi-dots-horizontal'"
