@@ -9,7 +9,7 @@
                 <v-img :src="appLogo" :width="mobile ? 100 : 200" />
             </v-row>
             <v-row dense no-gutters class="py-5">
-                {{ $t('loadingApplication') }}
+                {{ loadingInfo ? $t(loadingInfo) : $t('loadingApplication') }}
             </v-row>
             <v-progress-linear color="primary" indeterminate></v-progress-linear>
         </div>
@@ -17,13 +17,17 @@
 </template>
 
 <script setup lang="ts">
-import { appLoaded } from '@/services/eventBus'
+import { appLoaded, appLoadingInfo } from '@/services/eventBus'
 import { useCommonStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useTheme } from 'vuetify'
 import { useDisplay } from 'vuetify'
 
 const { mobile } = useDisplay()
+
+const loadingInfo = ref<string>()
+const listenersRemovers: (() => void)[] = []
 
 const appLogo = new URL('/appLogo.png', import.meta.url).href
 const imgPath = useTheme().current.value.dark
@@ -39,6 +43,17 @@ const removeAppLoadedListener = appLoaded.addEventListener((isTrue: boolean) => 
         turnOffOverlay()
         removeAppLoadedListener()
     }
+})
+
+onMounted(() => {
+    const listener = appLoadingInfo.addEventListener((info: string) => {
+        loadingInfo.value = info
+    })
+    listenersRemovers.push(listener)
+})
+
+onUnmounted(() => {
+    listenersRemovers.forEach((removeListener) => removeListener())
 })
 </script>
 

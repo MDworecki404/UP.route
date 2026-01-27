@@ -86,5 +86,14 @@
     "updateLink": "Update link",
     "copyLink": "Copy link",
     "shareableLink": "Shareable link",
-    "linkCopied": "Link copied to clipboard"
+    "linkCopied": "Link copied to clipboard",
+    "loadingLayers": "Loading layers...",
+    "initalizingLayers": "Initializing layers...",
+    "initializingTools": "Initializing tools...",
+    "appLoaded": "Application loaded",
+    "osmLayerLoading": "Loading OSM layer...",
+    "3dTilesLayerLoading": "Loading 3D Tiles layer...",
+    "xyzLayerLoading": "Loading XYZ layer...",
+    "terrainLayerLoading": "Loading Terrain layer...",
+    "czmlLayerLoading": "Loading CZML layer..."
 }

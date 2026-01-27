@@ -2,7 +2,7 @@ import type { userGlobeSettings } from '@/types/utils'
 import { Cartesian3, Ion, Ray, ShadowMode, SkyAtmosphere } from '@cesium/engine'
 import { type Viewer } from '@cesium/widgets'
 import { getDefaultView, getDefaultViewerSettings } from '../defaults'
-import { appLoaded } from '../eventBus'
+import { appLoaded, appLoadingInfo } from '../eventBus'
 import { getItemFromLocalStorage } from '../utils'
 import type { GlobeEvent } from './events'
 import type { LayersManager } from './layersManager'
@@ -61,9 +61,11 @@ export class GlobeService {
             throw new Error('Viewer is not initialized')
         }
 
+        appLoadingInfo.raiseEvent('initalizingLayers')
         this._layersManager = new LayersManager(this._viewer)
         await this._layersManager.initializeLayers()
 
+        appLoadingInfo.raiseEvent('initializingTools')
         this._timeManager = new TimeManager(this._viewer)
         this._events = new GlobeEvent(this._viewer)
         this._measurements = new MeasurementsService(this._viewer!, this._events)
@@ -239,6 +241,7 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
         await globeInstance.initServices()
 
         globeInstance.getUserGlobeSettings()
+        appLoadingInfo.raiseEvent('appLoaded')
         appLoaded.raiseEvent(true)
         return globeInstance
     } else {

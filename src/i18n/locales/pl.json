@@ -90,5 +90,14 @@
     "updateLink": "Aktualizuj link",
     "copyLink": "Kopiuj link",
     "shareableLink": "Link do udostępniania",
-    "linkCopied": "Link skopiowany do schowka"
+    "linkCopied": "Link skopiowany do schowka",
+    "loadingLayers": "Ładowanie warstw...",
+    "initalizingLayers": "Inicjalizacja warstw...",
+    "initializingTools": "Inicjalizacja narzędzi...",
+    "appLoaded": "Aplikacja załadowana",
+    "osmLayerLoading": "Ładowanie warstwy OSM...",
+    "3dTilesLayerLoading": "Ładowanie warstwy 3D Tiles...",
+    "xyzLayerLoading": "Ładowanie warstwy XYZ...",
+    "terrainLayerLoading": "Ładowanie warstwy terenu...",
+    "czmlLayerLoading": "Ładowanie warstwy CZML..."
 }

@@ -21,6 +21,7 @@ import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
 import { applyLayerFilter } from '../customs/layersFilters'
 import { fetchJsonFile } from '../utils'
+import { appLoadingInfo } from '../eventBus'
 
 export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
 
@@ -367,14 +368,19 @@ export class CZMLLayer extends LayerBase<CzmlDataSource> {
 export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
     switch (layer.type) {
         case 'osm':
+            appLoadingInfo.raiseEvent('osmLayerLoading')
             return new OSMLayer(viewer, layer)
         case '3dtiles':
+            appLoadingInfo.raiseEvent('3dTilesLayerLoading')
             return new Cesium3DTilesLayer(viewer, layer)
         case 'xyz':
+            appLoadingInfo.raiseEvent('xyzLayerLoading')
             return new XYZLayer(viewer, layer)
         case 'terrain':
+            appLoadingInfo.raiseEvent('terrainLayerLoading')
             return new TerrainLayer(viewer, layer)
         case 'czml':
+            appLoadingInfo.raiseEvent('czmlLayerLoading')
             return new CZMLLayer(viewer, layer)
         default:
             throw new Error(`Layer type ${layer.type} is not supported`)
