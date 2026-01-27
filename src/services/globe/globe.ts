@@ -1,14 +1,13 @@
 import type { userGlobeSettings } from '@/types/utils'
-import { Cartesian3, Ion, ShadowMode, SkyAtmosphere } from '@cesium/engine'
+import { Cartesian3, Ion, Ray, ShadowMode, SkyAtmosphere } from '@cesium/engine'
 import { type Viewer } from '@cesium/widgets'
 import { getDefaultView, getDefaultViewerSettings } from '../defaults'
 import { appLoaded } from '../eventBus'
 import { getItemFromLocalStorage } from '../utils'
-import type { LayersManager } from './layersManager'
-import type { TimeManager } from './time'
-import { Ray } from '@cesium/engine'
 import type { GlobeEvent } from './events'
+import type { LayersManager } from './layersManager'
 import type { MeasurementsService } from './measurements'
+import type { TimeManager } from './time'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -172,6 +171,19 @@ export class GlobeService {
             destination,
             orientation,
             duration: 0.5,
+        })
+    }
+
+    public setView({
+        destination,
+        orientation,
+    }: {
+        destination: Cartesian3
+        orientation: { heading: number; pitch: number; roll: number }
+    }): void {
+        this.viewer.camera.setView({
+            destination,
+            orientation,
         })
     }
 

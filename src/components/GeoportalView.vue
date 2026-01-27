@@ -8,6 +8,7 @@ import { initGlobeInstance } from '@/services/globe/globe'
 import { onMounted, ref, useTemplateRef } from 'vue'
 import UserInterface from './UserInterface.vue'
 import { appLoaded } from '@/services/eventBus'
+import { applyUrlParams } from '@/services/url'
 
 const cesiumContainer = useTemplateRef('cesiumContainer')
 const loaded = ref(false)
@@ -15,6 +16,8 @@ onMounted(() => {
     initGlobeInstance(cesiumContainer.value!)
     const listener = appLoaded.addEventListener(() => {
         loaded.value = true
+        applyUrlParams()
+
         listener()
     })
 })
