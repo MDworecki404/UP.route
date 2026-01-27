@@ -80,12 +80,11 @@ const changeCameraPitch = (value: number) => {
 
 globeInstance.viewer.camera.changed.addEventListener(() => {
     cameraPitch.value = globeInstance.viewer.camera.pitch
-    cameraHeading.value = globeInstance.viewer.camera.heading
+    cameraHeading.value = 0 - globeInstance.viewer.camera.heading
 })
 
 const setNorthUp = () => {
     globeInstance.setCameraNorthUp()
-    cameraHeading.value = 0
 }
 
 onMounted(async () => {
