@@ -215,7 +215,7 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "Sketching tools",
+                    "en": "Sketch tool",
                     "pl": "Narzędzia szkicowe"
                 },
                 "location": "bottom"
@@ -223,7 +223,7 @@
             "icon": "mdi-drawing-box",
             "action": {
                 "actionId": "toggleTool",
-                "toolId": "sketchingTools",
+                "toolId": "sketchTool",
                 "icon": "mdi-drawing-box",
                 "width": 450
             }
@@ -239,7 +239,7 @@
             "icon": "mdi-elevation-rise",
             "action": {
                 "actionId": "toggleTool",
-                "toolId": "sectionsTool",
+                "toolId": "profileTool",
                 "icon": "mdi-elevation-rise",
                 "width": 450
             }

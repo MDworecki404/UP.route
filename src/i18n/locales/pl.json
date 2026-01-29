@@ -99,5 +99,21 @@
     "3dTilesLayerLoading": "Ładowanie warstwy 3D Tiles...",
     "xyzLayerLoading": "Ładowanie warstwy XYZ...",
     "terrainLayerLoading": "Ładowanie warstwy terenu...",
-    "czmlLayerLoading": "Ładowanie warstwy CZML..."
+    "czmlLayerLoading": "Ładowanie warstwy CZML...",
+    "sketchTool": "Narzędzie szkicowe",
+    "polyline": "Polilinia",
+    "rectangle": "Prostokąt",
+    "circle": "Koło",
+    "polygon": "Wielokąt",
+    "wall": "Ściana",
+    "ellipse": "Elipsa",
+    "sketchMethods": "Metody szkicowania",
+    "cancel": "Anuluj",
+    "finish": "Zakończ",
+    "styles": "Style",
+    "point": "Punkt",
+    "profileTool": "Profilowanie terenu",
+    "samplingDistance": "Odległość próbkowania (m)",
+    "useTerrainObjects": "Uwzlędnij obiekty terenu",
+    "createProfile": "Utwórz profil"
 }
