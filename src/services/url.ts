@@ -1,11 +1,9 @@
 import i18n from '@/i18n'
-import { Cartesian3 } from '@cesium/engine'
+import { Cartesian3, JulianDate, ShadowMode } from '@cesium/engine'
 import LZstring from 'lz-string'
 import { globeInstance } from './globe/globe'
 import type { ToolsMap } from './tools'
 import { getCameraPositionAndOrientation } from './utils'
-import { ShadowMode } from '@cesium/engine'
-import { JulianDate } from '@cesium/engine'
 
 ///////////////////////////////////
 // ? MARK: URL TYPE
@@ -276,6 +274,32 @@ const setEnabledLayersFromParams = (params: URLSearchParams) => {
 }
 
 ///////////////////////////////////
+// ? MARK: LAYER DRAWER
+///////////////////////////////////
+
+const setLayerDrawerStateToUrl = async () => {
+    const { useCommonStore } = await import('@/stores/index')
+    const { isDrawerOpen } = useCommonStore()
+
+    return isDrawerOpen
+}
+
+const getLayerDrawerStateFromParams = async (params: URLSearchParams) => {
+    const layerDrawerParam = params.get('layerDrawer')
+    if (layerDrawerParam) {
+        try {
+            const isOpen: boolean = JSON.parse(layerDrawerParam)
+            if (isOpen) {
+                const { performAction } = await import('./actions')
+                performAction({ actionId: 'toggleLayersDrawer' })
+            }
+        } catch (e) {
+            console.warn('Failed to parse layer drawer parameters from URL', e)
+        }
+    }
+}
+
+///////////////////////////////////
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
@@ -302,6 +326,9 @@ export const prepareUrl = async () => {
     const timeParams = setTimeParamsToUrl()
     urlParams.set('time', JSON.stringify(timeParams))
 
+    const isLayerDrawerOpen = await setLayerDrawerStateToUrl()
+    urlParams.set('layerDrawer', JSON.stringify(isLayerDrawerOpen))
+
     const compressedParams = LZstring.compressToEncodedURIComponent(urlParams.toString())
 
     return baseUrl + compressedParams
@@ -321,4 +348,5 @@ export const applyUrlParams = () => {
     setEnabledLayersFromParams(decompressedParams)
     setLangAndThemeFromParams(decompressedParams)
     openToolsFromParams(decompressedParams)
+    getLayerDrawerStateFromParams(decompressedParams)
 }

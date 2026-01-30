@@ -3,10 +3,16 @@
         <v-row dense no-gutters>
             <v-card elevation="8" variant="outlined" color="primary" style="width: 100%">
                 <v-card-title class="d-flex justify-center align-center">
-                    <v-icon>{{
+                    <v-skeleton-loader
+                        v-if="!buildingInfoRef"
+                        type="paragraph"
+                        class="pa-0 ma-0"
+                        style="width: 100%; height: min-content"
+                    />
+                    <v-icon v-if="buildingInfoRef">{{
                         buildingInfoRef?.icon ? buildingInfoRef.icon : 'mdi-school-outline'
                     }}</v-icon>
-                    <span class="ml-2 font-weight-bold"
+                    <span v-if="buildingInfoRef" class="ml-2 font-weight-bold"
                         >{{ $t('building') }} {{ buildingInfoRef?.buildingNum }}</span
                     >
                 </v-card-title>
@@ -20,7 +26,13 @@
                 style="width: 100%; margin-top: 10px"
             >
                 <v-card-title class="d-flex justify-center align-center">
-                    <span class="ml-2 font-weight-bold">{{ buildingInfoRef?.name }}</span>
+                    <v-skeleton-loader
+                        v-if="!buildingInfoRef"
+                        type="paragraph"
+                        class="pa-0 ma-0"
+                        style="width: 100%; height: min-content"
+                    />
+                    <span v-else class="ml-2 font-weight-bold">{{ buildingInfoRef?.name }}</span>
                 </v-card-title>
             </v-card>
         </v-row>
@@ -32,6 +44,12 @@
                 style="width: 100%; margin-top: 10px"
             >
                 <v-card-text style="max-height: 250px; overflow-y: auto">
+                    <v-skeleton-loader
+                        v-if="!buildingInfoRef"
+                        type="paragraph"
+                        class="pa-0 ma-0"
+                        style="width: 100%; height: min-content"
+                    />
                     <div v-if="buildingInfoRef?.buildingAddress">
                         <strong>{{ $t('address') }}:</strong>
                         <div>{{ buildingInfoRef.buildingAddress }}</div>

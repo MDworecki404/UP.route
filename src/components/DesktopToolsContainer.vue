@@ -33,9 +33,13 @@ const { activeToolsArray } = storeToRefs(toolsStore)
     margin: 6px;
     width: auto;
     bottom: 6px;
+    height: min-content;
     overflow-y: auto;
+    max-height: calc(100vh - 80px);
+    pointer-events: none;
 }
 .desktop-tools-container > * {
     flex-shrink: 0;
+    pointer-events: all;
 }
 </style>

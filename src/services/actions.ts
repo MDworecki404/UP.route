@@ -1,4 +1,4 @@
-import { useToolsStore } from '@/stores'
+import { useCommonStore, useToolsStore } from '@/stores'
 import type { Action, ActionsIds } from '@/types/actions'
 import { actionPerformed } from './eventBus'
 import { getTool } from './tools'
@@ -28,6 +28,7 @@ const toggleTool = async (config: Action) => {
 const toggleLayersDrawer = (config: Action) => {
     if (config.actionId !== 'toggleLayersDrawer') return
     actionPerformed.raiseEvent(config)
+    useCommonStore().toggleDrawerState()
 }
 
 const backToHomeView = (config: Action) => {

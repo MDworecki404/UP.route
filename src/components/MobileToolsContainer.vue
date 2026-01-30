@@ -37,6 +37,7 @@ const { currentTool } = storeToRefs(toolsStore)
     left: 0;
     width: 100dvw;
     pointer-events: auto;
+    max-height: 45vh;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-y;

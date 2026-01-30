@@ -13,9 +13,18 @@ export const useCommonStore = defineStore('common', () => {
         isOverlayActive.value = true
     }
 
+    //Drawer state
+    const isDrawerOpen = ref(false)
+
+    const toggleDrawerState = () => {
+        isDrawerOpen.value = !isDrawerOpen.value
+    }
+
     return {
         isOverlayActive,
         turnOffOverlay,
         turnOnOverlay,
+        isDrawerOpen,
+        toggleDrawerState,
     }
 })
