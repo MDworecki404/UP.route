@@ -28,19 +28,33 @@
                 </div>
             </template>
         </v-textarea>
+
+        <v-row dense no-gutters justify="center">
+            <canvas ref="qrCanvas" width="200" height="200"></canvas>
+        </v-row>
     </v-card-text>
 </template>
 
 <script lang="ts" setup>
 import { prepareUrl } from '@/services/url'
 import { useNotifyStore } from '@/stores/notify'
-import { onMounted, ref } from 'vue'
+import * as QRCode from 'qrcode'
+import { onMounted, ref, useTemplateRef, watch } from 'vue'
+import { useTheme } from 'vuetify'
+
+const theme = useTheme()
 
 const mapLink = ref('')
+const qrCanvas = useTemplateRef('qrCanvas')
 
 const updateLink = async () => {
     mapLink.value = await prepareUrl()
+    generateQRCode()
 }
+
+watch(theme.current, () => {
+    generateQRCode()
+})
 
 const clickCopy = () => {
     navigator.clipboard.writeText(mapLink.value)
@@ -52,6 +66,23 @@ const clickCopy = () => {
         notifyIcon: 'mdi-content-copy',
         notifyWidth: 250,
     })
+}
+
+const generateQRCode = () => {
+    QRCode.toCanvas(
+        qrCanvas.value,
+        mapLink.value,
+        {
+            width: 200,
+            color: {
+                dark: theme.current.value.colors.primary,
+                light: theme.current.value.colors.background,
+            },
+        },
+        function (error) {
+            if (error) console.error(error)
+        },
+    )
 }
 
 onMounted(async () => {
