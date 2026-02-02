@@ -7,6 +7,7 @@
             color="primary"
             readonly
             no-resize
+            hide-details
             prepend-inner-icon="mdi-link"
         >
             <template #prepend>
@@ -29,7 +30,7 @@
             </template>
         </v-textarea>
 
-        <v-row dense no-gutters justify="center">
+        <v-row dense no-gutters justify="center" class="pt-1">
             <canvas ref="qrCanvas" width="200" height="200"></canvas>
         </v-row>
     </v-card-text>
