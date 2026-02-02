@@ -19,6 +19,8 @@
                     :buttons-icon-size="24"
                 />
                 <ContextMenuButton
+                    :size="29"
+                    :icon-size="24"
                     :icon="'mdi-dots-horizontal'"
                     :contextMenuList="ContextMenuItems"
                 />

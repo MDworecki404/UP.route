@@ -40,15 +40,16 @@ import { prepareUrl } from '@/services/url'
 import { useNotifyStore } from '@/stores/notify'
 import * as QRCode from 'qrcode'
 import { onMounted, ref, useTemplateRef, watch } from 'vue'
-import { useTheme } from 'vuetify'
+import { useDisplay, useTheme } from 'vuetify'
 
 const theme = useTheme()
+const { mobile } = useDisplay()
 
 const mapLink = ref('')
 const qrCanvas = useTemplateRef('qrCanvas')
 
 const updateLink = async () => {
-    mapLink.value = await prepareUrl()
+    mapLink.value = await prepareUrl(mobile.value)
     generateQRCode()
 }
 

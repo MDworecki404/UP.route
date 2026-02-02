@@ -30,6 +30,8 @@
                     :buttons-icon-size="24"
                 />
                 <ContextMenuButton
+                    :size="29"
+                    :icon-size="24"
                     :icon="'mdi-dots-horizontal'"
                     :contextMenuList="ContextMenuItems"
                 />
@@ -42,9 +44,7 @@
 
         <NotifyComponent />
 
-        <v-scroll-y-transition>
-            <MobileBottomNavigation v-if="activeToolsArray.length > 0" />
-        </v-scroll-y-transition>
+        <MobileBottomNavigation v-if="activeToolsArray.length > 0" />
     </div>
 </template>
 

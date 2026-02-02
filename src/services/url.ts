@@ -86,13 +86,17 @@ const setCameraViewFromParams = (params: URLSearchParams) => {
 // ? MARK: TOOLS PARAMS
 ///////////////////////////////////
 
-const setToolParamsToUrl = async () => {
+const setToolParamsToUrl = async (isMobile?: boolean) => {
     const { useToolsStore } = await import('@/stores/index')
     const { activeToolsArray } = useToolsStore()
 
     const arrrayToUrl = activeToolsArray
         .filter((tool) => tool.id !== 'shareMap')
         .map((tool) => {
+            if (tool.id === 'layersTree' && isMobile) {
+                return
+            }
+
             return {
                 id: tool.id,
                 props: tool.props || {},
@@ -303,14 +307,14 @@ const getLayerDrawerStateFromParams = async (params: URLSearchParams) => {
 // ? MARK: URL PREPARE & APPLY
 ///////////////////////////////////
 
-export const prepareUrl = async () => {
+export const prepareUrl = async (isMobile?: boolean) => {
     const baseUrl = window.location.origin + window.location.pathname + '?'
     const urlParams = new URLSearchParams()
 
     const cameraParams = setCameraParamsToUrl()
     urlParams.set('camera', JSON.stringify(cameraParams))
 
-    const toolsParams = await setToolParamsToUrl()
+    const toolsParams = await setToolParamsToUrl(isMobile)
     urlParams.set('tools', JSON.stringify(toolsParams))
 
     const { lang, theme } = await setLangAndThemeToUrl()
