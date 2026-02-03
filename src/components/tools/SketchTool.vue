@@ -89,25 +89,58 @@
         <div class="my-3">
             <v-divider>{{ $t('styles') }}</v-divider>
         </div>
+
+        <div class="my-3">
+            <v-divider>{{ $t('layerManagement') }}</v-divider>
+        </div>
+
+        <v-row dense no-gutters justify="center">
+            <v-btn
+                icon="mdi-trash-can"
+                color="primary"
+                variant="text"
+                rounded="0"
+                v-tooltip="{
+                    text: $t('resetDrawLayer'),
+                    location: 'bottom',
+                }"
+                @click="clearDrawLayer"
+            ></v-btn>
+        </v-row>
     </v-card-text>
 </template>
 
 <script setup lang="ts">
-import type { SketchMethod } from '@/services/globe/sketch'
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import TextButton from '../ui/TextButton.vue'
+import { globeInstance } from '@/services/globe/globe'
+import type { DrawType } from '@/services/globe/draw'
 
-const activeMethod = ref<SketchMethod | null>(null)
+const activeMethod = ref<DrawType | null>(null)
 
-const setSketchMethod = (method: SketchMethod) => {
+const setSketchMethod = (method: DrawType) => {
     activeMethod.value = method
+
+    globeInstance.draw.setDrawMode(method)
 }
 
 const cancelSketchMethod = () => {
     activeMethod.value = null
+
+    globeInstance.draw.cancelDrawing()
+}
+
+const clearDrawLayer = () => {
+    globeInstance.draw.clearDrawLayer()
 }
 
 const finishSketchMethod = () => {
     activeMethod.value = null
+
+    globeInstance.draw.finishDrawing()
 }
+
+onUnmounted(() => {
+    globeInstance.draw.cancelDrawing()
+})
 </script>

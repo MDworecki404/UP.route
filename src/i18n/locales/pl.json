@@ -115,5 +115,7 @@
     "profileTool": "Profilowanie terenu",
     "samplingDistance": "Odległość próbkowania (m)",
     "useTerrainObjects": "Uwzlędnij obiekty terenu",
-    "createProfile": "Utwórz profil"
+    "createProfile": "Utwórz profil",
+    "layerManagement": "Zarządzanie warstwą",
+    "resetDrawLayer": "Zresetuj warstwę szkicową"
 }

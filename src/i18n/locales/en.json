@@ -111,5 +111,7 @@
     "profileTool": "Terrain profiling",
     "samplingDistance": "Sampling distance (m)",
     "useTerrainObjects": "Include terrain objects",
-    "createProfile": "Create profile"
+    "createProfile": "Create profile",
+    "layerManagement": "Layer management",
+    "resetDrawLayer": "Reset draw layer"
 }
