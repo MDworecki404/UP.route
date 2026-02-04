@@ -22,14 +22,6 @@
             />
             <TextButton
                 class="flex-grow-1"
-                :prepend-icon="'mdi-square-outline'"
-                :text="$t('rectangle')"
-                :disabled="activeMethod !== 'rectangle' && activeMethod !== null"
-                color="primary"
-                @click="setSketchMethod('rectangle')"
-            />
-            <TextButton
-                class="flex-grow-1"
                 :prepend-icon="'mdi-circle-outline'"
                 :text="$t('circle')"
                 :disabled="activeMethod !== 'circle' && activeMethod !== null"

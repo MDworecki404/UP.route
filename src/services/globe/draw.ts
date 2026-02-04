@@ -1,22 +1,19 @@
+import type { Entity, PointGraphics, ScreenSpaceEventHandler } from '@cesium/engine'
+import {
+    Cartesian3,
+    Color,
+    ConstantProperty,
+    CustomDataSource,
+    PolygonGraphics,
+    PolygonHierarchy,
+    PolylineGraphics,
+    ScreenSpaceEventType,
+} from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 import type { GlobeEvent } from './events'
-import { Cartesian3 } from '@cesium/engine'
-import { CustomDataSource } from '@cesium/engine'
-import { PolygonGraphics, PolylineGraphics, ScreenSpaceEventType } from '@cesium/engine'
-import type { PointGraphics } from '@cesium/engine'
-import { Color } from '@cesium/engine'
-import type { ScreenSpaceEventHandler } from '@cesium/engine'
-import type { Entity } from '@cesium/engine'
-import { PolygonHierarchy, ConstantProperty } from '@cesium/engine'
+import type { EllipseGraphics } from '@cesium/engine'
 
-export type DrawType =
-    | 'point'
-    | 'polyline'
-    | 'rectangle'
-    | 'polygon'
-    | 'circle'
-    | 'wall'
-    | 'ellipse'
+export type DrawType = 'point' | 'polyline' | 'polygon' | 'circle' | 'wall' | 'ellipse'
 
 ////////////////
 // ? MARK: STYLES
@@ -37,6 +34,13 @@ export const getDrawPolylineStyle = (): PolylineGraphics.ConstructorOptions => (
 })
 
 export const getDrawPolygonStyle = (): PolygonGraphics.ConstructorOptions => ({
+    material: Color.fromCssColorString('#7a1f2f').withAlpha(0.31),
+    outline: true,
+    outlineColor: Color.fromCssColorString('#7a1f2f').withAlpha(0.78),
+    outlineWidth: 2,
+})
+
+export const getDrawEllipseStyle = (): EllipseGraphics.ConstructorOptions => ({
     material: Color.fromCssColorString('#7a1f2f').withAlpha(0.31),
     outline: true,
     outlineColor: Color.fromCssColorString('#7a1f2f').withAlpha(0.78),
@@ -84,17 +88,14 @@ export class DrawService {
             case 'polyline':
                 this.drawPolyline()
                 break
-            case 'rectangle':
-                // Implement rectangle drawing logic here
-                break
             case 'polygon':
                 this.drawPolygon()
                 break
             case 'circle':
-                // Implement circle drawing logic here
+                this.drawCircle()
                 break
             case 'wall':
-                // Implement wall drawing logic here
+                this.drawWall()
                 break
             case 'ellipse':
                 // Implement ellipse drawing logic here
@@ -225,8 +226,6 @@ export class DrawService {
         )
     }
 
-    // * MARK: RECTANGLE
-
     // * MARK: POLYGON
 
     private drawPolygon(): void {
@@ -271,7 +270,101 @@ export class DrawService {
 
     // * MARK: CIRCLE
 
+    private drawCircle(): void {
+        const globeMouseEvent = () => {
+            this._viewer.scene.canvas.style.cursor = 'crosshair'
+        }
+
+        const globeLeftClickEvent = (e: ScreenSpaceEventHandler.PositionedEvent) => {
+            const position = this._viewer.scene.pickPosition(e.position)
+            if (position) {
+                this._activePoints.push(position)
+
+                this._previewPointsLayer?.entities.add({
+                    position: position,
+                    point: getDrawPointStyle(),
+                })
+            }
+
+            if (this._activePoints.length === 2) {
+                if (this._activeEntity) {
+                    this._temporaryLayer!.entities.remove(this._activeEntity)
+                }
+
+                this._activeEntity = this._temporaryLayer!.entities.add({
+                    ellipse: {
+                        semiMajorAxis: Cartesian3.distance(
+                            this._activePoints[0]!,
+                            this._activePoints[1]!,
+                        ),
+                        semiMinorAxis: Cartesian3.distance(
+                            this._activePoints[0]!,
+                            this._activePoints[1]!,
+                        ),
+                        ...getDrawEllipseStyle(),
+                    },
+                    position: this._activePoints[0]!,
+                })
+
+                this._activePoints = []
+                this._activeEntity = null
+                this._clearPreviewPointsLayer()
+            }
+        }
+
+        this._viewer.screenSpaceEventHandler.setInputAction(
+            globeMouseEvent,
+            ScreenSpaceEventType.MOUSE_MOVE,
+        )
+        this._viewer.screenSpaceEventHandler.setInputAction(
+            globeLeftClickEvent,
+            ScreenSpaceEventType.LEFT_CLICK,
+        )
+    }
+
     // * MARK: WALL
+
+    private drawWall(): void {
+        const globeMouseEvent = () => {
+            this._viewer.scene.canvas.style.cursor = 'crosshair'
+        }
+
+        const globeLeftClickEvent = (e: ScreenSpaceEventHandler.PositionedEvent) => {
+            const position = this._viewer.scene.pickPosition(e.position)
+            if (position) {
+                this._activePoints.push(position)
+
+                this._previewPointsLayer?.entities.add({
+                    position: position,
+                    point: getDrawPointStyle(),
+                })
+            }
+
+            if (this._activePoints.length >= 2) {
+                if (this._activeEntity) {
+                    this._temporaryLayer!.entities.remove(this._activeEntity)
+                }
+
+                this._activeEntity = this._temporaryLayer!.entities.add({
+                    wall: {
+                        positions: this._activePoints,
+                        maximumHeights: new Array(this._activePoints.length).fill(250),
+                        minimumHeights: new Array(this._activePoints.length).fill(0),
+                        ...getDrawPolylineStyle(),
+                    },
+                })
+            }
+        }
+
+        this._viewer.screenSpaceEventHandler.setInputAction(
+            globeMouseEvent,
+            ScreenSpaceEventType.MOUSE_MOVE,
+        )
+        this._viewer.screenSpaceEventHandler.setInputAction(
+            globeLeftClickEvent,
+            ScreenSpaceEventType.LEFT_CLICK,
+        )
+    }
 
     // * MARK: ELLIPSE
 }
