@@ -14,6 +14,7 @@ export const TOOLS_KEYS = [
     'shareMap',
     'sketchTool',
     'profileTool',
+    'floodSim',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -47,6 +48,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     shareMap: (await import('@/components/tools/ShareMap.vue')).default,
     sketchTool: (await import('@/components/tools/SketchTool.vue')).default,
     profileTool: (await import('@/components/tools/ProfileTool.vue')).default,
+    floodSim: (await import('@/components/tools/FloodSimulator.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

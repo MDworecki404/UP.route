@@ -12,3 +12,5 @@ export const customObjectClicked = new UPEvent<{
     id: string
     data: Record<string, unknown> | null
 }>()
+
+export const floodAreaSelected = new UPEvent<boolean>()

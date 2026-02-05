@@ -255,7 +255,7 @@
             "icon": "mdi-water-percent",
             "action": {
                 "actionId": "toggleTool",
-                "toolId": "floodSimulationTool",
+                "toolId": "floodSim",
                 "icon": "mdi-water-percent",
                 "width": 400
             }

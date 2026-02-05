@@ -9,6 +9,7 @@ import type { LayersManager } from './layersManager'
 import type { MeasurementsService } from './measurements'
 import type { TimeManager } from './time'
 import type { DrawService } from './draw'
+import type { FloodSim } from './floodSim'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -18,6 +19,7 @@ export class GlobeService {
     private _events: GlobeEvent | null = null
     private _measurements: MeasurementsService | null = null
     private _drawService: DrawService | null = null
+    private _floodSim: FloodSim | null = null
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
@@ -60,12 +62,20 @@ export class GlobeService {
         return this._measurements
     }
 
+    get floodSim(): FloodSim {
+        if (!this._floodSim) {
+            throw new Error('FloodSim is not initialized')
+        }
+        return this._floodSim
+    }
+
     public async initServices(): Promise<void> {
         const { LayersManager } = await import('./layersManager')
         const { TimeManager } = await import('./time')
         const { GlobeEvent } = await import('./events')
         const { MeasurementsService } = await import('./measurements')
         const { DrawService } = await import('./draw')
+        const { FloodSim } = await import('./floodSim')
 
         if (!this._viewer) {
             throw new Error('Viewer is not initialized')
@@ -80,6 +90,7 @@ export class GlobeService {
         this._events = new GlobeEvent(this._viewer)
         this._measurements = new MeasurementsService(this._viewer!, this._events)
         this._drawService = new DrawService(this._viewer!, this._events)
+        this._floodSim = new FloodSim(this._viewer!, this._layersManager, this._events)
     }
 
     private setInitialView(): void {

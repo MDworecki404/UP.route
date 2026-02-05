@@ -117,5 +117,13 @@
     "useTerrainObjects": "Uwzlędnij obiekty terenu",
     "createProfile": "Utwórz profil",
     "layerManagement": "Zarządzanie warstwą",
-    "resetDrawLayer": "Zresetuj warstwę szkicową"
+    "resetDrawLayer": "Zresetuj warstwę szkicową",
+    "floodSim": "Symulator powodzi",
+    "useWroclawArea": "Użyj obszaru Wrocławia",
+    "selectFloodArea": "Wybierz obszar powodzi",
+    "settingsPanel": "Panel ustawień",
+    "floodHeight": "Wysokość powodzi (m)",
+    "selectFloodAreaInstructions": "Panel wyboru obszaru",
+    "sideLength": "Długość boku (m)",
+    "selectByPoint": "Wybierz przez kliknięcie"
 }

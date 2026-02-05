@@ -113,5 +113,13 @@
     "useTerrainObjects": "Include terrain objects",
     "createProfile": "Create profile",
     "layerManagement": "Layer management",
-    "resetDrawLayer": "Reset draw layer"
+    "resetDrawLayer": "Reset draw layer",
+    "floodSim": "Flood simulator",
+    "useWroclawArea": "Use Wroclaw area",
+    "selectFloodArea": "Select flood area",
+    "settingsPanel": "Settings panel",
+    "floodHeight": "Flood height (m)",
+    "selectFloodAreaInstructions": "Area selection panel",
+    "sideLength": "Side length (m)",
+    "selectByPoint": "Select by clicking"
 }
