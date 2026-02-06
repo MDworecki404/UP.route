@@ -131,5 +131,6 @@
     "minus1meter": "-1 meter",
     "plus1meter": "+1 meter",
     "plus5meters": "+5 meters",
-    "plus10meters": "+10 meters"
+    "plus10meters": "+10 meters",
+    "distanceShorterThanSamplingDistance": "Distance is shorter than the sampling distance..."
 }

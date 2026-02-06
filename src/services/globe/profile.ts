@@ -3,7 +3,7 @@ import { Cartesian3, Color, CustomDataSource, ScreenSpaceEventType } from '@cesi
 import type { Viewer } from '@cesium/widgets'
 import { profileCreated } from '../eventBus'
 import type { GlobeEvent } from './events'
-import { useToolsStore } from '@/stores'
+import { useNotifyStore, useToolsStore } from '@/stores'
 import { PolylineDashMaterialProperty } from '@cesium/engine'
 
 export class ProfileManager {
@@ -93,6 +93,14 @@ export class ProfileManager {
         const totalDistance = Cartesian3.distance(start, end)
 
         if (totalDistance < samplingDistance) {
+            useNotifyStore().showNotify({
+                msg: 'distanceShorterThanSamplingDistance',
+                notifyType: 'error',
+                notifyDuration: 3000,
+                notifyIcon: 'mdi-alert-circle',
+                notifyWidth: 300,
+            })
+
             return
         }
 
