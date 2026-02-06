@@ -121,5 +121,15 @@
     "floodHeight": "Flood height (m)",
     "selectFloodAreaInstructions": "Area selection panel",
     "sideLength": "Side length (m)",
-    "selectByPoint": "Select by clicking"
+    "selectByPoint": "Select by clicking",
+    "chartView": "Chart view",
+    "height": "Height (m)",
+    "distance": "Distance (m)",
+    "profileChart": "Terrain profile chart",
+    "minus10meter": "-10 meters",
+    "minus5meters": "-5 meters",
+    "minus1meter": "-1 meter",
+    "plus1meter": "+1 meter",
+    "plus5meters": "+5 meters",
+    "plus10meters": "+10 meters"
 }

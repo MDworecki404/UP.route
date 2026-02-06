@@ -71,11 +71,11 @@
                         elevation="0"
                         :tooltip="{
                             location: 'top',
-                            text: $t('plus1meter'),
+                            text: $t('minus10meter'),
                         }"
                         @click="
                             () => {
-                                floodHeight -= 1
+                                floodHeight -= 10
                                 updateFloodHeight(floodHeight)
                             }
                         "
@@ -87,7 +87,7 @@
                         elevation="0"
                         :tooltip="{
                             location: 'top',
-                            text: $t('plus5meters'),
+                            text: $t('minus5meters'),
                         }"
                         @click="
                             () => {
@@ -103,7 +103,7 @@
                         elevation="0"
                         :tooltip="{
                             location: 'top',
-                            text: $t('plus10meters'),
+                            text: $t('minus1meter'),
                         }"
                         @click="
                             () => {

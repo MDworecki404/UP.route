@@ -15,18 +15,7 @@
                 {{ $t('samplingDistance') }}
             </template>
         </v-number-input>
-
-        <v-row dense no-gutters>
-            <v-checkbox
-                v-model="useTerrainObjects"
-                class="pa-0 ma-0"
-                hide-details
-                :disabled="isActive"
-                :label="$t('useTerrainObjects')"
-                color="primary"
-            ></v-checkbox>
-        </v-row>
-        <v-row dense no-gutters>
+        <v-row dense no-gutters class="mt-2">
             <TextButton
                 v-if="!isActive"
                 :text="$t('createProfile')"
@@ -48,18 +37,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import TextButton from '../ui/TextButton.vue'
+import { globeInstance } from '@/services/globe/globe'
+import { profileCreated } from '@/services/eventBus'
 
 const samplingDistance = ref<number>(10)
-const useTerrainObjects = ref<boolean>(false)
 const isActive = ref<boolean>(false)
 
 const activateTool = () => {
     isActive.value = true
+    globeInstance.profile.setUpDrawing(samplingDistance.value)
+    const listener = profileCreated.addEventListener((evt) => {
+        if (evt) {
+            globeInstance.profile.endDrawing()
+            deactivateTool()
+            listener()
+        }
+    })
 }
 
 const deactivateTool = () => {
     isActive.value = false
+    globeInstance.events.setDefaultEvents()
 }
+
+onUnmounted(() => {
+    if (isActive.value) {
+        deactivateTool()
+    }
+
+    globeInstance.profile.resetProfile()
+})
 </script>

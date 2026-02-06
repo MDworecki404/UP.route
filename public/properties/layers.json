@@ -40,17 +40,6 @@
         "parent": "basemaps"
     },
     {
-        "type": "xyz",
-        "active": false,
-        "name": {
-            "pl": "Google Maps",
-            "en": "Google Maps"
-        },
-        "url": "http://mt0.google.com/vt/lyrs=p&hl=en&x={x}&y={y}&z={z}",
-        "id": "googleMaps",
-        "parent": "basemaps"
-    },
-    {
         "type": "3dtiles",
         "active": false,
         "name": {

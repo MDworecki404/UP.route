@@ -125,5 +125,15 @@
     "floodHeight": "Wysokość powodzi (m)",
     "selectFloodAreaInstructions": "Panel wyboru obszaru",
     "sideLength": "Długość boku (m)",
-    "selectByPoint": "Wybierz przez kliknięcie"
+    "selectByPoint": "Wybierz przez kliknięcie",
+    "chartView": "Widok wykresu",
+    "height": "Wysokość (m)",
+    "distance": "Odległość (m)",
+    "profileChart": "Wykres profilu terenu",
+    "minus10meter": "-10 metrów",
+    "minus5meters": "-5 metrów",
+    "minus1meter": "-1 metr",
+    "plus1meter": "+1 metr",
+    "plus5meters": "+5 metrów",
+    "plus10meters": "+10 metrów"
 }
