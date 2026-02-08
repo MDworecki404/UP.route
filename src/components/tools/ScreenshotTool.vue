@@ -1,7 +1,8 @@
 <template>
     <v-card-text class="pa-1 ma-0">
+        <v-skeleton-loader v-if="isLoading" type="image" class="my-3" />
         <v-row dense no-gutters class="ga-5" justify="center">
-            <Cropper ref="cropperRef" class="cropper my-3" :src="img" />
+            <Cropper ref="cropperRef" class="cropper my-3" :src="img" @ready="onCropperReady" />
         </v-row>
         <v-row dense no-gutters class="ga-5" justify="space-between" align="center">
             <action-button
@@ -44,6 +45,11 @@ import { addWaterMarkToScreenshot, imageToJPG, imageToPdf } from '@/services/uti
 
 const img = ref<string>('')
 const cropperRef = useTemplateRef('cropperRef')
+const isLoading = ref(true)
+
+const onCropperReady = () => {
+    isLoading.value = false
+}
 
 const getGlobeActualView = () => {
     const canvas = globeInstance.viewer.scene.canvas
