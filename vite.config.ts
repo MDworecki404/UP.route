@@ -13,7 +13,7 @@ export default defineConfig({
         vueDevTools(),
         cesium(),
         VitePWA({
-            registerType: 'prompt',
+            registerType: 'autoUpdate',
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
             manifest: {
                 name: 'Up.route',
@@ -42,6 +42,8 @@ export default defineConfig({
                 ],
             },
             workbox: {
+                skipWaiting: true,
+                clientsClaim: true,
                 maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
             },
