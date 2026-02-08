@@ -17,6 +17,7 @@ export const TOOLS_KEYS = [
     'floodSim',
     'chartView',
     'screenshotTool',
+    'viewsBookmarks',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -53,6 +54,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     floodSim: (await import('@/components/tools/FloodSimulator.vue')).default,
     chartView: (await import('@/components/tools/ChartView.vue')).default,
     screenshotTool: (await import('@/components/tools/ScreenshotTool.vue')).default,
+    viewsBookmarks: (await import('@/components/tools/ViewsBookmarks.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

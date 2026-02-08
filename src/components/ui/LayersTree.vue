@@ -6,7 +6,7 @@
                 hide-details
                 :label="$t('searchLayers')"
                 clearable
-                :density="'compact'"
+                density="compact"
                 variant="outlined"
                 prepend-inner-icon="mdi-magnify"
                 class="pa-2"
@@ -16,14 +16,14 @@
             v-model:selected="activeLayers"
             v-model:opened="openIds"
             :items="treeItems"
-            :item-value="'id'"
+            item-value="id"
             :activatable="false"
             density="compact"
             :selectable="true"
-            :select-strategy="'classic'"
-            :collapse-icon="'mdi-chevron-down'"
-            :expand-icon="'mdi-chevron-right'"
-            :selected-color="'primary'"
+            select-strategy="classic"
+            collapse-icon="mdi-chevron-down"
+            expand-icon="mdi-chevron-right"
+            selected-color="primary"
             slim
             :search="search"
             :indent="32"
@@ -42,9 +42,9 @@
                 >
                     <context-menu-button
                         :context-menu-list="getImageryLayerContextMenuList(item)"
-                        :icon="'mdi-dots-vertical'"
-                        :location="'right'"
-                        :size="'x-small'"
+                        icon="mdi-dots-vertical"
+                        location="right"
+                        size="x-small"
                         :iconSize="18"
                         :elevation="0"
                     />
@@ -57,9 +57,9 @@
                 >
                     <context-menu-button
                         :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
-                        :icon="'mdi-dots-vertical'"
-                        :location="'right'"
-                        :size="'x-small'"
+                        icon="mdi-dots-vertical"
+                        location="right"
+                        size="x-small"
                         :iconSize="18"
                         :elevation="0"
                     />
@@ -76,13 +76,15 @@ import { zoomToLayerById } from '@/services/utils'
 import { LayerParents, type LayersUnionType } from '@/types/layers'
 import type { ContextMenuListType } from '@/types/ui'
 import _ from 'lodash'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import ContextMenuButton from './ContextMenuButton.vue'
+import { visibilityChanged } from '@/services/eventBus'
 
 const { t } = useI18n()
 const search = ref('')
 const { translate } = useDynamicTranslation()
+const listenersRemovers: (() => void)[] = []
 
 type TreeNodeParent = {
     id: string
@@ -102,7 +104,6 @@ type TreeNode = TreeNodeParent | TreeNodeLayer
 
 const treeItemsBase = ref<TreeNode[]>([])
 const activeLayers = ref<string[]>([])
-
 const openIds = ref(['campus3D', '3dLayers', 'basemaps'])
 
 const treeItems = computed(() => {
@@ -129,23 +130,24 @@ const treeItems = computed(() => {
     })
 })
 
+let isUpdatingFromGlobe = false
+
 watch(activeLayers, (newVal, oldVal) => {
-    _.difference(newVal, oldVal).forEach((layerId) => {
+    if (isUpdatingFromGlobe) return
+
+    const toShow = _.difference(newVal, oldVal)
+    const toHide = _.difference(oldVal, newVal)
+
+    toShow.forEach((layerId) => {
         const layer = globeInstance.layers.layers.get(layerId)
-        if (layer && layer.classType !== 'terrain') {
-            layer.setVisibility(!layer.isVisible())
-        }
-        if (layer && layer.classType === 'terrain') {
+        if (layer && !layer.isVisible()) {
             layer.setVisibility(true)
         }
     })
 
-    _.difference(oldVal, newVal).forEach((layerId) => {
+    toHide.forEach((layerId) => {
         const layer = globeInstance.layers.layers.get(layerId)
-        if (layer && layer.classType !== 'terrain') {
-            layer.setVisibility(!layer.isVisible())
-        }
-        if (layer && layer.classType === 'terrain') {
+        if (layer && layer.isVisible()) {
             layer.setVisibility(false)
         }
     })
@@ -162,23 +164,17 @@ const createParents = () => {
     })
 }
 
-const populateTree = () => {
+const populateTreeStructure = () => {
     const layers = globeInstance.layers.layers
     layers.forEach((layer) => {
         const parentName = layer.config.parent || null
-        if (layer && layer.classType !== 'terrain' && layer._layer?.show) {
-            activeLayers.value.push(layer.config.id!)
-        }
-        if (layer && layer.classType === 'terrain' && layer.isVisible()) {
-            activeLayers.value.push(layer.config.id!)
-        }
 
         if (parentName) {
             const parentNode = treeItemsBase.value.find((node) => node.id === parentName)
             if (parentNode && parentNode.type === 'parent') {
                 parentNode.children.push({
                     id: layer.config.id!,
-                    title: '', // Będzie wypełnione przez computed
+                    title: '',
                     type: 'layer',
                     layerType: layer.config.type,
                 })
@@ -186,7 +182,7 @@ const populateTree = () => {
         } else {
             treeItemsBase.value.push({
                 id: layer.config.id!,
-                title: '', // Będzie wypełnione przez computed
+                title: '',
                 type: 'layer',
                 layerType: layer.config.type,
             })
@@ -194,10 +190,50 @@ const populateTree = () => {
     })
 }
 
+const syncSelectionFromGlobe = () => {
+    const layers = globeInstance.layers.layers
+    const visibleIds: string[] = []
+
+    layers.forEach((layer) => {
+        if (layer.classType !== 'terrain' && layer._layer?.show) {
+            visibleIds.push(layer.config.id!)
+        }
+        if (layer.classType === 'terrain' && layer.isVisible()) {
+            visibleIds.push(layer.config.id!)
+        }
+    })
+
+    const currentSorted = [...activeLayers.value].sort()
+    const newSorted = [...visibleIds].sort()
+
+    if (!_.isEqual(currentSorted, newSorted)) {
+        isUpdatingFromGlobe = true
+        activeLayers.value = visibleIds
+
+        setTimeout(() => {
+            isUpdatingFromGlobe = false
+        }, 0)
+    }
+}
+
 onMounted(() => {
     createParents()
+    populateTreeStructure()
 
-    populateTree()
+    syncSelectionFromGlobe()
+
+    const listener = visibilityChanged.addEventListener(() => {
+        // Nie przebudowujemy drzewa, tylko aktualizujemy checkboxy
+        syncSelectionFromGlobe()
+    })
+
+    if (typeof listener === 'function') {
+        listenersRemovers.push(listener)
+    }
+})
+
+onUnmounted(() => {
+    listenersRemovers.forEach((remove) => remove())
 })
 
 const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [

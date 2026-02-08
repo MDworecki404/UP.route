@@ -136,5 +136,12 @@
     "screenshotTool": "Screenshot Tool",
     "refresh": "Refresh",
     "toPdf": "To PDF",
-    "toImage": "To Image"
+    "toImage": "To Image",
+    "viewsBookmarks": "Views Bookmarks",
+    "noBookmarks": "No bookmarks. Add a new bookmark to save the current camera view.",
+    "addBookmark": "Add Bookmark",
+    "bookmarkName": "Bookmark Name",
+    "options": "Options",
+    "run": "Run",
+    "delete": "Delete"
 }

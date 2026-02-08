@@ -1,5 +1,6 @@
 import { ImageryLayer } from '@cesium/engine'
 import { globeInstance } from '../globe/globe'
+import { visibilityChanged } from '../eventBus'
 
 export abstract class LayerBase<T extends { show: boolean }> {
     public abstract readonly classType: string
@@ -25,6 +26,7 @@ export abstract class LayerBase<T extends { show: boolean }> {
         }
 
         this.raiseToTop()
+        visibilityChanged.raiseEvent({ id: this.getName(), visible })
     }
 
     isVisible(): boolean {

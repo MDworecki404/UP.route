@@ -140,5 +140,12 @@
     "screenshotTool": "Narzędzie do zrzutów ekranu",
     "refresh": "Odśwież",
     "toPdf": "Do PDF",
-    "toImage": "Do obrazu"
+    "toImage": "Do obrazu",
+    "viewsBookmarks": "Zakładki widoków",
+    "noBookmarks": "Brak zakładek. Dodaj nową zakładkę, aby zapisać aktualny widok kamery.",
+    "addBookmark": "Dodaj zakładkę",
+    "bookmarkName": "Nazwa zakładki",
+    "options": "Opcje",
+    "run": "Uruchom",
+    "delete": "Usuń"
 }

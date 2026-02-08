@@ -16,3 +16,8 @@ export const customObjectClicked = new UPEvent<{
 export const floodAreaSelected = new UPEvent<boolean>()
 
 export const profileCreated = new UPEvent<boolean>()
+
+export const visibilityChanged = new UPEvent<{
+    id: string
+    visible: boolean
+}>()
