@@ -136,5 +136,9 @@
     "plus1meter": "+1 metr",
     "plus5meters": "+5 metrów",
     "plus10meters": "+10 metrów",
-    "distanceShorterThanSamplingDistance": "Odległość jest krótsza niż odległość próbkowania..."
+    "distanceShorterThanSamplingDistance": "Odległość jest krótsza niż odległość próbkowania...",
+    "screenshotTool": "Narzędzie do zrzutów ekranu",
+    "refresh": "Odśwież",
+    "toPdf": "Do PDF",
+    "toImage": "Do obrazu"
 }

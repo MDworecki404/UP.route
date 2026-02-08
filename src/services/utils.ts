@@ -2,6 +2,8 @@ import type { Entity } from '@cesium/engine'
 import { BoundingSphere, Cartesian3 } from '@cesium/engine'
 import { globeInstance } from './globe/globe'
 import { Cartographic } from '@cesium/engine'
+import type { CropperResult } from 'vue-advanced-cropper'
+import jsPDF from 'jspdf'
 
 export const fetchJsonFile = async <T>(url: string): Promise<T> => {
     const response = await fetch(url)
@@ -195,4 +197,116 @@ export const calculateHeihtDifference = (positions: Cartesian3[]): number => {
     const carto1 = Cartographic.fromCartesian(positions[0]!)
     const carto2 = Cartographic.fromCartesian(positions[1]!)
     return Math.abs(carto2.height - carto1.height)
+}
+
+export const addWaterMarkToScreenshot = async (
+    cropperResult: CropperResult,
+): Promise<string | null> => {
+    const { canvas } = cropperResult
+
+    if (!canvas) {
+        console.error('Błąd: Brak canvasu w wyniku croppera')
+        return null
+    }
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) {
+        return null
+    }
+
+    const watermarkUrl = '/watermark_project.png'
+
+    const loadImage = (src: string): Promise<HTMLImageElement> => {
+        return new Promise((resolve, reject) => {
+            const img = new Image()
+            img.crossOrigin = 'Anonymous'
+            img.onload = () => resolve(img)
+            img.onerror = (e) => reject(e)
+            img.src = src
+        })
+    }
+
+    try {
+        const logo = await loadImage(watermarkUrl)
+
+        const logoWidth = logo.naturalWidth
+        const logoHeight = logo.naturalHeight
+
+        const canvasWidth = canvas.width
+        const canvasHeight = canvas.height
+
+        const margin = 0
+
+        const x = Math.max(0, canvasWidth - logoWidth - margin)
+        const y = Math.max(0, canvasHeight - logoHeight - margin)
+
+        ctx.drawImage(logo, x, y)
+
+        return canvas.toDataURL('image/png')
+    } catch (error) {
+        console.error('Nie udało się załadować znaku wodnego:', error)
+        return canvas.toDataURL('image/png')
+    }
+}
+
+export const imageToPdf = (imageDataUrl: string, filename: string): void => {
+    const tempPdf = new jsPDF()
+    const imgProps = tempPdf.getImageProperties(imageDataUrl)
+
+    const pdf = new jsPDF({
+        orientation: imgProps.width > imgProps.height ? 'l' : 'p',
+        unit: 'px',
+        format: [imgProps.width, imgProps.height],
+    })
+
+    pdf.addImage(imageDataUrl, 'PNG', 0, 0, imgProps.width, imgProps.height)
+
+    const finalFilename = filename.endsWith('.pdf') ? filename : `${filename}.pdf`
+    pdf.save(finalFilename)
+}
+
+export const imageToJPG = (imageDataUrl: string, filename: string): void => {
+    // 1. Tworzymy obiekt obrazka
+    const img = new Image()
+
+    // 2. Czekamy, aż obrazek wczyta dane z Base64
+    img.onload = () => {
+        // 3. Tworzymy tymczasowy canvas w pamięci (nie dodajemy go do DOM)
+        const canvas = document.createElement('canvas')
+        canvas.width = img.width
+        canvas.height = img.height
+
+        const ctx = canvas.getContext('2d')
+        if (!ctx) return
+
+        // 4. KLUCZOWE: Wypełniamy tło na biało
+        // Bez tego przezroczyste fragmenty z PNG stałyby się czarne w pliku JPG
+        ctx.fillStyle = '#FFFFFF'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+        // 5. Rysujemy nasz oryginalny obrazek na białym tle
+        ctx.drawImage(img, 0, 0)
+
+        // 6. Konwertujemy gotowy canvas na format JPG (jakość od 0.0 do 1.0)
+        const jpegDataUrl = canvas.toDataURL('image/jpeg', 1.0)
+
+        // 7. Tworzymy wirtualny link do pobrania pliku
+        const link = document.createElement('a')
+        link.href = jpegDataUrl
+
+        // Zapewniamy poprawne rozszerzenie
+        const finalFilename = filename.toLowerCase().endsWith('.jpg') ? filename : `${filename}.jpg`
+
+        link.download = finalFilename
+
+        // 8. Symulujemy kliknięcie, aby rozpocząć pobieranie
+        document.body.appendChild(link)
+        link.click()
+
+        // 9. Sprzątamy po sobie
+        document.body.removeChild(link)
+    }
+
+    // Uruchamia proces ładowania obrazka
+    img.src = imageDataUrl
 }

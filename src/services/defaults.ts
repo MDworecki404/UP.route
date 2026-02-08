@@ -4,6 +4,11 @@ import type { Viewer } from '@cesium/widgets'
 export const getDefaultViewerSettings = (): Viewer.ConstructorOptions => {
     return {
         animation: false,
+        contextOptions: {
+            webgl: {
+                preserveDrawingBuffer: true,
+            },
+        },
         baseLayerPicker: false,
         fullscreenButton: false,
         geocoder: false,

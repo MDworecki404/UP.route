@@ -273,7 +273,7 @@
                 "actionId": "toggleTool",
                 "toolId": "screenshotTool",
                 "icon": "mdi-monitor-screenshot",
-                "width": 350
+                "width": 450
             }
         },
         {
