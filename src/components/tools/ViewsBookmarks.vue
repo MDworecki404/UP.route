@@ -24,7 +24,13 @@
         </v-list>
         <span v-else class="text-disabled">{{ $t('noBookmarks') }}</span>
         <v-divider class="my-3"></v-divider>
-        <v-row dense no-gutters justify="end">
+        <v-row dense no-gutters justify="end" class="ga-2">
+            <text-button
+                :text="$t('importBookmark')"
+                color="primary"
+                prepend-icon="mdi-bookmark-plus-outline"
+                @click="triggerImportBookmark"
+            />
             <text-button
                 :text="$t('addBookmark')"
                 color="primary"
@@ -43,7 +49,7 @@ import { useDialogStore } from '@/stores'
 import ContextMenuButton from '../ui/ContextMenuButton.vue'
 import type { ContextMenuListType } from '@/types/ui'
 import { useI18n } from 'vue-i18n'
-import { deleteBookmark, runBookmark } from '@/services/viewsBookmarks'
+import { copyBookmarkConfiguration, deleteBookmark, runBookmark } from '@/services/viewsBookmarks'
 
 const { t } = useI18n()
 
@@ -73,12 +79,36 @@ const triggerNewBookmark = async () => {
     })
 }
 
+const triggerImportBookmark = async () => {
+    const dialogStore = useDialogStore()
+    const BookmarkImporter = (await import('@/components/tools/BookmarkImporter.vue')).default
+
+    dialogStore.openDialog({
+        title: 'importBookmark',
+        component: BookmarkImporter,
+        props: {
+            onImport: () => {
+                refreshBookmarks()
+            },
+        },
+        icon: 'mdi-bookmark-plus-outline',
+        width: 600,
+    })
+}
+
 const contextMenuOptions = (item: ViewsBookmarks['bookmarks'][number]): ContextMenuListType => [
     {
         text: t('run'),
         icon: 'mdi-play',
         method: () => {
             runBookmark(item)
+        },
+    },
+    {
+        text: t('copyConfiguration'),
+        icon: 'mdi-content-copy',
+        method: () => {
+            copyBookmarkConfiguration(item)
         },
     },
     {

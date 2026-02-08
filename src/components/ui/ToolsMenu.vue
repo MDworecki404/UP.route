@@ -13,6 +13,7 @@
                     location: 'bottom',
                 }"
                 icon="mdi-tools"
+                elevation="0"
                 class="rounded-0 pa-0 ma-0 menuButton"
             >
                 <v-icon color="primary" icon="mdi-tools" />
@@ -26,6 +27,7 @@
                     :orientation="'horizontal'"
                     :buttons-size="29"
                     :buttons-icon-size="24"
+                    :elevation="0"
                     class="d-flex justify-center ga-5 flex-wrap"
                 />
             </v-list-item>

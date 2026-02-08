@@ -147,5 +147,10 @@
     "bookmarkName": "Nazwa zakładki",
     "options": "Opcje",
     "run": "Uruchom",
-    "delete": "Usuń"
+    "delete": "Usuń",
+    "copyConfiguration": "Kopiuj konfigurację",
+    "bookmarkConfigurationCopied": "Konfiguracja zakładki skopiowana do schowka",
+    "importBookmark": "Importuj zakładkę",
+    "bookmarkConfiguration": "Konfiguracja zakładki",
+    "import": "Importuj"
 }

@@ -17,10 +17,10 @@
                 v-for="(item, index) in contextMenuList"
                 :key="index"
                 density="compact"
-                :min-height="24"
+                :min-height="32"
                 :disabled="item.disabled"
-                :max-height="24"
-                class="pa-0 ma-0 pr-2 pl-3 mt-1 mb-1 rounded-0"
+                :max-height="32"
+                class="pa-0 ma-0 pr-2 pl-3 mb-1 rounded-0"
                 @click="item.method()"
             >
                 <template #append>

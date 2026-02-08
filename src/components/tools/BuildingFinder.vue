@@ -113,6 +113,7 @@ const getContextMenuList = (item: UpwrBuildingsMetadata): ContextMenuListType =>
                         props: {
                             buildingMetadata: item,
                         },
+                        icon: 'mdi-information-outline',
                     })
                 }
             },

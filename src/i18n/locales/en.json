@@ -143,5 +143,10 @@
     "bookmarkName": "Bookmark Name",
     "options": "Options",
     "run": "Run",
-    "delete": "Delete"
+    "delete": "Delete",
+    "copyConfiguration": "Copy Configuration",
+    "bookmarkConfigurationCopied": "Bookmark configuration copied to clipboard",
+    "importBookmark": "Import Bookmark",
+    "bookmarkConfiguration": "Bookmark Configuration",
+    "import": "Import"
 }

@@ -4,7 +4,7 @@ import { globeInstance } from './globe/globe'
 import { Cartesian3 } from '@cesium/engine'
 import { ShadowMode } from '@cesium/engine'
 import { JulianDate } from '@cesium/engine'
-import { useToolsStore } from '@/stores'
+import { useNotifyStore, useToolsStore } from '@/stores'
 import type { ToolsKeys } from './tools'
 
 export const getBookmarks = (): ViewsBookmarks => {
@@ -219,4 +219,30 @@ export const runBookmark = (bookmark: ViewsBookmarks['bookmarks'][number]) => {
     if (objectInfo) {
         openObjectInfos(objectInfo)
     }
+}
+
+export const importBookmarkConfiguration = (
+    bookmarkConfig: ViewsBookmarks['bookmarks'][number],
+) => {
+    const actualBookmarks = getBookmarks()
+
+    const updatedBookmarks = [...actualBookmarks.bookmarks, bookmarkConfig]
+
+    const bookmarksToStore: ViewsBookmarks = {
+        bookmarks: updatedBookmarks,
+    }
+
+    localStorage.setItem('viewsBookmarks', JSON.stringify(bookmarksToStore))
+}
+
+export const copyBookmarkConfiguration = (bookmark: ViewsBookmarks['bookmarks'][number]) => {
+    navigator.clipboard.writeText(JSON.stringify(bookmark))
+
+    useNotifyStore().showNotify({
+        msg: 'bookmarkConfigurationCopied',
+        notifyType: 'success',
+        notifyDuration: 2000,
+        notifyIcon: 'mdi-content-copy',
+        notifyWidth: 300,
+    })
 }
