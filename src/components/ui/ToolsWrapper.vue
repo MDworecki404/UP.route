@@ -4,10 +4,10 @@
         elevation="2"
         class="pa-0 ma-0"
         rounded="0"
-        style="z-index: 100"
+        :style="{ zIndex: fullscreen && !isMinimizedTool(id) ? 99999 : 100 }"
         :class="{
             'tools-wrapper-card-mobile': mobile,
-            'tools-wrapper-fullscreen': mobile && fullscreen && !isMinimizedTool(id),
+            'tools-wrapper-fullscreen': fullscreen && !isMinimizedTool(id),
         }"
     >
         <v-card-title class="pa-0 ma-0">
@@ -19,7 +19,7 @@
                     isMinimizedTool(id) ? () => restoreTool(id) : () => minimizeTool(id)
                 "
                 :fullscreen="fullscreen"
-                :set-fullscreen-custom-func="() => toggleFullScreenMobileTool(id)"
+                :set-fullscreen-custom-func="() => toggleFullscreen(id)"
                 :minimized="isMinimizedTool(id)"
                 :show-minimize="true"
             ></ToolToolbar>
@@ -28,7 +28,7 @@
             v-show="!isMinimizedTool(id)"
             class="ma-0 pa-2 overflow-y-auto"
             :class="{ 'tools-wrapper-content-mobile': mobile }"
-            :style="!fullscreen ? `max-height: ${maxHeight ?? '400px'}` : ''"
+            :style="!fullscreen ? `max-height: ${maxHeight}` : ''"
         >
             <slot name="card-text" />
         </v-card-text>
@@ -49,8 +49,7 @@ defineProps<{
     fullscreen?: ToolsMap['fullscreen']
 }>()
 
-const { closeTool, minimizeTool, isMinimizedTool, restoreTool, toggleFullScreenMobileTool } =
-    useToolsStore()
+const { closeTool, minimizeTool, isMinimizedTool, restoreTool, toggleFullscreen } = useToolsStore()
 const { mobile } = useDisplay()
 </script>
 
@@ -64,6 +63,11 @@ const { mobile } = useDisplay()
 .tools-wrapper-fullscreen {
     max-height: 100dvh !important;
     height: 100dvh;
+    width: 100dvw !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
 }
 
 .tools-wrapper-content-mobile {

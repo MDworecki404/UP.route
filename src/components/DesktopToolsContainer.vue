@@ -6,6 +6,7 @@
             :id="tool.id"
             :width="tool.width"
             :max-height="tool.maxHeight"
+            :fullscreen="tool.fullscreen"
             :icon="tool.icon"
             class="mb-1"
         >

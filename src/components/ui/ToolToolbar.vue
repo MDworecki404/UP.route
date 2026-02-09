@@ -16,14 +16,14 @@
         </template>
         <template #append>
             <v-icon
-                v-if="mobile && !hideFullscreenIcon"
+                v-if="!hideFullscreenIcon"
                 color="primary"
                 style="cursor: pointer"
                 @click="setFullscreenCustomFunc && setFullscreenCustomFunc()"
                 >{{ !fullscreen ? 'mdi-fullscreen' : 'mdi-fullscreen-exit' }}</v-icon
             >
             <v-icon
-                v-if="showMinimize"
+                v-if="showMinimize && !fullscreen"
                 color="primary"
                 style="cursor: pointer"
                 @click="minimizeCustomFunc && minimizeCustomFunc()"
@@ -42,10 +42,6 @@
 </template>
 
 <script setup lang="ts">
-import { useDisplay } from 'vuetify'
-
-const { mobile } = useDisplay()
-
 defineProps<{
     icon?: string
     title?: string

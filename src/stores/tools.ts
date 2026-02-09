@@ -92,7 +92,11 @@ export const useToolsStore = defineStore('tools', () => {
         }
     }
 
-    const toggleFullScreenMobileTool = (id: string) => {
+    const toggleFullscreen = (id: string) => {
+        activeTools.value.forEach((tool) => {
+            if (tool.id !== id) tool.fullscreen = false
+        })
+
         const tool = activeTools.value?.get(id)
         if (tool) {
             tool.fullscreen = !tool.fullscreen
@@ -108,6 +112,6 @@ export const useToolsStore = defineStore('tools', () => {
         minimizeTool,
         restoreTool,
         isMinimizedTool,
-        toggleFullScreenMobileTool,
+        toggleFullscreen,
     }
 })
