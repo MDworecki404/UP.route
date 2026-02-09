@@ -64,6 +64,9 @@ export const useToolsStore = defineStore('tools', () => {
     const minimizeTool = (id: string) => {
         const tool = activeTools.value?.get(id)
         if (tool) {
+            if (tool.fullscreen) {
+                tool.fullscreen = false
+            }
             tool.isMinimized = true
         }
     }
@@ -99,6 +102,9 @@ export const useToolsStore = defineStore('tools', () => {
 
         const tool = activeTools.value?.get(id)
         if (tool) {
+            if (tool.isMinimized) {
+                tool.isMinimized = false
+            }
             tool.fullscreen = !tool.fullscreen
         }
     }
