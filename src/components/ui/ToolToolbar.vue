@@ -23,7 +23,7 @@
                 >{{ !fullscreen ? 'mdi-fullscreen' : 'mdi-fullscreen-exit' }}</v-icon
             >
             <v-icon
-                v-if="showMinimize && !fullscreen"
+                v-if="showMinimize"
                 color="primary"
                 style="cursor: pointer"
                 @click="minimizeCustomFunc && minimizeCustomFunc()"
