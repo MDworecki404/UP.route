@@ -1,11 +1,11 @@
-import type { ToolsMap } from '@/services/tools'
+import type { ToolsKeys, ToolsMap } from '@/services/tools'
 import { defineStore } from 'pinia'
 import { computed, markRaw, ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 export const useToolsStore = defineStore('tools', () => {
     const { mobile } = useDisplay()
-    const activeTools = ref<Map<string, ToolsMap>>(new Map())
+    const activeTools = ref<Map<ToolsKeys, ToolsMap>>(new Map())
     const activeToolsArray = ref<ToolsMap[]>([])
 
     const currentTool = computed<ToolsMap | null>(() => {
@@ -56,12 +56,12 @@ export const useToolsStore = defineStore('tools', () => {
         activeToolsArray.value.unshift(toolData)
     }
 
-    const closeTool = (id: string) => {
+    const closeTool = (id: ToolsKeys) => {
         activeTools.value?.delete(id)
         activeToolsArray.value = activeToolsArray.value.filter((tool) => tool.id !== id)
     }
 
-    const minimizeTool = (id: string) => {
+    const minimizeTool = (id: ToolsKeys) => {
         const tool = activeTools.value?.get(id)
         if (tool) {
             if (tool.fullscreen) {
@@ -71,12 +71,12 @@ export const useToolsStore = defineStore('tools', () => {
         }
     }
 
-    const isMinimizedTool = (id: string): boolean => {
+    const isMinimizedTool = (id: ToolsKeys): boolean => {
         const tool = activeTools.value?.get(id)
         return tool?.isMinimized ?? false
     }
 
-    const restoreTool = (id: string) => {
+    const restoreTool = (id: ToolsKeys) => {
         if (mobile.value) {
             activeToolsArray.value.forEach((tool) => {
                 if (tool.id !== id) tool.isMinimized = true
@@ -95,7 +95,7 @@ export const useToolsStore = defineStore('tools', () => {
         }
     }
 
-    const toggleFullscreen = (id: string) => {
+    const toggleFullscreen = (id: ToolsKeys) => {
         activeTools.value.forEach((tool) => {
             if (tool.id !== id) tool.fullscreen = false
         })

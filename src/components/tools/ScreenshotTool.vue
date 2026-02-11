@@ -13,6 +13,7 @@
                     location: 'bottom',
                     text: $t('refresh'),
                 }"
+                elevation="0"
                 @click="refresh"
             />
             <div>
@@ -36,16 +37,31 @@
 
 <script setup lang="ts">
 import { globeInstance } from '@/services/globe/globe'
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import TextButton from '../ui/TextButton.vue'
 import ActionButton from '../ui/ActionButton.vue'
 import { addWaterMarkToScreenshot, imageToJPG, imageToPdf } from '@/services/utils'
+import { useToolsStore } from '@/stores'
+import { storeToRefs } from 'pinia'
 
 const img = ref<string>('')
 const cropperRef = useTemplateRef('cropperRef')
 const isLoading = ref(true)
+const listenersRemovers: (() => void)[] = []
+const storeRefs = storeToRefs(useToolsStore())
+const { activeTools } = storeRefs
+const thisTool = activeTools.value.get('screenshotTool')!
+
+watch(
+    () => thisTool.fullscreen,
+    () => {
+        if (cropperRef.value) {
+            cropperRef.value.refresh()
+        }
+    },
+)
 
 const onCropperReady = () => {
     isLoading.value = false
@@ -74,14 +90,33 @@ const refresh = () => {
     img.value = getGlobeActualView()
 }
 
+const cameraMoveHandler = () => {
+    const listener = globeInstance.viewer.camera.moveEnd.addEventListener(refresh)
+    listenersRemovers.push(listener)
+}
+
 onMounted(() => {
     img.value = getGlobeActualView()
+    cameraMoveHandler()
+})
+
+onUnmounted(() => {
+    listenersRemovers.forEach((remove) => remove())
 })
 </script>
 
 <style scoped>
 .cropper {
     width: 95%;
-    height: 95%;
+    max-height: calc(100vh - 180px);
+    overflow: hidden;
+    display: block;
+}
+
+:deep(.cropper__canvas),
+:deep(.cropper__image),
+:deep(.cropper__editor) {
+    height: 100% !important;
+    max-height: 100% !important;
 }
 </style>

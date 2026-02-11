@@ -229,18 +229,26 @@ export const addWaterMarkToScreenshot = async (
     try {
         const logo = await loadImage(watermarkUrl)
 
-        const logoWidth = logo.naturalWidth
-        const logoHeight = logo.naturalHeight
-
         const canvasWidth = canvas.width
         const canvasHeight = canvas.height
 
+        const ORIGINAL_W = 465
+        const ORIGINAL_H = 100
+
+        const maxWidth = canvasWidth * 0.25
+        const maxHeight = canvasHeight * 0.12
+
+        const scale = Math.min(maxWidth / ORIGINAL_W, maxHeight / ORIGINAL_H, 1)
+
+        const drawWidth = Math.round(ORIGINAL_W * scale)
+        const drawHeight = Math.round(ORIGINAL_H * scale)
+
         const margin = 0
 
-        const x = Math.max(0, canvasWidth - logoWidth - margin)
-        const y = Math.max(0, canvasHeight - logoHeight - margin)
+        const x = Math.max(0, canvasWidth - drawWidth - margin)
+        const y = Math.max(0, canvasHeight - drawHeight - margin)
 
-        ctx.drawImage(logo, x, y)
+        ctx.drawImage(logo, x, y, drawWidth, drawHeight)
 
         return canvas.toDataURL('image/png')
     } catch (error) {
@@ -266,12 +274,9 @@ export const imageToPdf = (imageDataUrl: string, filename: string): void => {
 }
 
 export const imageToJPG = (imageDataUrl: string, filename: string): void => {
-    // 1. Tworzymy obiekt obrazka
     const img = new Image()
 
-    // 2. Czekamy, aż obrazek wczyta dane z Base64
     img.onload = () => {
-        // 3. Tworzymy tymczasowy canvas w pamięci (nie dodajemy go do DOM)
         const canvas = document.createElement('canvas')
         canvas.width = img.width
         canvas.height = img.height
@@ -279,34 +284,25 @@ export const imageToJPG = (imageDataUrl: string, filename: string): void => {
         const ctx = canvas.getContext('2d')
         if (!ctx) return
 
-        // 4. KLUCZOWE: Wypełniamy tło na biało
-        // Bez tego przezroczyste fragmenty z PNG stałyby się czarne w pliku JPG
         ctx.fillStyle = '#FFFFFF'
         ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-        // 5. Rysujemy nasz oryginalny obrazek na białym tle
         ctx.drawImage(img, 0, 0)
 
-        // 6. Konwertujemy gotowy canvas na format JPG (jakość od 0.0 do 1.0)
         const jpegDataUrl = canvas.toDataURL('image/jpeg', 1.0)
 
-        // 7. Tworzymy wirtualny link do pobrania pliku
         const link = document.createElement('a')
         link.href = jpegDataUrl
 
-        // Zapewniamy poprawne rozszerzenie
         const finalFilename = filename.toLowerCase().endsWith('.jpg') ? filename : `${filename}.jpg`
 
         link.download = finalFilename
 
-        // 8. Symulujemy kliknięcie, aby rozpocząć pobieranie
         document.body.appendChild(link)
         link.click()
 
-        // 9. Sprzątamy po sobie
         document.body.removeChild(link)
     }
 
-    // Uruchamia proces ładowania obrazka
     img.src = imageDataUrl
 }

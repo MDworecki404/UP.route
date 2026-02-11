@@ -12,6 +12,7 @@
             :title="'layers'"
             :icon-custom-func="() => performAction({ actionId: 'toggleLayersDrawer' })"
             :hide-close-icon="true"
+            :hide-fullscreen-icon="true"
         />
         <LayersTree />
     </v-navigation-drawer>
