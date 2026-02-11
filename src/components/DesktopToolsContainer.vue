@@ -8,6 +8,7 @@
             :max-height="tool.maxHeight"
             :fullscreen="tool.fullscreen"
             :icon="tool.icon"
+            :custom-title="tool.customTitle"
             class="mb-1"
         >
             <template #card-text>

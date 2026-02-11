@@ -152,5 +152,14 @@
     "bookmarkConfigurationCopied": "Konfiguracja zakładki skopiowana do schowka",
     "importBookmark": "Importuj zakładkę",
     "bookmarkConfiguration": "Konfiguracja zakładki",
-    "import": "Importuj"
+    "import": "Importuj",
+    "adjust": "Dostosuj",
+    "brightness": "Jasność",
+    "contrast": "Kontrast",
+    "hue": "Odcień",
+    "saturation": "Nasycenie",
+    "gamma": "Gamma",
+    "alpha": "Przezroczystość",
+    "rasterAdjustment": "Dostosowywanie warstwy",
+    "restoreDefault": "Przywróć domyślne"
 }

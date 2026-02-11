@@ -5,7 +5,7 @@ import { useDisplay } from 'vuetify'
 
 export const useToolsStore = defineStore('tools', () => {
     const { mobile } = useDisplay()
-    const activeTools = ref<Map<ToolsKeys, ToolsMap>>(new Map())
+    const activeTools = ref<Map<ToolsKeys | string, ToolsMap>>(new Map())
     const activeToolsArray = ref<ToolsMap[]>([])
 
     const currentTool = computed<ToolsMap | null>(() => {
@@ -25,24 +25,31 @@ export const useToolsStore = defineStore('tools', () => {
         maxHeight,
         width,
         fullscreen = false,
+        customTitle,
     }: ToolsMap) => {
+        let toolId: ToolsKeys | string = id
+
+        if (id === 'rasterAdjustment') {
+            toolId = 'rasterAdjustment-' + crypto.randomUUID()
+        }
+
         if (mobile.value) {
-            if (activeTools.value?.has(id)) {
-                closeTool(id)
+            if (activeTools.value?.has(toolId)) {
+                closeTool(toolId)
                 return
             }
             activeToolsArray.value.forEach((tool) => {
-                if (tool.id !== id) tool.isMinimized = true
+                if (tool.id !== toolId) tool.isMinimized = true
             })
         } else {
-            if (activeTools.value?.has(id)) {
-                closeTool(id)
+            if (activeTools.value?.has(toolId)) {
+                closeTool(toolId)
                 return
             }
         }
 
         const toolData: ToolsMap = {
-            id,
+            id: toolId,
             component: markRaw(component),
             props,
             icon,
@@ -50,18 +57,19 @@ export const useToolsStore = defineStore('tools', () => {
             maxHeight,
             width,
             fullscreen,
+            customTitle,
         }
 
-        activeTools.value?.set(id, toolData)
+        activeTools.value?.set(toolId, toolData)
         activeToolsArray.value.unshift(toolData)
     }
 
-    const closeTool = (id: ToolsKeys) => {
+    const closeTool = (id: ToolsKeys | string) => {
         activeTools.value?.delete(id)
         activeToolsArray.value = activeToolsArray.value.filter((tool) => tool.id !== id)
     }
 
-    const minimizeTool = (id: ToolsKeys) => {
+    const minimizeTool = (id: ToolsKeys | string) => {
         const tool = activeTools.value?.get(id)
         if (tool) {
             if (tool.fullscreen) {
@@ -71,12 +79,12 @@ export const useToolsStore = defineStore('tools', () => {
         }
     }
 
-    const isMinimizedTool = (id: ToolsKeys): boolean => {
+    const isMinimizedTool = (id: ToolsKeys | string): boolean => {
         const tool = activeTools.value?.get(id)
         return tool?.isMinimized ?? false
     }
 
-    const restoreTool = (id: ToolsKeys) => {
+    const restoreTool = (id: ToolsKeys | string) => {
         if (mobile.value) {
             activeToolsArray.value.forEach((tool) => {
                 if (tool.id !== id) tool.isMinimized = true
@@ -95,7 +103,7 @@ export const useToolsStore = defineStore('tools', () => {
         }
     }
 
-    const toggleFullscreen = (id: ToolsKeys) => {
+    const toggleFullscreen = (id: ToolsKeys | string) => {
         activeTools.value.forEach((tool) => {
             if (tool.id !== id) tool.fullscreen = false
         })

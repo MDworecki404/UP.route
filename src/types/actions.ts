@@ -8,6 +8,7 @@ export const ToggleToolActionSchema = z.object({
     props: z.record(z.string(), z.any()).optional(),
     width: z.number().optional(),
     maxHeight: z.number().optional(),
+    customTitle: z.string().optional(),
 })
 
 export const ToggleLayersDrawerSchema = z.object({

@@ -13,6 +13,7 @@
             "
             :icon="currentTool?.icon"
             :fullscreen="currentTool?.fullscreen"
+            :custom-title="currentTool?.customTitle"
         >
             <template #card-text>
                 <component :is="currentTool?.component" v-bind="currentTool?.props" />

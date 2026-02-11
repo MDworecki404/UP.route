@@ -95,3 +95,12 @@ export const LayersUnionSchema = z.discriminatedUnion('type', [
 ])
 
 export type LayersUnionType = z.infer<typeof LayersUnionSchema>
+
+export type RasterLayerAdjustmentOptions = {
+    brightness?: number
+    contrast?: number
+    hue?: number
+    saturation?: number
+    gamma?: number
+    alpha?: number
+}

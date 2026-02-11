@@ -13,7 +13,7 @@
         <v-card-title class="pa-0 ma-0">
             <ToolToolbar
                 :icon="icon"
-                :title="id"
+                :title="customTitle ?? id"
                 :close-custom-func="() => closeTool(id)"
                 :minimize-custom-func="
                     isMinimizedTool(id) ? () => restoreTool(id) : () => minimizeTool(id)
@@ -47,6 +47,7 @@ defineProps<{
     id: ToolsMap['id']
     icon?: ToolsMap['icon']
     fullscreen?: ToolsMap['fullscreen']
+    customTitle?: ToolsMap['customTitle']
 }>()
 
 const { closeTool, minimizeTool, isMinimizedTool, restoreTool, toggleFullscreen } = useToolsStore()

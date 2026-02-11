@@ -247,6 +247,23 @@ const getImageryLayerContextMenuList = (item: TreeNodeLayer): ContextMenuListTyp
             }
         },
     },
+    {
+        text: 'adjust',
+        icon: 'mdi-tune',
+        method: async () => {
+            const { performAction } = await import('@/services/actions')
+            performAction({
+                actionId: 'toggleTool',
+                icon: 'mdi-tune',
+                toolId: 'rasterAdjustment',
+                width: 450,
+                customTitle: `${t('adjust')} - ${item.title}`,
+                props: {
+                    layerId: item.id,
+                },
+            })
+        },
+    },
 ]
 
 const get3DTilesAndCZMLContextMenuList = (item: TreeNodeLayer): ContextMenuListType => [

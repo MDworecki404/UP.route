@@ -148,5 +148,14 @@
     "bookmarkConfigurationCopied": "Bookmark configuration copied to clipboard",
     "importBookmark": "Import Bookmark",
     "bookmarkConfiguration": "Bookmark Configuration",
-    "import": "Import"
+    "import": "Import",
+    "adjust": "Adjust",
+    "brightness": "Brightness",
+    "contrast": "Contrast",
+    "hue": "Hue",
+    "saturation": "Saturation",
+    "gamma": "Gamma",
+    "alpha": "Transparency",
+    "rasterAdjustment": "Layer Adjustment",
+    "restoreDefault": "Restore Default"
 }

@@ -18,6 +18,7 @@ export const TOOLS_KEYS = [
     'chartView',
     'screenshotTool',
     'viewsBookmarks',
+    'rasterAdjustment',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -30,13 +31,14 @@ export interface ToolsDictionary {
 }
 
 export type ToolsMap = {
-    id: ToolsKeys
+    id: ToolsKeys | string
     component: Tool
     props?: Record<string, unknown>
     width?: number
     maxHeight?: number
     isMinimized?: boolean
     fullscreen?: boolean
+    customTitle?: string
     icon?: string
 }
 
@@ -55,6 +57,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     chartView: (await import('@/components/tools/ChartView.vue')).default,
     screenshotTool: (await import('@/components/tools/ScreenshotTool.vue')).default,
     viewsBookmarks: (await import('@/components/tools/ViewsBookmarks.vue')).default,
+    rasterAdjustment: (await import('@/components/tools/RasterAdjustment.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

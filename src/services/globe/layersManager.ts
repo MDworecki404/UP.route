@@ -20,8 +20,8 @@ import {
 import type { Viewer } from '@cesium/widgets'
 import { LayerBase } from '../base/layers'
 import { applyLayerFilter } from '../customs/layersFilters'
-import { fetchJsonFile } from '../utils'
 import { appLoadingInfo } from '../eventBus'
+import { fetchJsonFile } from '../utils'
 
 export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
 

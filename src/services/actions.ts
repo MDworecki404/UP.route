@@ -20,6 +20,7 @@ const toggleTool = async (config: Action) => {
         width: config.width,
         icon: config.icon,
         maxHeight: config.maxHeight,
+        customTitle: config.customTitle,
     })
 
     actionPerformed.raiseEvent(config)
