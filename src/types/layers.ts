@@ -104,3 +104,11 @@ export type RasterLayerAdjustmentOptions = {
     gamma?: number
     alpha?: number
 }
+
+export const PointCloudLayerAdjustmentOptionsSchema = Cesium3DTilesPointCloudSchema.omit({
+    type: true,
+})
+
+export type PointCloudLayerAdjustmentOptions = z.infer<
+    typeof PointCloudLayerAdjustmentOptionsSchema
+>

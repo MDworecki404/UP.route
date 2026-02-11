@@ -33,6 +33,10 @@ export const useToolsStore = defineStore('tools', () => {
             toolId = 'rasterAdjustment-' + crypto.randomUUID()
         }
 
+        if (id === 'pointCloudAdjustment') {
+            toolId = 'pointCloudAdjustment-' + crypto.randomUUID()
+        }
+
         if (mobile.value) {
             if (activeTools.value?.has(toolId)) {
                 closeTool(toolId)

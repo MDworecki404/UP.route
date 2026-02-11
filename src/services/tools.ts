@@ -19,6 +19,7 @@ export const TOOLS_KEYS = [
     'screenshotTool',
     'viewsBookmarks',
     'rasterAdjustment',
+    'pointCloudAdjustment',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -58,6 +59,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     screenshotTool: (await import('@/components/tools/ScreenshotTool.vue')).default,
     viewsBookmarks: (await import('@/components/tools/ViewsBookmarks.vue')).default,
     rasterAdjustment: (await import('@/components/tools/RasterAdjustment.vue')).default,
+    pointCloudAdjustment: (await import('@/components/tools/PointCloudAdjustment.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

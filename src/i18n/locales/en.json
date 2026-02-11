@@ -157,5 +157,6 @@
     "gamma": "Gamma",
     "alpha": "Transparency",
     "rasterAdjustment": "Layer Adjustment",
-    "restoreDefault": "Restore Default"
+    "restoreDefault": "Restore Default",
+    "pointSize": "Point size"
 }

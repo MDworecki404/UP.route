@@ -49,8 +49,19 @@
                         :elevation="0"
                     />
                 </template>
+
+                <template v-if="item.type === 'layer' && item.isPointCloud">
+                    <context-menu-button
+                        :context-menu-list="getContextMenuListForPointCloudLayer(item)"
+                        icon="mdi-dots-vertical"
+                        location="right"
+                        size="x-small"
+                        :iconSize="18"
+                        :elevation="0"
+                    />
+                </template>
                 <template
-                    v-if="
+                    v-else-if="
                         item.type === 'layer' &&
                         (item.layerType === '3dtiles' || item.layerType === 'czml')
                     "
@@ -98,6 +109,7 @@ type TreeNodeLayer = {
     title: string
     type: 'layer'
     layerType: LayersUnionType['type']
+    isPointCloud?: boolean
 }
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
@@ -125,6 +137,9 @@ const treeItems = computed(() => {
             return {
                 ...node,
                 title: layer ? translate(layer.config.name).value! : node.title,
+                isPointCloud:
+                    layer?.config.type === '3dtiles' &&
+                    layer.config.tilesProps?.type === 'pointCloud',
             }
         }
     })
@@ -177,6 +192,9 @@ const populateTreeStructure = () => {
                     title: '',
                     type: 'layer',
                     layerType: layer.config.type,
+                    isPointCloud:
+                        layer.config.type === '3dtiles' &&
+                        layer.config.tilesProps?.type === 'pointCloud',
                 })
             }
         } else {
@@ -185,6 +203,9 @@ const populateTreeStructure = () => {
                 title: '',
                 type: 'layer',
                 layerType: layer.config.type,
+                isPointCloud:
+                    layer.config.type === '3dtiles' &&
+                    layer.config.tilesProps?.type === 'pointCloud',
             })
         }
     })
@@ -272,6 +293,27 @@ const get3DTilesAndCZMLContextMenuList = (item: TreeNodeLayer): ContextMenuListT
         icon: 'mdi-magnify-scan',
         method: () => {
             zoomToLayerById(item.id)
+        },
+    },
+]
+
+const getContextMenuListForPointCloudLayer = (item: TreeNodeLayer): ContextMenuListType => [
+    ...get3DTilesAndCZMLContextMenuList(item),
+    {
+        text: 'adjust',
+        icon: 'mdi-tune',
+        method: async () => {
+            const { performAction } = await import('@/services/actions')
+            performAction({
+                actionId: 'toggleTool',
+                icon: 'mdi-tune',
+                toolId: 'pointCloudAdjustment',
+                width: 450,
+                customTitle: `${t('adjust')} - ${item.title}`,
+                props: {
+                    layerId: item.id,
+                },
+            })
         },
     },
 ]

@@ -161,5 +161,6 @@
     "gamma": "Gamma",
     "alpha": "Przezroczystość",
     "rasterAdjustment": "Dostosowywanie warstwy",
-    "restoreDefault": "Przywróć domyślne"
+    "restoreDefault": "Przywróć domyślne",
+    "pointSize": "Rozmiar punktu"
 }

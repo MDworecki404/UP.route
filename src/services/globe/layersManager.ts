@@ -3,6 +3,7 @@ import {
     type CZMLLayerType,
     type LayersUnionType,
     type OSMLayerType,
+    type PointCloudLayerAdjustmentOptions,
     type TerrainLayerType,
     type XYZLayerType,
 } from '@/types/layers'
@@ -195,6 +196,22 @@ export class Cesium3DTilesLayer extends LayerBase<Cesium3DTileset> {
                 })
                 break
         }
+    }
+
+    setPointCloudLayerProperties(options: PointCloudLayerAdjustmentOptions): void {
+        if (!this._layer || this._config.tilesProps?.type !== 'pointCloud') return
+
+        this._layer.style = new Cesium3DTileStyle({
+            pointSize: options.pointSize,
+            pointCloudShading: {
+                attenuation: options.pointCloudShading?.attenuation,
+                geometricErrorScale: options.pointCloudShading?.geometricErrorScale,
+                baseResolution: options.pointCloudShading?.baseResolution,
+                eyeDomeLighting: options.pointCloudShading?.eyeDomeLighting,
+                eyeDomeLightingStrength: options.pointCloudShading?.eyeDomeLightingStrength,
+                eyeDomeLightingRadius: options.pointCloudShading?.eyeDomeLightingRadius,
+            },
+        })
     }
 
     destroy(): void {
