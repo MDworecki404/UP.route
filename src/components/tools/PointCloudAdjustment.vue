@@ -13,14 +13,6 @@
                 @update:model-value="updatePointCloudProps"
             ></v-number-input>
         </v-row>
-        <v-row dense no-gutters class="ga-2">
-            <v-switch
-                v-model="options.pointCloudShading!.attenuation"
-                density="compact"
-                :label="$t('pointCloudAttenuation')"
-                @update:model-value="updatePointCloudProps"
-            ></v-switch>
-        </v-row>
     </v-card-text>
 </template>
 
