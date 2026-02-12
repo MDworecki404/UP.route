@@ -173,5 +173,7 @@
     "byCar": "Samochodem",
     "byBike": "Rowerem",
     "modes": "Tryby",
-    "settings": "Ustawienia"
+    "settings": "Ustawienia",
+    "enableTracking": "Włącz śledzenie pozycji",
+    "disableTracking": "Wyłącz śledzenie pozycji"
 }

@@ -169,5 +169,7 @@
     "byCar": "By Car",
     "byBike": "By Bike",
     "modes": "Modes",
-    "settings": "Settings"
+    "settings": "Settings",
+    "enableTracking": "Enable tracking of user position",
+    "disableTracking": "Disable tracking of user position"
 }

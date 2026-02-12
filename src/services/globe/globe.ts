@@ -12,6 +12,7 @@ import type { DrawService } from './draw'
 import type { FloodSim } from './floodSim'
 import type { ProfileManager } from './profile'
 import type { RouteFinder } from '../nearestRouteFinder/routeFinder'
+import type { UserPositionService } from './userPositions'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -24,6 +25,7 @@ export class GlobeService {
     private _floodSim: FloodSim | null = null
     private _profileManager: ProfileManager | null = null
     private _routeFinder: RouteFinder | null = null
+    private _userPositionService: UserPositionService | null = null
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
@@ -87,6 +89,13 @@ export class GlobeService {
         return this._routeFinder
     }
 
+    get userPositionService(): UserPositionService {
+        if (!this._userPositionService) {
+            throw new Error('UserPositionService is not initialized')
+        }
+        return this._userPositionService
+    }
+
     public async initServices(): Promise<void> {
         const { LayersManager } = await import('./layersManager')
         const { TimeManager } = await import('./time')
@@ -96,6 +105,7 @@ export class GlobeService {
         const { FloodSim } = await import('./floodSim')
         const { ProfileManager } = await import('./profile')
         const { RouteFinder } = await import('../nearestRouteFinder/routeFinder')
+        const { UserPositionService } = await import('./userPositions')
 
         if (!this._viewer) {
             throw new Error('Viewer is not initialized')
@@ -113,6 +123,7 @@ export class GlobeService {
         this._floodSim = new FloodSim(this._viewer!, this._layersManager, this._events)
         this._profileManager = new ProfileManager(this._viewer!, this._events)
         this._routeFinder = new RouteFinder(this._viewer!)
+        this._userPositionService = new UserPositionService(this._viewer!)
     }
 
     private setInitialView(): void {

@@ -12,6 +12,23 @@
         <v-btn
             icon
             size="26"
+            @click="toggleTracking"
+            rounded="0"
+            v-tooltip="{
+                text: trackingEnabled ? $t('disableTracking') : $t('enableTracking'),
+                location: 'left',
+            }"
+            color="primary"
+            variant="outlined"
+            class="bg-background mb-2"
+        >
+            <v-icon color="primary" :size="18">{{
+                trackingEnabled ? 'mdi-crosshairs' : 'mdi-crosshairs-off'
+            }}</v-icon>
+        </v-btn>
+        <v-btn
+            icon
+            size="26"
             @click="setNorthUp"
             rounded="0"
             v-tooltip="{
@@ -67,6 +84,17 @@ const { mobile } = useDisplay()
 
 const cameraPitch = ref(0)
 const cameraHeading = ref(0)
+
+const trackingEnabled = ref(false)
+
+const toggleTracking = () => {
+    trackingEnabled.value = !trackingEnabled.value
+    if (trackingEnabled.value) {
+        globeInstance.userPositionService.enableUserPositionTracking()
+    } else {
+        globeInstance.userPositionService.disableUserPositionTracking()
+    }
+}
 
 const changeCameraPitch = (value: number) => {
     globeInstance.viewer.camera.setView({
