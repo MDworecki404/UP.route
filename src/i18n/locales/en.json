@@ -159,10 +159,15 @@
     "rasterAdjustment": "Layer Adjustment",
     "restoreDefault": "Restore Default",
     "pointSize": "Point size",
-    "startBuilding": "Budynek początkowy",
-    "endBuilding": "Budynek końcowy",
-    "showRoute": "Pokaż trasę",
-    "routeFinder": "Wyszukiwarka tras",
-    "buildingToBuilding": "Budynek do budynku",
-    "userToBuilding": "Użytkownik do budynku"
+    "startBuilding": "Start Building",
+    "endBuilding": "End Building",
+    "showRoute": "Show Route",
+    "routeFinder": "Route Finder",
+    "buildingToBuilding": "Building to Building",
+    "userToBuilding": "User to Building",
+    "byFoot": "By Foot",
+    "byCar": "By Car",
+    "byBike": "By Bike",
+    "modes": "Modes",
+    "settings": "Settings"
 }

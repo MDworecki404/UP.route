@@ -168,5 +168,10 @@
     "showRoute": "Pokaż trasę",
     "routeFinder": "Wyszukiwarka tras",
     "buildingToBuilding": "Budynek do budynku",
-    "userToBuilding": "Użytkownik do budynku"
+    "userToBuilding": "Użytkownik do budynku",
+    "byFoot": "Pieszo",
+    "byCar": "Samochodem",
+    "byBike": "Rowerem",
+    "modes": "Tryby",
+    "settings": "Ustawienia"
 }

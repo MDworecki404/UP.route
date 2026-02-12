@@ -13,8 +13,57 @@
             </v-tab>
         </v-tabs>
 
-        <v-tabs-window v-model="tab" class="pt-4">
+        <v-tabs-window v-model="tab" class="pt-3">
             <v-tabs-window-item value="b2b">
+                <div class="mb-3">
+                    <v-divider>{{ $t('modes') }}</v-divider>
+                </div>
+                <v-row dense no-gutters justify="center" class="ga-5 pb-3">
+                    <ActionButton
+                        :icon="'mdi-walk'"
+                        :tooltip="{
+                            location: 'bottom',
+                            text: $t('byFoot'),
+                        }"
+                        variant="outlined"
+                        :color="routeType === 'foot' ? 'success' : 'primary'"
+                        :size="29"
+                        :icon-size="24"
+                        :icon-color="routeType === 'foot' ? 'success' : 'primary'"
+                        @click="routeType = 'foot'"
+                    />
+                    <ActionButton
+                        :icon="'mdi-bike'"
+                        :tooltip="{
+                            location: 'bottom',
+                            text: $t('byBike'),
+                        }"
+                        variant="outlined"
+                        :color="routeType === 'bike' ? 'success' : 'primary'"
+                        :size="29"
+                        :icon-size="24"
+                        :icon-color="routeType === 'bike' ? 'success' : 'primary'"
+                        @click="routeType = 'bike'"
+                    />
+                    <ActionButton
+                        :icon="'mdi-car'"
+                        :tooltip="{
+                            location: 'bottom',
+                            text: $t('byCar'),
+                        }"
+                        variant="outlined"
+                        :color="routeType === 'car' ? 'success' : 'primary'"
+                        :size="29"
+                        :icon-size="24"
+                        :icon-color="routeType === 'car' ? 'success' : 'primary'"
+                        @click="routeType = 'car'"
+                    />
+                </v-row>
+
+                <div class="my-3">
+                    <v-divider>{{ $t('settings') }}</v-divider>
+                </div>
+
                 <v-row dense no-gutters>
                     <v-autocomplete
                         v-model="startBuilding"
@@ -47,6 +96,8 @@
                         :text="$t('showRoute')"
                         color="primary"
                         prepend-icon="mdi-navigation-variant-outline"
+                        :disabled="!startBuilding || !endBuilding"
+                        @click="triggerB2BRouteFinding"
                     />
                 </v-row>
             </v-tabs-window-item>
@@ -60,16 +111,31 @@
 <script lang="ts" setup>
 import { fetchJsonFile } from '@/services/utils'
 import { upwrBuildingsMetadataArraySchema, type UpwrBuildingsMetadataArray } from '@/types/customs'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { safeParse } from 'zod'
 import TextButton from '../ui/TextButton.vue'
+import { globeInstance } from '@/services/globe/globe'
+import ActionButton from '../ui/ActionButton.vue'
 
 const tab = ref('b2b')
 
 const buildings = ref<UpwrBuildingsMetadataArray>([])
 
-const startBuilding = ref<string | null>(null)
-const endBuilding = ref<string | null>(null)
+const startBuilding = ref<string | null>('C1')
+const endBuilding = ref<string | null>('B8')
+const routeType = ref<'bike' | 'foot' | 'car'>('bike')
+
+const triggerB2BRouteFinding = async () => {
+    if (!startBuilding.value || !endBuilding.value) {
+        return
+    }
+
+    await globeInstance.routeFinder.b2bRoute(
+        startBuilding.value,
+        endBuilding.value,
+        routeType.value,
+    )
+}
 
 onMounted(async () => {
     try {
@@ -86,5 +152,9 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to load buildings metadata:', error)
     }
+})
+
+onUnmounted(() => {
+    globeInstance.routeFinder.clearRoutes()
 })
 </script>

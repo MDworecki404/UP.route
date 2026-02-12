@@ -6,7 +6,7 @@ import 'vuetify/styles/main.css'
 import './main.css'
 import { getItemFromLocalStorage } from './services/utils'
 
-const upwrBrandColors = {
+export const upwrBrandColors = {
     burgundy: '#c7364e',
     burgundyDark: '#7a1f2f',
     amberAccent: '#FFC107',
