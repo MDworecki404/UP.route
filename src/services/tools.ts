@@ -20,6 +20,7 @@ export const TOOLS_KEYS = [
     'viewsBookmarks',
     'rasterAdjustment',
     'pointCloudAdjustment',
+    'routeFinder',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -60,6 +61,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     viewsBookmarks: (await import('@/components/tools/ViewsBookmarks.vue')).default,
     rasterAdjustment: (await import('@/components/tools/RasterAdjustment.vue')).default,
     pointCloudAdjustment: (await import('@/components/tools/PointCloudAdjustment.vue')).default,
+    routeFinder: (await import('@/components/tools/RouteFinder.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

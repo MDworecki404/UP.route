@@ -158,5 +158,11 @@
     "alpha": "Transparency",
     "rasterAdjustment": "Layer Adjustment",
     "restoreDefault": "Restore Default",
-    "pointSize": "Point size"
+    "pointSize": "Point size",
+    "startBuilding": "Budynek początkowy",
+    "endBuilding": "Budynek końcowy",
+    "showRoute": "Pokaż trasę",
+    "routeFinder": "Wyszukiwarka tras",
+    "buildingToBuilding": "Budynek do budynku",
+    "userToBuilding": "Użytkownik do budynku"
 }

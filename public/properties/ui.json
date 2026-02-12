@@ -24,8 +24,9 @@
             "icon": "mdi-directions",
             "action": {
                 "actionId": "toggleTool",
-                "toolId": "routing",
-                "icon": "mdi-directions"
+                "toolId": "routeFinder",
+                "icon": "mdi-directions",
+                "width": 350
             }
         },
         {
@@ -107,8 +108,9 @@
             "icon": "mdi-directions",
             "action": {
                 "actionId": "toggleTool",
-                "toolId": "routing",
-                "icon": "mdi-directions"
+                "toolId": "routeFinder",
+                "icon": "mdi-directions",
+                "width": 350
             }
         },
         {
