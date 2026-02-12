@@ -1,14 +1,14 @@
 import { useCommonStore, useToolsStore } from '@/stores'
 import type { Action, ActionsIds } from '@/types/actions'
 import { actionPerformed } from './eventBus'
-import { getTool } from './tools'
+import { getTool, type ToolsKeys } from './tools'
 import { globeInstance } from './globe/globe'
 
 const toggleTool = async (config: Action) => {
     if (config.actionId !== 'toggleTool') return
     const toolsStore = useToolsStore()
 
-    const tool = await getTool(config.toolId)
+    const tool = await getTool(config.toolId as ToolsKeys)
     if (!tool) {
         console.warn(`Tool with id ${config.toolId} not found.`)
         return
