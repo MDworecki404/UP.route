@@ -3,7 +3,7 @@ import z from 'zod'
 
 export const ToggleToolActionSchema = z.object({
     actionId: z.literal('toggleTool'),
-    toolId: z.enum(TOOLS_KEYS),
+    toolId: z.enum(TOOLS_KEYS).or(z.string()),
     icon: z.string(),
     props: z.record(z.string(), z.any()).optional(),
     width: z.number().optional(),
