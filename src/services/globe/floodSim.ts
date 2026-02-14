@@ -59,6 +59,9 @@ export class FloodSim {
                         material: Color.BLUE.withAlpha(0.5),
                         outline: true,
                         outlineColor: Color.DARKBLUE,
+                        distanceDisplayCondition: undefined,
+                        closeTop: true,
+                        closeBottom: true,
                     },
                 })
 

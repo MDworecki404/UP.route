@@ -41,6 +41,7 @@
                     "
                 >
                     <context-menu-button
+                        v-if="activeLayers.includes(item.id)"
                         :context-menu-list="getImageryLayerContextMenuList(item)"
                         icon="mdi-dots-vertical"
                         location="right"
@@ -52,6 +53,7 @@
 
                 <template v-if="item.type === 'layer' && item.isPointCloud">
                     <context-menu-button
+                        v-if="activeLayers.includes(item.id)"
                         :context-menu-list="getContextMenuListForPointCloudLayer(item)"
                         icon="mdi-dots-vertical"
                         location="right"
@@ -67,6 +69,7 @@
                     "
                 >
                     <context-menu-button
+                        v-if="activeLayers.includes(item.id)"
                         :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
                         icon="mdi-dots-vertical"
                         location="right"
