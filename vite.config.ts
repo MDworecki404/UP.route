@@ -14,6 +14,7 @@ export default defineConfig({
         cesium(),
         VitePWA({
             registerType: 'autoUpdate',
+            injectRegister: 'auto',
             includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
             manifest: {
                 name: 'Up.route',
@@ -42,8 +43,11 @@ export default defineConfig({
                 ],
             },
             workbox: {
+                cleanupOutdatedCaches: true,
                 skipWaiting: true,
                 clientsClaim: true,
+                // exclude very large graph files from precache manifest
+                globIgnores: ['graphs/*.json'],
                 maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,json,woff2}'],
             },
