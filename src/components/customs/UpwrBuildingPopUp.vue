@@ -1,6 +1,6 @@
 <template>
     <v-card-text class="pa-1 ma-0">
-        <v-row dense no-gutters>
+        <v-row dense no-gutters justify="space-between">
             <v-card elevation="8" variant="outlined" color="primary" style="width: 100%">
                 <v-card-title class="d-flex justify-center align-center">
                     <v-skeleton-loader
@@ -15,6 +15,25 @@
                     <span v-if="buildingInfoRef" class="ml-2 font-weight-bold"
                         >{{ $t('building') }} {{ buildingInfoRef?.buildingNum }}</span
                     >
+
+                    <div
+                        v-if="buildingInfoRef"
+                        :style="{
+                            position: 'absolute',
+                            right: '10px',
+                            display: 'flex',
+                            gap: '8px',
+                        }"
+                    >
+                        <action-button
+                            :icon="'mdi-navigation-variant-outline'"
+                            :tooltip="{
+                                text: $t('navigateToBuilding'),
+                                location: 'bottom',
+                            }"
+                            @click="triggerNavigateToBuilding(buildingInfoRef)"
+                        />
+                    </div>
                 </v-card-title>
             </v-card>
         </v-row>
@@ -69,6 +88,8 @@ import { customObjectClicked } from '@/services/eventBus'
 import { fetchJsonFile } from '@/services/utils'
 import type { UpwrBuildingsMetadata, UpwrBuildingsMetadataArray } from '@/types/customs'
 import { onMounted, onUnmounted, ref } from 'vue'
+import ActionButton from '../ui/ActionButton.vue'
+import { globeInstance } from '@/services/globe/globe'
 
 const { initialData, buildingMetadata } = defineProps<{
     initialData?: Record<string, unknown>
@@ -79,6 +100,20 @@ const buildingInfoRef = ref<UpwrBuildingsMetadata>()
 const listenersRemovers: Array<() => void> = []
 
 const upwrBuildingsMetadata = ref<UpwrBuildingsMetadataArray>([])
+
+const triggerNavigateToBuilding = async (buildingInfo: UpwrBuildingsMetadata) => {
+    if (!buildingInfo.gmlIds || buildingInfo.gmlIds.length === 0) {
+        console.log('No GML IDs available for navigation')
+        return
+    }
+
+    const actualUserPosition = await globeInstance.userPositionService.getNowUserPosition()
+    globeInstance.routeFinder.u2bRoute(
+        [actualUserPosition!.longitude, actualUserPosition!.latitude],
+        buildingInfo.buildingNum!,
+        'foot',
+    )
+}
 
 const getBuildingInfo = (data: Record<string, unknown>) => {
     if (!data['gml:id']) return
