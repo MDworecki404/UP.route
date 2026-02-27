@@ -1,5 +1,5 @@
 import { useToolsStore } from '@/stores'
-import type { ScreenSpaceEventHandler } from '@cesium/engine'
+import { type ScreenSpaceEventHandler, Entity } from '@cesium/engine'
 import { Cesium3DTileFeature, Color, defined, ScreenSpaceEventType } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 import { performAction } from '../actions'
@@ -17,6 +17,7 @@ export class GlobeEvent {
                 if (this.check(Cesium3DTileFeature, this._selectedObject.object)) {
                     this._selectedObject.object.color = this._selectedObject.lastColor
                 }
+                // Entities currently do not change appearance, nothing to revert
                 this._selectedObject.previousObject = this._selectedObject.object
                 this._selectedObject.object = null
             }
@@ -32,6 +33,10 @@ export class GlobeEvent {
     }
 
     private unPackProperties(pickedObject: unknown): Record<string, unknown> | null {
+        if (pickedObject && typeof pickedObject === 'object' && 'id' in pickedObject) {
+            pickedObject = (pickedObject as { id: unknown }).id
+        }
+
         if (this.check(Cesium3DTileFeature, pickedObject)) {
             const properties: Record<string, unknown> = {}
             const propertyIds = pickedObject.getPropertyIds()
@@ -43,14 +48,19 @@ export class GlobeEvent {
             return properties
         }
 
-        if (this.check(Cesium3DTileFeature, pickedObject)) {
+        if (pickedObject instanceof Entity) {
             const properties: Record<string, unknown> = {}
-            const propertyIds = pickedObject.getPropertyIds()
-
-            propertyIds.forEach((id: string) => {
-                properties[id] = pickedObject.getProperty(id)
-            })
-
+            const bag = pickedObject.properties
+            if (bag) {
+                const names = bag.propertyNames
+                names.forEach((name: string) => {
+                    try {
+                        properties[name] = bag[name]?.getValue?.(this._viewer.clock.currentTime)
+                    } catch {
+                        properties[name] = bag[name]
+                    }
+                })
+            }
             return properties
         }
 
@@ -62,10 +72,8 @@ export class GlobeEvent {
             throw new Error('Viewer is not initialized')
         }
 
-        if (object instanceof type) {
-            return true
-        }
-        return false
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+        return object instanceof (type as Function)
     }
 
     private setSelectedObject(pickedObject: unknown) {
@@ -78,6 +86,13 @@ export class GlobeEvent {
             this._selectedObject.lastColor = pickedObject.color
             pickedObject.color = this.selectColor
             this._selectedObject.object = pickedObject
+            return
+        }
+
+        if (pickedObject instanceof Entity) {
+            this._selectedObject.previousObject = this._selectedObject.object
+            this._selectedObject.object = pickedObject
+            return
         }
     }
 
@@ -109,7 +124,7 @@ export class GlobeEvent {
 
             const properties = this.unPackProperties(pickedObject)
 
-            if (!properties) {
+            if (!properties || Object.keys(properties).length === 0) {
                 return
             }
 

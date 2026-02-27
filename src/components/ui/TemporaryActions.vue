@@ -19,3 +19,12 @@ import { useCommonStore } from '@/stores'
 
 const commonStore = useCommonStore()
 </script>
+
+<style scoped>
+.temp-actions {
+    position: absolute;
+    top: 40px;
+    left: 4px;
+    z-index: 1000;
+}
+</style>

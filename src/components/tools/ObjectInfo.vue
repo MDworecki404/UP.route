@@ -44,7 +44,7 @@ const items = computed(() => {
     if (!data.value) return []
 
     return Object.entries(data.value).map(([key, value]) => ({
-        property: key,
+        property: t(key),
         value: String(value),
     }))
 })
