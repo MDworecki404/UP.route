@@ -146,24 +146,38 @@ export class RouteFinder {
             const buildings = await fetchJsonFile<UpwrBuildingsMetadata[]>(
                 new URL('/properties/customs/upwrBuildingsMetadata.json', import.meta.url).href,
             )
-            const building = buildings.find((b) => b.buildingNum === endBuilding)
-            if (!building || !building.view || !building.view.destination) {
-                console.error(
-                    `Building metadata for ${endBuilding} not found or has no view.destination`,
-                )
-                return
+            type NodeFeature = { properties: { nr_bud: string; lng: number; lat: number } }
+            type NodeCollection = { features: NodeFeature[] }
+
+            const nodesData = await fetchJsonFile<NodeCollection>(
+                new URL('/properties/beginningNodes.json', import.meta.url).href,
+            )
+            const node = nodesData.features.find((f) => f.properties.nr_bud === endBuilding)
+
+            let destLonLat: number[] | null = null
+            if (node) {
+                destLonLat = [node.properties.lng, node.properties.lat]
             }
 
-            const destCart = Cartesian3.fromElements(
-                building.view.destination.x,
-                building.view.destination.y,
-                building.view.destination.z,
-            )
-            const destCarto = Cartographic.fromCartesian(destCart)
-            const destLonLat: number[] = [
-                destCarto.longitude * (180 / Math.PI),
-                destCarto.latitude * (180 / Math.PI),
-            ]
+            if (!destLonLat) {
+                const building = buildings.find((b) => b.buildingNum === endBuilding)
+                if (!building || !building.view || !building.view.destination) {
+                    console.error(
+                        `Building metadata or node for ${endBuilding} not found, cannot compute destination`,
+                    )
+                    return
+                }
+                const destCart = Cartesian3.fromElements(
+                    building.view.destination.x,
+                    building.view.destination.y,
+                    building.view.destination.z,
+                )
+                const destCarto = Cartographic.fromCartesian(destCart)
+                destLonLat = [
+                    destCarto.longitude * (180 / Math.PI),
+                    destCarto.latitude * (180 / Math.PI),
+                ]
+            }
 
             let startKey: string | null = null
             let endKey: string | null = null
