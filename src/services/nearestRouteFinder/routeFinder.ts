@@ -4,10 +4,14 @@ import type { Viewer } from '@cesium/widgets'
 import { fetchJsonFile } from '../utils'
 import { safeParse } from 'zod'
 import { GeneratedUPRoutesSchema, type GeneratedUPRoutesType } from '@/types/localDBs'
-import { Cartesian3 } from '@cesium/engine'
+import { Cartesian3, Cartographic } from '@cesium/engine'
 import { Color } from '@cesium/engine'
 import { upwrBrandColors } from '@/vuetify'
 import type { PolylineGraphics } from '@cesium/engine'
+import type { GeoJsonFile, GraphNode } from './types'
+import { calculateDistanceFromGeographicCoordinates } from '../utils'
+import type { GraphCreator } from './graphCreator'
+import type { UpwrBuildingsMetadata } from '@/types/customs'
 
 const getLineStringStyle = (positions: Cartesian3[]): PolylineGraphics.ConstructorOptions => ({
     positions,
@@ -18,9 +22,44 @@ const getLineStringStyle = (positions: Cartesian3[]): PolylineGraphics.Construct
 
 export class RouteFinder {
     private _routeFinderLayer: DataSource | null = null
+    private _graphCreator: GraphCreator | null = null
+    private _initPromise: Promise<void> | null = null
+    private _carGraph: Map<string, GraphNode> | null = null
+    private _footGraph: Map<string, GraphNode> | null = null
+    private _bikeGraph: Map<string, GraphNode> | null = null
 
     constructor(private _viewer: Viewer) {
         this.registerRouteFinderLayer()
+
+        this._initPromise = this._initializeGraphCreator()
+    }
+
+    public ready(): Promise<void> {
+        return this._initPromise ?? Promise.resolve()
+    }
+
+    private async _initializeGraphCreator() {
+        try {
+            const { GraphCreator } = await import('./graphCreator')
+            const carNetwork = await fetchJsonFile<GeoJsonFile>(
+                new URL('/graphs/OSM_Car_roads.json', import.meta.url).href,
+            )
+            const footNetwork = await fetchJsonFile<GeoJsonFile>(
+                new URL('/graphs/OSM_Foot_roads.json', import.meta.url).href,
+            )
+            const bikeNetwork = await fetchJsonFile<GeoJsonFile>(
+                new URL('/graphs/OSM_Bike_roads.json', import.meta.url).href,
+            )
+
+            if (!this._graphCreator) {
+                this._graphCreator = new GraphCreator()
+                this._carGraph = this._graphCreator.buildGraph(carNetwork)
+                this._footGraph = this._graphCreator.buildGraph(footNetwork)
+                this._bikeGraph = this._graphCreator.buildGraph(bikeNetwork)
+            }
+        } catch (error) {
+            console.error('Failed to initialize graphs:', error)
+        }
     }
 
     private registerRouteFinderLayer() {
@@ -58,7 +97,7 @@ export class RouteFinder {
         let routes: GeneratedUPRoutesType | null = null
 
         try {
-            const data = await fetchJsonFile(
+            const data = await fetchJsonFile<GeneratedUPRoutesType>(
                 `/properties/generatedRoutes/${mode}_routes_results.json`,
             )
 
@@ -87,5 +126,135 @@ export class RouteFinder {
         }
 
         this.drawLineString(routeData.route)
+    }
+
+    async u2bRoute(userPosition: number[], endBuilding: string, mode: 'car' | 'foot' | 'bike') {
+        const graph =
+            mode === 'car' ? this._carGraph : mode === 'foot' ? this._footGraph : this._bikeGraph
+
+        if (!graph) {
+            console.error(`Graph for mode ${mode} is not initialized`)
+            return
+        }
+        try {
+            const buildings = await fetchJsonFile<UpwrBuildingsMetadata[]>(
+                new URL('/properties/customs/upwrBuildingsMetadata.json', import.meta.url).href,
+            )
+            const building = buildings.find((b) => b.buildingNum === endBuilding)
+            if (!building || !building.view || !building.view.destination) {
+                console.error(
+                    `Building metadata for ${endBuilding} not found or has no view.destination`,
+                )
+                return
+            }
+
+            const destCart = Cartesian3.fromElements(
+                building.view.destination.x,
+                building.view.destination.y,
+                building.view.destination.z,
+            )
+            const destCarto = Cartographic.fromCartesian(destCart)
+            const destLonLat: number[] = [
+                destCarto.longitude * (180 / Math.PI),
+                destCarto.latitude * (180 / Math.PI),
+            ]
+
+            let startKey: string | null = null
+            let endKey: string | null = null
+            let minStartDist = Infinity
+            let minEndDist = Infinity
+
+            graph.forEach((node, key) => {
+                const vertex = node.vertex
+                const distToUser = calculateDistanceFromGeographicCoordinates(userPosition, vertex)
+                if (distToUser < minStartDist) {
+                    minStartDist = distToUser
+                    startKey = key
+                }
+
+                const distToDest = calculateDistanceFromGeographicCoordinates(destLonLat, vertex)
+                if (distToDest < minEndDist) {
+                    minEndDist = distToDest
+                    endKey = key
+                }
+            })
+
+            if (!startKey || !endKey) {
+                console.error('Could not find suitable graph nodes for start/end')
+                return
+            }
+
+            graph.forEach((node) => {
+                node.aStarAttrs.gScore = Infinity
+                node.aStarAttrs.fScore = Infinity
+                node.aStarAttrs.prev = undefined
+            })
+
+            const closedSet = new Set<string>()
+            const openSet = new Set<string>([startKey])
+
+            const startNode = graph.get(startKey)!
+            startNode.aStarAttrs.gScore = 0
+            startNode.aStarAttrs.fScore = calculateDistanceFromGeographicCoordinates(
+                startNode.vertex,
+                graph.get(endKey)!.vertex,
+            )
+
+            while (openSet.size > 0) {
+                let currentKey: string | null = null
+                let minF = Infinity
+                openSet.forEach((k) => {
+                    const n = graph.get(k)!
+                    if (n.aStarAttrs.fScore < minF) {
+                        minF = n.aStarAttrs.fScore
+                        currentKey = k
+                    }
+                })
+
+                if (currentKey === null) break
+
+                if (currentKey === endKey) {
+                    const path: number[][] = []
+                    let cur: string | undefined = endKey
+                    while (cur && cur !== startKey) {
+                        const n: GraphNode = graph.get(cur)!
+                        path.push(n.vertex)
+                        cur = n.aStarAttrs.prev
+                    }
+                    if (cur === startKey) path.push(graph.get(startKey)!.vertex)
+                    this.drawLineString(path.reverse())
+                    return
+                }
+
+                openSet.delete(currentKey)
+                closedSet.add(currentKey)
+
+                const currentNode = graph.get(currentKey)!
+                for (const edge of currentNode.edges) {
+                    const neighborKey = edge.to.join(',')
+                    if (closedSet.has(neighborKey)) continue
+
+                    const tentativeG = currentNode.aStarAttrs.gScore + edge.weight
+                    const neighborNode = graph.get(neighborKey)
+                    if (!neighborNode) continue
+
+                    if (tentativeG < neighborNode.aStarAttrs.gScore) {
+                        neighborNode.aStarAttrs.prev = currentKey
+                        neighborNode.aStarAttrs.gScore = tentativeG
+                        neighborNode.aStarAttrs.fScore =
+                            tentativeG +
+                            calculateDistanceFromGeographicCoordinates(
+                                neighborNode.vertex,
+                                graph.get(endKey)!.vertex,
+                            )
+                        openSet.add(neighborKey)
+                    }
+                }
+            }
+
+            console.error('No path found between user and building')
+        } catch (err) {
+            console.error('u2bRoute failed:', err)
+        }
     }
 }

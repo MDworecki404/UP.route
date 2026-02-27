@@ -148,6 +148,18 @@ export const calculateDistanceFromPositions = (positions: Cartesian3[]): number 
     return totalDistance
 }
 
+export const calculateDistanceFromGeographicCoordinates = (
+    coord1: number[],
+    coord2: number[],
+): number => {
+    const carto1 = Cartographic.fromDegrees(coord1[0]!, coord1[1]!)
+    const carto2 = Cartographic.fromDegrees(coord2[0]!, coord2[1]!)
+    return Cartesian3.distance(
+        Cartesian3.fromRadians(carto1.longitude, carto1.latitude),
+        Cartesian3.fromRadians(carto2.longitude, carto2.latitude),
+    )
+}
+
 export const calculateAreaFromPositions = (positions: Cartesian3[]): number => {
     if (positions.length < 3) return 0
 

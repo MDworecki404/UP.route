@@ -175,5 +175,6 @@
     "modes": "Tryby",
     "settings": "Ustawienia",
     "enableTracking": "Włącz śledzenie pozycji",
-    "disableTracking": "Wyłącz śledzenie pozycji"
+    "disableTracking": "Wyłącz śledzenie pozycji",
+    "initializingNavigationNetworks": "Inicjalizacja sieci nawigacyjnych..."
 }
