@@ -183,7 +183,7 @@
 import { globeInstance } from '@/services/globe/globe'
 import { fetchJsonFile } from '@/services/utils'
 import { upwrBuildingsMetadataArraySchema, type UpwrBuildingsMetadataArray } from '@/types/customs'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { safeParse } from 'zod'
 import ActionButton from '../ui/ActionButton.vue'
 import TextButton from '../ui/TextButton.vue'
@@ -241,9 +241,5 @@ onMounted(async () => {
     } catch (error) {
         console.error('Failed to load buildings metadata:', error)
     }
-})
-
-onUnmounted(() => {
-    globeInstance.routeFinder.clearRoutes()
 })
 </script>

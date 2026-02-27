@@ -1,17 +1,13 @@
-import type { DataSource } from '@cesium/engine'
-import { CustomDataSource } from '@cesium/engine'
-import type { Viewer } from '@cesium/widgets'
-import { fetchJsonFile } from '../utils'
-import { safeParse } from 'zod'
-import { GeneratedUPRoutesSchema, type GeneratedUPRoutesType } from '@/types/localDBs'
-import { Cartesian3, Cartographic } from '@cesium/engine'
-import { Color } from '@cesium/engine'
-import { upwrBrandColors } from '@/vuetify'
-import type { PolylineGraphics } from '@cesium/engine'
-import type { GeoJsonFile, GraphNode } from './types'
-import { calculateDistanceFromGeographicCoordinates } from '../utils'
-import type { GraphCreator } from './graphCreator'
 import type { UpwrBuildingsMetadata } from '@/types/customs'
+import { GeneratedUPRoutesSchema, type GeneratedUPRoutesType } from '@/types/localDBs'
+import { upwrBrandColors } from '@/vuetify'
+import type { DataSource, PolylineGraphics } from '@cesium/engine'
+import { Cartesian3, Cartographic, Color, CustomDataSource } from '@cesium/engine'
+import type { Viewer } from '@cesium/widgets'
+import { safeParse } from 'zod'
+import { calculateDistanceFromGeographicCoordinates, fetchJsonFile } from '../utils'
+import { parseOptimizedGraph, type SerializedGraph } from './graphCreator'
+import type { GraphNode } from './types'
 
 const getLineStringStyle = (positions: Cartesian3[]): PolylineGraphics.ConstructorOptions => ({
     positions,
@@ -22,7 +18,6 @@ const getLineStringStyle = (positions: Cartesian3[]): PolylineGraphics.Construct
 
 export class RouteFinder {
     private _routeFinderLayer: DataSource | null = null
-    private _graphCreator: GraphCreator | null = null
     private _initPromise: Promise<void> | null = null
     private _carGraph: Map<string, GraphNode> | null = null
     private _footGraph: Map<string, GraphNode> | null = null
@@ -40,23 +35,19 @@ export class RouteFinder {
 
     private async _initializeGraphCreator() {
         try {
-            const { GraphCreator } = await import('./graphCreator')
-            const carNetwork = await fetchJsonFile<GeoJsonFile>(
-                new URL('/graphs/OSM_Car_roads.json', import.meta.url).href,
+            const carData = await fetchJsonFile<SerializedGraph>(
+                new URL('/graphs/car_graph.json', import.meta.url).href,
             )
-            const footNetwork = await fetchJsonFile<GeoJsonFile>(
-                new URL('/graphs/OSM_Foot_roads.json', import.meta.url).href,
+            const footData = await fetchJsonFile<SerializedGraph>(
+                new URL('/graphs/foot_graph.json', import.meta.url).href,
             )
-            const bikeNetwork = await fetchJsonFile<GeoJsonFile>(
-                new URL('/graphs/OSM_Bike_roads.json', import.meta.url).href,
+            const bikeData = await fetchJsonFile<SerializedGraph>(
+                new URL('/graphs/bike_graph.json', import.meta.url).href,
             )
 
-            if (!this._graphCreator) {
-                this._graphCreator = new GraphCreator()
-                this._carGraph = this._graphCreator.buildGraph(carNetwork)
-                this._footGraph = this._graphCreator.buildGraph(footNetwork)
-                this._bikeGraph = this._graphCreator.buildGraph(bikeNetwork)
-            }
+            this._carGraph = parseOptimizedGraph(carData)
+            this._footGraph = parseOptimizedGraph(footData)
+            this._bikeGraph = parseOptimizedGraph(bikeData)
         } catch (error) {
             console.error('Failed to initialize graphs:', error)
         }
