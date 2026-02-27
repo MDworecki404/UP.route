@@ -173,5 +173,6 @@
     "enableTracking": "Enable tracking of user position",
     "disableTracking": "Disable tracking of user position",
     "initializingNavigationNetworks": "Initializing navigation networks...",
-    "clearRoute": "Clear route"
+    "clearRoute": "Clear route",
+    "navigateToBuilding": "Navigate to building"
 }
