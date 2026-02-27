@@ -176,5 +176,6 @@
     "settings": "Ustawienia",
     "enableTracking": "Włącz śledzenie pozycji",
     "disableTracking": "Wyłącz śledzenie pozycji",
-    "initializingNavigationNetworks": "Inicjalizacja sieci nawigacyjnych..."
+    "initializingNavigationNetworks": "Inicjalizacja sieci nawigacyjnych...",
+    "clearRoute": "Wyczyść trasę"
 }

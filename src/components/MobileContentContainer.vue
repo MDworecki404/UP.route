@@ -38,6 +38,8 @@
             </template>
         </v-toolbar>
 
+        <TemporaryActions />
+
         <MobileToolsContainer />
 
         <GlobeNavigationPanel />
@@ -64,6 +66,7 @@ import NotifyComponent from './ui/NotifyComponent.vue'
 import ToolsMenu from './ui/ToolsMenu.vue'
 import { useToolsStore } from '@/stores'
 import { storeToRefs } from 'pinia'
+import TemporaryActions from './ui/TemporaryActions.vue'
 
 const { t } = useI18n()
 const { activeToolsArray } = storeToRefs(useToolsStore())

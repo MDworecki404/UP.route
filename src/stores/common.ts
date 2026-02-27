@@ -1,3 +1,4 @@
+import { globeInstance } from '@/services/globe/globe'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -20,11 +21,26 @@ export const useCommonStore = defineStore('common', () => {
         isDrawerOpen.value = !isDrawerOpen.value
     }
 
+    //Route states
+    const routeCreated = ref(false)
+
+    const setRouteCreated = (created: boolean) => {
+        routeCreated.value = created
+    }
+
+    const removeRoute = () => {
+        globeInstance.routeFinder.clearRoutes()
+        routeCreated.value = false
+    }
+
     return {
         isOverlayActive,
         turnOffOverlay,
         turnOnOverlay,
         isDrawerOpen,
         toggleDrawerState,
+        routeCreated,
+        setRouteCreated,
+        removeRoute,
     }
 })

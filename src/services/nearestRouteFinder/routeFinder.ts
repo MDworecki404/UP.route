@@ -5,9 +5,10 @@ import type { DataSource, PolylineGraphics } from '@cesium/engine'
 import { Cartesian3, Cartographic, Color, CustomDataSource } from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 import { safeParse } from 'zod'
-import { calculateDistanceFromGeographicCoordinates, fetchJsonFile } from '../utils'
+import { calculateDistanceFromGeographicCoordinates, fetchJsonFile, zoomToPolyline } from '../utils'
 import { parseOptimizedGraph, type SerializedGraph } from './graphCreator'
 import type { GraphNode } from './types'
+import { useCommonStore } from '@/stores'
 
 const getLineStringStyle = (positions: Cartesian3[]): PolylineGraphics.ConstructorOptions => ({
     positions,
@@ -68,11 +69,16 @@ export class RouteFinder {
             return
         }
 
+        const commonStore = useCommonStore()
+
         const positions = coordinates.map((coord) => Cartesian3.fromDegrees(coord[0]!, coord[1]!))
+        zoomToPolyline(positions)
 
         this._routeFinderLayer.entities.add({
             polyline: getLineStringStyle(positions),
         })
+
+        commonStore.setRouteCreated(true)
     }
 
     clearRoutes() {

@@ -172,5 +172,6 @@
     "settings": "Settings",
     "enableTracking": "Enable tracking of user position",
     "disableTracking": "Disable tracking of user position",
-    "initializingNavigationNetworks": "Initializing navigation networks..."
+    "initializingNavigationNetworks": "Initializing navigation networks...",
+    "clearRoute": "Clear route"
 }

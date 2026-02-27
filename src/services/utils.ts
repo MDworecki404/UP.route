@@ -1,5 +1,5 @@
 import type { Entity } from '@cesium/engine'
-import { BoundingSphere, Cartesian3 } from '@cesium/engine'
+import { BoundingSphere, Cartesian3, HeadingPitchRange } from '@cesium/engine'
 import { globeInstance } from './globe/globe'
 import { Cartographic } from '@cesium/engine'
 import type { CropperResult } from 'vue-advanced-cropper'
@@ -138,6 +138,18 @@ export const zoomToLayerById = (layerId: string): void => {
             })
         }
     }
+}
+
+export const zoomToPolyline = (positions: Cartesian3[]): void => {
+    if (positions.length === 0) return
+
+    const boundingSphere = BoundingSphere.fromPoints(positions)
+    const range = Math.max(boundingSphere.radius * 2.5, 1000)
+    const offset = new HeadingPitchRange(0, -Math.PI / 2, range)
+    globeInstance.viewer.camera.flyToBoundingSphere(boundingSphere, {
+        duration: 1.5,
+        offset,
+    })
 }
 
 export const calculateDistanceFromPositions = (positions: Cartesian3[]): number => {

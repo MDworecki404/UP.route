@@ -97,6 +97,7 @@
                         color="primary"
                         prepend-icon="mdi-navigation-variant-outline"
                         :disabled="!startBuilding || !endBuilding"
+                        :loading="isLoadingRoute"
                         @click="triggerB2BRouteFinding"
                     />
                 </v-row>
@@ -171,6 +172,7 @@
                         color="primary"
                         prepend-icon="mdi-navigation-variant-outline"
                         :disabled="!startBuilding || !endBuilding"
+                        :loading="isLoadingRoute"
                         @click="triggerU2BRouteFinding"
                     />
                 </v-row>
@@ -195,35 +197,41 @@ const buildings = ref<UpwrBuildingsMetadataArray>([])
 const startBuilding = ref<string | null>('C1')
 const endBuilding = ref<string | null>('B8')
 const routeType = ref<'bike' | 'foot' | 'car'>('bike')
+const isLoadingRoute = ref(false)
 
 const triggerB2BRouteFinding = async () => {
     if (!startBuilding.value || !endBuilding.value) {
         return
     }
+    isLoadingRoute.value = true
 
     await globeInstance.routeFinder.b2bRoute(
         startBuilding.value,
         endBuilding.value,
         routeType.value,
     )
+    isLoadingRoute.value = false
 }
 
 const triggerU2BRouteFinding = async () => {
     if (!endBuilding.value) {
         return
     }
+    isLoadingRoute.value = true
 
     const userPosition = await globeInstance.userPositionService.getNowUserPosition()
     if (!userPosition) {
         alert(
             'Unable to get user position. Please make sure location services are enabled and try again.',
         )
+        isLoadingRoute.value = false
         return
     }
 
     const userCoords = [userPosition.longitude, userPosition.latitude]
 
     await globeInstance.routeFinder.u2bRoute(userCoords, endBuilding.value, routeType.value)
+    isLoadingRoute.value = false
 }
 
 onMounted(async () => {

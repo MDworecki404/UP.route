@@ -28,6 +28,8 @@
             <ToolsMenu />
         </v-toolbar>
 
+        <TemporaryActions />
+
         <LayersTreeDrawer></LayersTreeDrawer>
 
         <DesktopToolsContainer></DesktopToolsContainer>
@@ -54,6 +56,7 @@ import ToolsMenu from './ui/ToolsMenu.vue'
 import NotifyComponent from './ui/NotifyComponent.vue'
 import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
 import { useDialogStore } from '@/stores'
+import TemporaryActions from './ui/TemporaryActions.vue'
 
 const buttonsList = ref<UiType>()
 
