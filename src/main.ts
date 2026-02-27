@@ -2,11 +2,18 @@ import '@mdi/font/css/materialdesignicons.css'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'
 import 'vuetify/styles/main.css'
+import { useRegisterSW } from 'virtual:pwa-register/vue'
 import App from './App.vue'
 import i18n from './i18n'
 import './main.css'
 import router from './router'
 import { vuetify } from './vuetify'
+
+useRegisterSW({
+    onNeedRefresh() {
+        window.location.reload()
+    },
+})
 
 const app = createApp(App)
 

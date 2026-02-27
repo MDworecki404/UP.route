@@ -31,6 +31,7 @@
                                 text: $t('navigateToBuilding'),
                                 location: 'bottom',
                             }"
+                            :loading="isRouteLoading"
                             @click="triggerNavigateToBuilding(buildingInfoRef)"
                         />
                     </div>
@@ -98,6 +99,7 @@ const { initialData, buildingMetadata } = defineProps<{
 
 const buildingInfoRef = ref<UpwrBuildingsMetadata>()
 const listenersRemovers: Array<() => void> = []
+const isRouteLoading = ref(false)
 
 const upwrBuildingsMetadata = ref<UpwrBuildingsMetadataArray>([])
 
@@ -107,12 +109,14 @@ const triggerNavigateToBuilding = async (buildingInfo: UpwrBuildingsMetadata) =>
         return
     }
 
+    isRouteLoading.value = true
     const actualUserPosition = await globeInstance.userPositionService.getNowUserPosition()
-    globeInstance.routeFinder.u2bRoute(
+    await globeInstance.routeFinder.u2bRoute(
         [actualUserPosition!.longitude, actualUserPosition!.latitude],
         buildingInfo.buildingNum!,
         'foot',
     )
+    isRouteLoading.value = false
 }
 
 const getBuildingInfo = (data: Record<string, unknown>) => {
