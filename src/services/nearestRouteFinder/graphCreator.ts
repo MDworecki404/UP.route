@@ -1,6 +1,5 @@
 import type { GraphNode } from './types'
 
-// Definiujemy interfejs dla zoptymalizowanych danych z pliku
 export interface SerializedNode {
     vertex: number[]
     edges: { to: number[]; weight: number }[]
@@ -8,7 +7,6 @@ export interface SerializedNode {
 
 export type SerializedGraph = Record<string, SerializedNode>
 
-// Funkcja zamieniająca płaski obiekt JSON z powrotem na Mapę dla A*
 export function parseOptimizedGraph(data: SerializedGraph): Map<string, GraphNode> {
     const graphMap = new Map<string, GraphNode>()
 
@@ -16,7 +14,6 @@ export function parseOptimizedGraph(data: SerializedGraph): Map<string, GraphNod
         graphMap.set(key, {
             vertex: node.vertex,
             edges: node.edges,
-            // Inicjalizujemy puste stany dla A* bezpośrednio we frontendzie
             aStarAttrs: {
                 fScore: Infinity,
                 gScore: Infinity,
