@@ -39,6 +39,7 @@ import ContextMenuButton from '../ui/ContextMenuButton.vue'
 import type { ContextMenuListType } from '@/types/ui'
 import { useToolsStore } from '@/stores'
 import { objectClicked } from '@/services/eventBus'
+import { getPositionOfBillboardEntity } from '@/services/utils'
 
 const { t } = useI18n()
 
@@ -102,9 +103,12 @@ const getContextMenuList = (item: { id: string; name: string }): ContextMenuList
                 let properties: Record<string, unknown> | null = null
 
                 const layer = globeInstance.layers.layers.get(layerId)
+                let coords: number[] | undefined = undefined
                 if (layer && layer.classType === 'geojson') {
                     const entity = layer._layer?.entities.getById(item.id)
                     if (!entity) return
+
+                    coords = getPositionOfBillboardEntity(entity)
 
                     properties = globeInstance.events.unPackProperties(entity)
                     if (!properties) {
@@ -122,7 +126,8 @@ const getContextMenuList = (item: { id: string; name: string }): ContextMenuList
                     }
 
                     objectClicked.raiseEvent({
-                        ...properties,
+                        initialData: properties,
+                        coordinates: coords,
                     })
                 } else {
                     toolsStore.openTool({
@@ -132,6 +137,7 @@ const getContextMenuList = (item: { id: string; name: string }): ContextMenuList
                         component: (await import('@/components/tools/ObjectInfo.vue')).default,
                         props: {
                             initialData: properties,
+                            coordinates: coords,
                         },
                         icon: 'mdi-information-outline',
                     })

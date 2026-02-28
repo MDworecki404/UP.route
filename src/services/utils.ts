@@ -176,6 +176,18 @@ export const zoomToEntity = (entity: Entity): void => {
     })
 }
 
+export const getPositionOfBillboardEntity = (entity: Entity): number[] => {
+    if (!entity.position) {
+        return []
+    }
+    const position = entity.position?.getValue(globeInstance.viewer.clock.currentTime)
+    if (position) {
+        const cartographic = Cartographic.fromCartesian(position)
+        return [cartographic.longitude, cartographic.latitude]
+    }
+    return []
+}
+
 export const calculateDistanceFromPositions = (positions: Cartesian3[]): number => {
     let totalDistance = 0
     for (let i = 1; i < positions.length; i++) {

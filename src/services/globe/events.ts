@@ -5,6 +5,7 @@ import type { Viewer } from '@cesium/widgets'
 import { performAction } from '../actions'
 import { customObjectClicked, objectClicked } from '../eventBus'
 import type { ToolsKeys } from '../tools'
+import { Cartographic } from '@cesium/engine'
 
 export class GlobeEvent {
     private selectColor = Color.fromCssColorString('#7a1f2f').withAlpha(0.7)
@@ -133,6 +134,40 @@ export class GlobeEvent {
 
             const toolsStore = useToolsStore()
 
+            let clickCartographic: Cartographic | undefined
+
+            if (this.check(Cesium3DTileFeature, pickedObject)) {
+                const clickCartesian = this._viewer.scene.pickPosition(e.position)
+                if (clickCartesian) {
+                    clickCartographic = Cartographic.fromCartesian(clickCartesian)
+                }
+            } else {
+                const entity =
+                    pickedObject instanceof Entity
+                        ? pickedObject
+                        : pickedObject &&
+                            typeof pickedObject === 'object' &&
+                            'id' in pickedObject &&
+                            (pickedObject as { id: unknown }).id instanceof Entity
+                          ? ((pickedObject as { id: unknown }).id as Entity)
+                          : null
+
+                if (entity?.position) {
+                    const cartesian = entity.position.getValue(this._viewer.clock.currentTime)
+                    if (cartesian) {
+                        clickCartographic = Cartographic.fromCartesian(cartesian)
+                    }
+                }
+                if (!clickCartographic) {
+                    const clickCartesian = this._viewer.scene.pickPosition(e.position)
+                    if (clickCartesian) {
+                        clickCartographic = Cartographic.fromCartesian(clickCartesian)
+                    }
+                }
+            }
+
+            if (!clickCartographic) return
+
             if (this.check(Cesium3DTileFeature, pickedObject)) {
                 if (pickedObject.tileset.customPopUpId) {
                     if (toolsStore.activeTools.has(pickedObject.tileset.customPopUpId)) {
@@ -155,7 +190,13 @@ export class GlobeEvent {
                             actionId: 'toggleTool',
                             icon: 'mdi-information-box-outline',
                             toolId: pickedObject.tileset.customPopUpId as ToolsKeys,
-                            props: { initialData: properties },
+                            props: {
+                                initialData: properties,
+                                coordinates: [
+                                    clickCartographic.longitude,
+                                    clickCartographic.latitude,
+                                ],
+                            },
                             width: 450,
                         })
                     }
@@ -165,13 +206,19 @@ export class GlobeEvent {
             }
 
             if (toolsStore.activeTools.has('objectInfo')) {
-                objectClicked.raiseEvent(properties)
+                objectClicked.raiseEvent({
+                    initialData: properties,
+                    coordinates: [clickCartographic.longitude, clickCartographic.latitude],
+                })
             } else {
                 performAction({
                     actionId: 'toggleTool',
                     icon: 'mdi-information-box-outline',
                     toolId: 'objectInfo',
-                    props: { initialData: properties },
+                    props: {
+                        initialData: properties,
+                        coordinates: [clickCartographic.longitude, clickCartographic.latitude],
+                    },
                     width: 450,
                 })
             }

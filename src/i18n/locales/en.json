@@ -184,5 +184,6 @@
     "openObjectsList": "Open objects list",
     "zoomToObject": "Zoom to object",
     "objectsList": "Objects list",
-    "openObjectInfo": "Open object informations"
+    "openObjectInfo": "Open object informations",
+    "navigate": "Navigate"
 }

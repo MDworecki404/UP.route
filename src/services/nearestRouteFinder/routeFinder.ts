@@ -134,6 +134,114 @@ export class RouteFinder {
         this.drawLineString(routeData.route)
     }
 
+    async p2pRoute(userPosition: number[], endPosition: number[], mode: 'car' | 'foot' | 'bike') {
+        const graph =
+            mode === 'car' ? this._carGraph : mode === 'foot' ? this._footGraph : this._bikeGraph
+
+        if (!graph) {
+            console.error(`Graph for mode ${mode} is not initialized`)
+            return
+        }
+
+        try {
+            let startKey: string | null = null
+            let endKey: string | null = null
+            let minStartDist = Infinity
+            let minEndDist = Infinity
+
+            graph.forEach((node, key) => {
+                const vertex = node.vertex
+                const distToUser = calculateDistanceFromGeographicCoordinates(userPosition, vertex)
+                if (distToUser < minStartDist) {
+                    minStartDist = distToUser
+                    startKey = key
+                }
+                const distToEnd = calculateDistanceFromGeographicCoordinates(endPosition, vertex)
+                if (distToEnd < minEndDist) {
+                    minEndDist = distToEnd
+                    endKey = key
+                }
+            })
+
+            if (!startKey || !endKey) {
+                console.error('Could not find suitable graph nodes for start/end')
+                return
+            }
+
+            graph.forEach((node) => {
+                node.aStarAttrs.gScore = Infinity
+                node.aStarAttrs.fScore = Infinity
+                node.aStarAttrs.prev = undefined
+            })
+
+            const closedSet = new Set<string>()
+            const openSet = new Set<string>([startKey])
+
+            const startNode = graph.get(startKey)!
+            startNode.aStarAttrs.gScore = 0
+            startNode.aStarAttrs.fScore = calculateDistanceFromGeographicCoordinates(
+                startNode.vertex,
+                graph.get(endKey)!.vertex,
+            )
+
+            while (openSet.size > 0) {
+                let currentKey: string | null = null
+                let minF = Infinity
+                openSet.forEach((k) => {
+                    const n = graph.get(k)!
+                    if (n.aStarAttrs.fScore < minF) {
+                        minF = n.aStarAttrs.fScore
+                        currentKey = k
+                    }
+                })
+
+                if (currentKey === null) break
+
+                if (currentKey === endKey) {
+                    const path: number[][] = []
+                    let cur: string | undefined = endKey
+                    while (cur && cur !== startKey) {
+                        const n: GraphNode = graph.get(cur)!
+                        path.push(n.vertex)
+                        cur = n.aStarAttrs.prev
+                    }
+                    if (cur === startKey) path.push(graph.get(startKey)!.vertex)
+                    this.drawLineString(path.reverse())
+                    return
+                }
+
+                openSet.delete(currentKey)
+                closedSet.add(currentKey)
+
+                const currentNode = graph.get(currentKey)!
+                for (const edge of currentNode.edges) {
+                    const neighborKey = edge.to.join(',')
+                    if (closedSet.has(neighborKey)) continue
+
+                    const tentativeG = currentNode.aStarAttrs.gScore + edge.weight
+                    const neighborNode = graph.get(neighborKey)
+                    if (!neighborNode) continue
+
+                    if (tentativeG < neighborNode.aStarAttrs.gScore) {
+                        neighborNode.aStarAttrs.prev = currentKey
+                        neighborNode.aStarAttrs.gScore = tentativeG
+                        neighborNode.aStarAttrs.fScore =
+                            tentativeG +
+                            calculateDistanceFromGeographicCoordinates(
+                                neighborNode.vertex,
+                                graph.get(endKey)!.vertex,
+                            )
+                        openSet.add(neighborKey)
+                    }
+                }
+            }
+
+            console.error('No path found between the two positions')
+        } catch (err) {
+            console.error('p2pRoute failed:', err)
+        }
+    }
+
     async u2bRoute(userPosition: number[], endBuilding: string, mode: 'car' | 'foot' | 'bike') {
         const graph =
             mode === 'car' ? this._carGraph : mode === 'foot' ? this._footGraph : this._bikeGraph
