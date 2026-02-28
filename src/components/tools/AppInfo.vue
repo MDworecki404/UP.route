@@ -1,7 +1,7 @@
 <template>
     <v-card-text>
         <v-row dense no-gutters>
-            <span>{{ $t('version') }}: 1.0.0</span>
+            <span>{{ $t('version') }}: 1.1</span>
         </v-row>
         <v-row dense no-gutters>
             <span>{{ $t('dateOfRelease') }}: 28.02.2026</span>
