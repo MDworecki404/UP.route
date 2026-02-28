@@ -45,7 +45,7 @@
                         :context-menu-list="getImageryLayerContextMenuList(item)"
                         icon="mdi-dots-vertical"
                         location="right"
-                        size="x-small"
+                        :size="24"
                         :iconSize="18"
                         :elevation="0"
                     />
@@ -57,7 +57,7 @@
                         :context-menu-list="getContextMenuListForPointCloudLayer(item)"
                         icon="mdi-dots-vertical"
                         location="right"
-                        size="x-small"
+                        :size="24"
                         :iconSize="18"
                         :elevation="0"
                     />
@@ -73,7 +73,7 @@
                         :context-menu-list="get3DTilesAndCZMLContextMenuList(item)"
                         icon="mdi-dots-vertical"
                         location="right"
-                        size="x-small"
+                        :size="24"
                         :iconSize="18"
                         :elevation="0"
                     />
