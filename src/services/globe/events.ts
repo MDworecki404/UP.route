@@ -32,9 +32,12 @@ export class GlobeEvent {
         this.setDefaultEvents()
     }
 
-    private unPackProperties(pickedObject: unknown): Record<string, unknown> | null {
+    public unPackProperties(pickedObject: unknown): Record<string, unknown> | null {
         if (pickedObject && typeof pickedObject === 'object' && 'id' in pickedObject) {
-            pickedObject = (pickedObject as { id: unknown }).id
+            const inner = (pickedObject as { id: unknown }).id
+            if (inner instanceof Entity) {
+                pickedObject = inner
+            }
         }
 
         if (this.check(Cesium3DTileFeature, pickedObject)) {

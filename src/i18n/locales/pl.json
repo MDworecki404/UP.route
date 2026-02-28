@@ -180,5 +180,12 @@
     "clearRoute": "Wyczyść trasę",
     "navigateToBuilding": "Nawiguj do budynku",
     "dateOfRelease": "Data wydania",
-    "geojsonLayerLoading": "Ładowanie warstwy GeoJSON..."
+    "geojsonLayerLoading": "Ładowanie warstwy GeoJSON...",
+    "id": "ID",
+    "name": "Nazwa",
+    "noDataAvailable": "Brak dostępnych danych",
+    "openObjectsList": "Otwórz listę obiektów",
+    "zoomToObject": "Powiększ do obiektu",
+    "objectsList": "Lista obiektów",
+    "openObjectInfo": "Otwórz informacje o obiekcie"
 }

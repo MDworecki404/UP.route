@@ -2,18 +2,23 @@
     <v-divider></v-divider>
     <v-toolbar color="background" density="compact" height="40" class="py-1">
         <template #prepend>
-            <v-icon
-                v-if="icon"
-                size="24"
-                @click="iconCustomFunc && iconCustomFunc()"
-                color="primary"
-                :style="iconCustomFunc ? { cursor: 'pointer' } : { cursor: 'default' }"
-                >{{ icon }}</v-icon
-            >
-            <div class="text-button pl-4 text-primary text-button--large font-weight-bold">
-                {{ title ? $t(title) : '' }}
+            <div class="pa-0 ma-0" style="width: 24px">
+                <v-icon
+                    v-if="icon"
+                    size="24"
+                    @click="iconCustomFunc && iconCustomFunc()"
+                    color="primary"
+                    :style="iconCustomFunc ? { cursor: 'pointer' } : { cursor: 'default' }"
+                    >{{ icon }}</v-icon
+                >
             </div>
         </template>
+        <div
+            class="text-button text-primary text-button--large font-weight-bold text-truncate"
+            :class="icon ? 'pl-2' : 'pl-1'"
+        >
+            {{ title ? $t(title) : '' }}
+        </div>
         <template #append>
             <v-icon
                 v-if="!hideFullscreenIcon"

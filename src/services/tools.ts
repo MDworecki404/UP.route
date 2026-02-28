@@ -21,6 +21,7 @@ export const TOOLS_KEYS = [
     'rasterAdjustment',
     'pointCloudAdjustment',
     'routeFinder',
+    'geoJSONObjectsList',
 
     /// Add custom tool ids here
     ...CUSTOM_TOOLS_IDS,
@@ -62,6 +63,7 @@ export const Tools: Record<ToolsKeys, Tool> = {
     rasterAdjustment: (await import('@/components/tools/RasterAdjustment.vue')).default,
     pointCloudAdjustment: (await import('@/components/tools/PointCloudAdjustment.vue')).default,
     routeFinder: (await import('@/components/tools/RouteFinder.vue')).default,
+    geoJSONObjectsList: (await import('@/components/tools/GeoJSONObjectsList.vue')).default,
 
     /// Add custom tools here
     ...CustomTools,

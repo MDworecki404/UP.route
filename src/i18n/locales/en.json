@@ -177,5 +177,12 @@
     "clearRoute": "Clear route",
     "navigateToBuilding": "Navigate to building",
     "dateOfRelease": "Date of release",
-    "geojsonLayerLoading": "Loading GeoJSON layer..."
+    "geojsonLayerLoading": "Loading GeoJSON layer...",
+    "id": "ID",
+    "name": "Name",
+    "noDataAvailable": "No data available",
+    "openObjectsList": "Open objects list",
+    "zoomToObject": "Zoom to object",
+    "objectsList": "Objects list",
+    "openObjectInfo": "Open object informations"
 }

@@ -78,6 +78,17 @@
                         :elevation="0"
                     />
                 </template>
+                <template v-else-if="item.type === 'layer' && item.layerType === 'geojson'">
+                    <context-menu-button
+                        v-if="activeLayers.includes(item.id)"
+                        :context-menu-list="getContextMenuListForGeoJSONLayer(item)"
+                        icon="mdi-dots-vertical"
+                        location="right"
+                        :size="24"
+                        :iconSize="18"
+                        :elevation="0"
+                    />
+                </template>
             </template>
         </v-treeview>
     </v-card-text>
@@ -312,6 +323,33 @@ const getContextMenuListForPointCloudLayer = (item: TreeNodeLayer): ContextMenuL
                 toolId: 'pointCloudAdjustment',
                 width: 450,
                 customTitle: `${t('adjust')} - ${item.title}`,
+                props: {
+                    layerId: item.id,
+                },
+            })
+        },
+    },
+]
+
+const getContextMenuListForGeoJSONLayer = (item: TreeNodeLayer): ContextMenuListType => [
+    {
+        text: 'zoomToExtent',
+        icon: 'mdi-magnify-scan',
+        method: () => {
+            zoomToLayerById(item.id)
+        },
+    },
+    {
+        text: 'openObjectsList',
+        icon: 'mdi-format-list-bulleted',
+        method: async () => {
+            const { performAction } = await import('@/services/actions')
+            performAction({
+                actionId: 'toggleTool',
+                icon: 'mdi-format-list-bulleted',
+                toolId: 'geoJSONObjectsList',
+                width: 450,
+                customTitle: `${t('objectsList')} - ${item.title}`,
                 props: {
                     layerId: item.id,
                 },

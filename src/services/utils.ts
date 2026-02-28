@@ -111,7 +111,12 @@ export const getAllPositionsFromEntities = (entities: Entity[]): Cartesian3[] =>
 
 export const zoomToLayerById = (layerId: string): void => {
     const layer = globeInstance.layers.layers.get(layerId)
-    if (layer && (layer.classType === '3dTiles' || layer.classType === 'czml')) {
+    if (
+        layer &&
+        (layer.classType === '3dTiles' ||
+            layer.classType === 'czml' ||
+            layer.classType === 'geojson')
+    ) {
         let extent
         if (layer.classType === '3dTiles') {
             const tileset = layer._layer
@@ -126,6 +131,19 @@ export const zoomToLayerById = (layerId: string): void => {
 
                 const czmlPositions = getAllPositionsFromEntities(entities)
                 positions.push(...czmlPositions)
+
+                if (positions.length > 0) {
+                    extent = BoundingSphere.fromPoints(positions)
+                }
+            }
+        } else if (layer.classType === 'geojson') {
+            const dataSource = layer._layer
+            if (dataSource) {
+                const entities = dataSource.entities.values
+                const positions: Cartesian3[] = []
+
+                const geoJsonPositions = getAllPositionsFromEntities(entities)
+                positions.push(...geoJsonPositions)
 
                 if (positions.length > 0) {
                     extent = BoundingSphere.fromPoints(positions)
@@ -149,6 +167,12 @@ export const zoomToPolyline = (positions: Cartesian3[]): void => {
     globeInstance.viewer.camera.flyToBoundingSphere(boundingSphere, {
         duration: 1.5,
         offset,
+    })
+}
+
+export const zoomToEntity = (entity: Entity): void => {
+    globeInstance.viewer.flyTo(entity, {
+        duration: 1.5,
     })
 }
 
