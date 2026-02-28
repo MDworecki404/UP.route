@@ -12,14 +12,27 @@
             @update:model-value="onChangeLanguage"
         ></v-select>
         <v-select
-            v-model="selectedTheme"
-            :items="themes"
+            v-model="selectedMode"
+            :items="modes"
             :item-title="(item) => $t(item)"
             :item-value="(item) => item"
+            :label="$t('colorMode')"
             variant="outlined"
             color="primary"
             density="compact"
             prepend-inner-icon="mdi-theme-light-dark"
+            @update:model-value="onChangeTheme"
+        ></v-select>
+        <v-select
+            v-model="selectedPalette"
+            :items="palettes"
+            :item-title="(item) => $t(item)"
+            :item-value="(item) => item"
+            :label="$t('colorPalette')"
+            variant="outlined"
+            color="primary"
+            density="compact"
+            prepend-inner-icon="mdi-palette"
             @update:model-value="onChangeTheme"
         ></v-select>
     </v-row>
@@ -37,21 +50,25 @@
 import i18n from '@/i18n'
 import { saveItemInLocalStorage } from '@/services/utils'
 import { useDialogStore } from '@/stores'
+import { buildThemeName, parseThemeName, type ColorPalette } from '@/vuetify'
 import { onMounted, ref } from 'vue'
 import { useTheme } from 'vuetify'
 import TextButton from '../ui/TextButton.vue'
 
 const vuetifyTheme = useTheme()
 
-const selectedTheme = ref<string>('light')
+const selectedMode = ref<'light' | 'dark'>('light')
+const selectedPalette = ref<ColorPalette>('upwr')
 const selectedLanguage = ref<'pl' | 'en'>('en')
 
-const themes = ref<string[]>(['light', 'dark'])
+const modes = ref<('light' | 'dark')[]>(['light', 'dark'])
+const palettes = ref<ColorPalette[]>(['upwr', 'forest', 'ocean'])
 const languages = ref<('pl' | 'en')[]>(['pl', 'en'])
 
-const onChangeTheme = (theme: string) => {
-    vuetifyTheme.change(theme)
-    saveItemInLocalStorage('upRouteTheme', theme)
+const onChangeTheme = () => {
+    const themeName = buildThemeName(selectedPalette.value, selectedMode.value === 'dark')
+    vuetifyTheme.change(themeName)
+    saveItemInLocalStorage('upRouteTheme', themeName)
 }
 
 const onChangeLanguage = (language: 'pl' | 'en') => {
@@ -71,7 +88,9 @@ const openCesiumSettingsDialog = async () => {
 }
 
 onMounted(() => {
-    selectedTheme.value = useTheme().current.value.dark ? 'dark' : 'light'
+    const current = parseThemeName(vuetifyTheme.name.value)
+    selectedMode.value = current.dark ? 'dark' : 'light'
+    selectedPalette.value = current.palette
     selectedLanguage.value = i18n.global.locale.value
 })
 </script>
