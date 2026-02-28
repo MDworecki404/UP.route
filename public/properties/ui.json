@@ -185,22 +185,6 @@
         {
             "tooltip": {
                 "text": {
-                    "en": "Sketch tool",
-                    "pl": "Narzędzia szkicowe"
-                },
-                "location": "bottom"
-            },
-            "icon": "mdi-drawing-box",
-            "action": {
-                "actionId": "toggleTool",
-                "toolId": "sketchTool",
-                "icon": "mdi-drawing-box",
-                "width": 450
-            }
-        },
-        {
-            "tooltip": {
-                "text": {
                     "en": "Sections",
                     "pl": "Przekroje"
                 },
