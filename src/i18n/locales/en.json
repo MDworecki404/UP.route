@@ -53,6 +53,7 @@
     "objectInfo": "Object info",
     "globeSettingsDescriptionTitle": "Globe Settings",
     "globeSettingsDescription": "With these settings, you can customize the appearance and behavior of the 3D globe. Once saved, the settings will be applied every time the application is launched.",
+    "appInfoContent": "Up.route is an interactive 3D geoportal application developed as part of a master's thesis at the Faculty of Environmental Engineering and Geodesy of the Wrocław University of Environmental and Life Sciences. The application provides a three-dimensional web-based visualization of the university campus and enables optimal route finding for pedestrians, cyclists, and drivers between campus buildings. The 3D globe is rendered using the CesiumJS library, while an A* algorithm handles shortest-path search across navigation graphs. The user interface is built with Vue 3 and Vuetify 3.",
     "version": "Version",
     "githubRepoLink": "GitHub Repository",
     "developer": "Developer",
@@ -174,5 +175,6 @@
     "disableTracking": "Disable tracking of user position",
     "initializingNavigationNetworks": "Initializing navigation networks...",
     "clearRoute": "Clear route",
-    "navigateToBuilding": "Navigate to building"
+    "navigateToBuilding": "Navigate to building",
+    "dateOfRelease": "Date of release"
 }

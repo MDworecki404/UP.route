@@ -1,8 +1,12 @@
 <template>
     <v-card-text>
         <v-row dense no-gutters>
-            <span>{{ $t('version') }}: alpha</span>
+            <span>{{ $t('version') }}: 1.0.0</span>
         </v-row>
+        <v-row dense no-gutters>
+            <span>{{ $t('dateOfRelease') }}: 28.02.2026</span>
+        </v-row>
+
         <v-divider class="my-2"></v-divider>
         <span>{{ $t('appInfoContent') }}</span>
         <v-divider class="my-2"></v-divider>

@@ -56,7 +56,7 @@
     "skyAtmosphereTooltip": "Włącz lub wyłącz wyświetlanie nieba i atmosfery na globie 3D.",
     "terrainShadowsTooltip": "Wybierz sposób wyświetlania cieni terenu na globie 3D.",
     "resolutionScaleTooltip": "Dostosuj skalę rozdzielczości globu 3D (0.1 - niska jakość, wysoka wydajność; 2.0 - wysoka jakość, niska wydajność).",
-    "appInfoContent": "Ta aplikacja została stworzona jako część pracy magisterskiej na temat opracowania metody wyznaczania tras pomiędzy budynkami kampusu Uniwersytetu Przyrodniczego we Wrocławiu z wykorzystaniem technologii 3D w środowisku webowym.",
+    "appInfoContent": "Up.route to interaktywna aplikacja geoportalowa 3D, opracowana w ramach pracy magisterskiej na Wydziale Inżynierii Kształtowania Środowiska i Geodezji Uniwersytetu Przyrodniczego we Wrocławiu. Aplikacja umożliwia wizualizację kampusu uczelni w trójwymiarowym środowisku webowym oraz wyznaczanie optymalnych tras pieszych, rowerowych i samochodowych pomiędzy budynkami. Do renderowania globu 3D wykorzystano bibliotekę CesiumJS, natomiast algorytm A* odpowiada za wyszukiwanie najkrótszych ścieżek w grafach nawigacyjnych. Interfejs użytkownika zbudowano przy użyciu frameworków Vue 3 oraz Vuetify 3.",
     "version": "Wersja",
     "githubRepoLink": "Repozytorium GitHub",
     "developer": "Deweloper",
@@ -178,5 +178,6 @@
     "disableTracking": "Wyłącz śledzenie pozycji",
     "initializingNavigationNetworks": "Inicjalizacja sieci nawigacyjnych...",
     "clearRoute": "Wyczyść trasę",
-    "navigateToBuilding": "Nawiguj do budynku"
+    "navigateToBuilding": "Nawiguj do budynku",
+    "dateOfRelease": "Data wydania"
 }
