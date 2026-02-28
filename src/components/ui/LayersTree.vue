@@ -247,7 +247,6 @@ onMounted(() => {
     syncSelectionFromGlobe()
 
     const listener = visibilityChanged.addEventListener(() => {
-        // Nie przebudowujemy drzewa, tylko aktualizujemy checkboxy
         syncSelectionFromGlobe()
     })
 

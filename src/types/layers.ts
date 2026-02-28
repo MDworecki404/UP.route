@@ -64,6 +64,13 @@ export const CZMLLayerSchema = LayerBaseSchema.extend({
 
 export type CZMLLayerType = z.infer<typeof CZMLLayerSchema>
 
+export const GeoJSONLayerSchema = LayerBaseSchema.extend({
+    type: z.literal('geojson'),
+    ionId: z.number(),
+})
+
+export type GeoJSONLayerType = z.infer<typeof GeoJSONLayerSchema>
+
 export const XYZLayerSchema = LayerBaseSchema.extend({
     type: z.literal('xyz'),
     url: z.string(),
@@ -88,6 +95,7 @@ export const WMSLayerSchema = LayerBaseSchema.extend({
 export const LayersUnionSchema = z.discriminatedUnion('type', [
     OSMLayerSchema,
     Cesium3DTilesLayerSchema,
+    GeoJSONLayerSchema,
     CZMLLayerSchema,
     XYZLayerSchema,
     WMSLayerSchema,

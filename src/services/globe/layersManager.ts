@@ -1,6 +1,7 @@
 import {
     type Cesium3DTilesLayerType,
     type CZMLLayerType,
+    type GeoJSONLayerType,
     type LayersUnionType,
     type OSMLayerType,
     type PointCloudLayerAdjustmentOptions,
@@ -23,8 +24,15 @@ import { LayerBase } from '../base/layers'
 import { applyLayerFilter } from '../customs/layersFilters'
 import { appLoadingInfo } from '../eventBus'
 import { fetchJsonFile } from '../utils'
+import { GeoJsonDataSource } from '@cesium/engine'
 
-export type LayersClassTypes = OSMLayer | Cesium3DTilesLayer | XYZLayer | TerrainLayer | CZMLLayer
+export type LayersClassTypes =
+    | OSMLayer
+    | Cesium3DTilesLayer
+    | XYZLayer
+    | TerrainLayer
+    | CZMLLayer
+    | GeoJSONLayer
 
 ////////////////////////////////////////////////////////////////
 // MARK: - Layers Manager
@@ -379,6 +387,66 @@ export class CZMLLayer extends LayerBase<CzmlDataSource> {
 }
 
 ////////////////////////////////////////////////////////////////
+// MARK: - GeoJSON Layer
+////////////////////////////////////////////////////////////////
+
+export class GeoJSONLayer extends LayerBase<GeoJsonDataSource> {
+    public readonly classType = 'geojson'
+    private _viewer: Viewer
+    private _config: GeoJSONLayerType
+    public _layer: GeoJsonDataSource | null = null
+
+    constructor(viewer: Viewer, config: GeoJSONLayerType) {
+        super()
+        this._viewer = viewer
+        this._config = config
+    }
+
+    initialize(): Promise<GeoJsonDataSource> {
+        return (async () => {
+            try {
+                const resource = await IonResource.fromAssetId(this._config.ionId)
+                this._layer = await GeoJsonDataSource.load(resource, {
+                    clampToGround: true,
+                })
+                if (this._layer) {
+                    this._layer.show = this._config.active
+                    this._layer.parent = this._config.parent!
+                }
+            } catch (error) {
+                throw error
+            }
+            return this._layer!
+        })()
+    }
+
+    addToGlobe(): void {
+        if (this._layer && !this._viewer.dataSources.contains(this._layer)) {
+            this._viewer.dataSources.add(this._layer)
+        }
+    }
+
+    get config(): GeoJSONLayerType {
+        return this._config
+    }
+
+    getName(): string {
+        return this._layer!.name ?? this.classType
+    }
+
+    getType(): string {
+        return this.classType
+    }
+
+    destroy(): void {
+        if (this._layer) {
+            this._viewer.dataSources.remove(this._layer)
+            this._layer = null
+        }
+    }
+}
+
+////////////////////////////////////////////////////////////////
 // MARK: - Layers Factory
 ////////////////////////////////////////////////////////////////
 
@@ -399,6 +467,9 @@ export const LayersFactory = (layer: LayersUnionType, viewer: Viewer) => {
         case 'czml':
             appLoadingInfo.raiseEvent('czmlLayerLoading')
             return new CZMLLayer(viewer, layer)
+        case 'geojson':
+            appLoadingInfo.raiseEvent('geojsonLayerLoading')
+            return new GeoJSONLayer(viewer, layer)
         default:
             throw new Error(`Layer type ${layer.type} is not supported`)
     }

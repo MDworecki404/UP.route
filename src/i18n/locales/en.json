@@ -176,5 +176,6 @@
     "initializingNavigationNetworks": "Initializing navigation networks...",
     "clearRoute": "Clear route",
     "navigateToBuilding": "Navigate to building",
-    "dateOfRelease": "Date of release"
+    "dateOfRelease": "Date of release",
+    "geojsonLayerLoading": "Loading GeoJSON layer..."
 }

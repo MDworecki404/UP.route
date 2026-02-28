@@ -119,5 +119,60 @@
         "id": "upwrLOD1Buildings",
         "parent": "campus3D",
         "ionId": 4352519
+    },
+    {
+        "type": "geojson",
+        "active": false,
+        "name": {
+            "pl": "OSM - Restauracje",
+            "en": "OSM - Restaurants"
+        },
+        "id": "wroclawRestaurants",
+        "parent": "vectorLayers",
+        "ionId": 4490376
+    },
+    {
+        "type": "geojson",
+        "active": false,
+        "name": {
+            "pl": "OSM - Muzea we Wrocławiu",
+            "en": "OSM - Wrocław Museums"
+        },
+        "id": "wroclawMuseums",
+        "parent": "vectorLayers",
+        "ionId": 4490375
+    },
+    {
+        "type": "geojson",
+        "active": false,
+        "name": {
+            "pl": "OSM - Kawiarnie",
+            "en": "OSM - Cafes"
+        },
+        "id": "wroclawCafes",
+        "parent": "vectorLayers",
+        "ionId": 4490374
+    },
+    {
+        "type": "geojson",
+        "active": false,
+        "name": {
+            "pl": "OSM - Puby",
+            "en": "OSM - Pubs"
+        },
+        "id": "wroclawPubs",
+        "parent": "vectorLayers",
+        "ionId": 4490373
+    },
+    {
+        "type": "geojson",
+        "active": false,
+        "name": {
+            "pl": "OSM - Bary",
+            "en": "OSM - Bars"
+        },
+        "id": "wroclawBars",
+        "parent": "vectorLayers",
+        "ionId": 4490372
     }
 ]
