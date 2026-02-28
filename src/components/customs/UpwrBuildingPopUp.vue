@@ -26,13 +26,40 @@
                         }"
                     >
                         <action-button
-                            :icon="'mdi-navigation-variant-outline'"
+                            :icon="'mdi-walk'"
                             :tooltip="{
                                 text: $t('navigateToBuilding'),
                                 location: 'bottom',
                             }"
+                            :size="22"
+                            :icon-size="22"
+                            :elevation="0"
                             :loading="isRouteLoading"
-                            @click="triggerNavigateToBuilding(buildingInfoRef)"
+                            @click="triggerNavigateToBuilding(buildingInfoRef, 'foot')"
+                        />
+                        <action-button
+                            :icon="'mdi-bike'"
+                            :tooltip="{
+                                text: $t('navigateToBuilding'),
+                                location: 'bottom',
+                            }"
+                            :size="22"
+                            :icon-size="22"
+                            :elevation="0"
+                            :loading="isRouteLoading"
+                            @click="triggerNavigateToBuilding(buildingInfoRef, 'bike')"
+                        />
+                        <action-button
+                            :icon="'mdi-car'"
+                            :tooltip="{
+                                text: $t('navigateToBuilding'),
+                                location: 'bottom',
+                            }"
+                            :size="22"
+                            :icon-size="22"
+                            :elevation="0"
+                            :loading="isRouteLoading"
+                            @click="triggerNavigateToBuilding(buildingInfoRef, 'car')"
                         />
                     </div>
                 </v-card-title>
@@ -103,7 +130,10 @@ const isRouteLoading = ref(false)
 
 const upwrBuildingsMetadata = ref<UpwrBuildingsMetadataArray>([])
 
-const triggerNavigateToBuilding = async (buildingInfo: UpwrBuildingsMetadata) => {
+const triggerNavigateToBuilding = async (
+    buildingInfo: UpwrBuildingsMetadata,
+    mode: 'foot' | 'bike' | 'car',
+) => {
     if (!buildingInfo.gmlIds || buildingInfo.gmlIds.length === 0) {
         console.log('No GML IDs available for navigation')
         return
@@ -114,7 +144,7 @@ const triggerNavigateToBuilding = async (buildingInfo: UpwrBuildingsMetadata) =>
     await globeInstance.routeFinder.u2bRoute(
         [actualUserPosition!.longitude, actualUserPosition!.latitude],
         buildingInfo.buildingNum!,
-        'foot',
+        mode,
     )
     isRouteLoading.value = false
 }

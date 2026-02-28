@@ -8,27 +8,53 @@
             :items-per-page-options="[5]"
         >
         </table-component>
-        <v-row v-if="coordinates" dense no-gutters justify="end">
-            <text-button
-                :text="$t('navigate')"
-                color="primary"
-                density="compact"
+        <v-row v-if="coordinates" dense no-gutters justify="end" align="center">
+            <div class="text-button px-2 text-medium-emphasis">{{ $t('navigate') }}:</div>
+
+            <action-button
+                :icon="'mdi-walk'"
+                :tooltip="{
+                    location: 'bottom',
+                    text: $t('byFoot'),
+                }"
                 :loading="isRouteLoading"
-                :prepend-icon="'mdi-navigation-variant-outline'"
-                @click="triggerP2PNavigation"
-            />
+                :elevation="0"
+                @click="triggerP2PNavigation('foot')"
+            ></action-button>
+
+            <action-button
+                :icon="'mdi-bike'"
+                :tooltip="{
+                    location: 'bottom',
+                    text: $t('byBike'),
+                }"
+                :loading="isRouteLoading"
+                :elevation="0"
+                @click="triggerP2PNavigation('bike')"
+            ></action-button>
+
+            <action-button
+                :icon="'mdi-car'"
+                :tooltip="{
+                    location: 'bottom',
+                    text: $t('byCar'),
+                }"
+                :loading="isRouteLoading"
+                :elevation="0"
+                @click="triggerP2PNavigation('car')"
+            ></action-button>
         </v-row>
     </v-card-text>
 </template>
 
 <script lang="ts" setup>
 import { objectClicked } from '@/services/eventBus'
+import { globeInstance } from '@/services/globe/globe'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DataTableHeader } from 'vuetify'
+import ActionButton from '../ui/ActionButton.vue'
 import TableComponent from '../ui/TableComponent.vue'
-import TextButton from '../ui/TextButton.vue'
-import { globeInstance } from '@/services/globe/globe'
 
 const { t } = useI18n()
 
@@ -41,8 +67,6 @@ const listenersRemovers: (() => void)[] = []
 const data = ref<Record<string, unknown> | null>(initialData)
 const coords = ref(coordinates)
 const isRouteLoading = ref(false)
-
-console.log(coords.value)
 
 const headers: DataTableHeader[] = [
     {
@@ -66,14 +90,14 @@ const items = computed(() => {
     }))
 })
 
-const triggerP2PNavigation = async (): Promise<void> => {
+const triggerP2PNavigation = async (mode: 'foot' | 'bike' | 'car'): Promise<void> => {
     isRouteLoading.value = true
 
     const degressCoords = coords.value?.map((coord) => (coord * 180) / Math.PI) as number[]
     const userPosition = await globeInstance.userPositionService.getNowUserPosition()
     const userPositionArray = [userPosition?.longitude, userPosition?.latitude] as number[]
 
-    globeInstance.routeFinder.p2pRoute(userPositionArray, degressCoords, 'foot')
+    globeInstance.routeFinder.p2pRoute(userPositionArray, degressCoords, mode)
 
     isRouteLoading.value = false
 }
