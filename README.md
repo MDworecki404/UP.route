@@ -1,4 +1,4 @@
-# Master-Thesis-Geoportal — Code Guide
+# UP.route — Code Guide
 
 > Kompletny przewodnik po architekturze, konwencjach i sposobach rozszerzania aplikacji.
 
