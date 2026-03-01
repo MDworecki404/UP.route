@@ -23,8 +23,9 @@ const commonStore = useCommonStore()
 <style scoped>
 .temp-actions {
     position: absolute;
-    top: 40px;
-    left: 4px;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 1000;
 }
 </style>

@@ -292,6 +292,9 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
         viewer.scene.globe.showGroundAtmosphere = true
         viewer.scene.globe.lightingFadeOutDistance = -100000
         viewer.scene.globe.nightFadeOutDistance = -100000
+        viewer.shadowMap.maximumDistance = 2500
+        viewer.shadowMap.fadingEnabled = true
+        viewer.shadowMap.size = 4096
 
         globeInstance = new GlobeService(viewer)
         await globeInstance.initServices()
