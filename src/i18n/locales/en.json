@@ -190,5 +190,7 @@
     "zoomToObject": "Zoom to object",
     "objectsList": "Objects list",
     "openObjectInfo": "Open object informations",
-    "navigate": "Navigate"
+    "navigate": "Navigate",
+    "reset": "Reset",
+    "min/sec": "min/sec"
 }

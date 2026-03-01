@@ -36,7 +36,7 @@
                 :max="endOfYear"
                 :thumb-label="true"
                 :thumb-size="12"
-                :step="1440"
+                :step="86400000"
                 @update:model-value="updateGlobeTime"
             >
                 <template #append>
@@ -98,10 +98,10 @@
                             >
                         </template>
                         <v-time-picker
-                            v-model="clockTimeOfDay"
+                            :model-value="clockTimeOfDay"
                             density="compact"
                             :format="'24hr'"
-                            @update:model-value="updateGlobeTime"
+                            @update:model-value="onTimePickerUpdate"
                             color="primary"
                         >
                             <template #title>
@@ -111,57 +111,89 @@
                     </v-tooltip>
                 </template>
                 <template #thumb-label>
-                    <span>{{ formatedHoursAndMinutes }}</span>
+                    <span>{{ clockTimeOfDay }}</span>
                 </template>
             </v-slider>
         </v-row>
-    </v-card-text>
-    <v-card-actions class="ga-3 d-flex justify-end flex-column">
-        <v-row dense no-gutters justify="end"
-            ><text-button
+        <v-divider class="mb-2"></v-divider>
+        <v-row dense no-gutters justify="end" align="center" class="px-1 ga-3">
+            <action-button
+                :icon="animationActive ? 'mdi-pause' : 'mdi-play'"
+                :variant="'outlined'"
+                :tooltip="{
+                    location: 'bottom',
+                    text: animationActive ? $t('pauseAnimation') : $t('runAnimation'),
+                }"
                 color="primary"
-                :text="$t('setActualTime')"
-                :prepend-icon="'mdi-timelapse'"
-                @click="setActualTime"
-        /></v-row>
+                @click="triggerAnimation"
+            />
 
-        <v-row dense no-gutters
-            ><text-button
-                color="primary"
-                :text="$t('setDefaultTime')"
-                :prepend-icon="'mdi-restore'"
-                @click="setDefaultTime"
-        /></v-row>
+            <v-text-field
+                v-model="animationMultiplier"
+                type="number"
+                max-width="75"
+                :label="$t('min/sec')"
+                hide-details
+                variant="outlined"
+                density="compact"
+                :disabled="animationActive"
+                hide-spin-buttons
+            ></v-text-field>
+        </v-row>
+    </v-card-text>
+    <v-card-actions class="ga-3 d-flex justify-end">
+        <text-button
+            color="primary"
+            :text="$t('setActualTime')"
+            :prepend-icon="'mdi-timelapse'"
+            @click="setActualTime"
+        />
+
+        <text-button
+            color="primary"
+            :text="$t('reset')"
+            :prepend-icon="'mdi-restore'"
+            @click="setDefaultTime"
+        />
     </v-card-actions>
 </template>
 
 <script lang="ts" setup>
 import { globeInstance } from '@/services/globe/globe'
 import { ShadowMode } from 'cesium'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import ActionButton from '../ui/ActionButton.vue'
 import TextButton from '../ui/TextButton.vue'
 
 const shadowsObjectsEnabled = ref<boolean>(false)
 const shadowsTerrainEnabled = ref<boolean>(false)
 const smoothShadowsEnabled = ref<boolean>(false)
+const animationMultiplier = ref<number>(60)
 
-const timeOfDay = ref(12 * 60)
-const clockTimeOfDay = ref<string>('12:00')
-const calendarDate = ref<Date>(new Date())
-const allTimeMS = ref<number>(0)
+const _initialTime = globeInstance.time.getTime()
+const _initialDate = new Date(_initialTime)
+const animationActive = ref<boolean>(false)
 
-watch(clockTimeOfDay, (newValue) => {
-    const [hours, minutes] = newValue.split(':').map(Number)
-    timeOfDay.value = hours! * 60 + minutes!
-})
+const timeOfDay = ref(_initialDate.getHours() * 60 + _initialDate.getMinutes())
+const calendarDate = ref<Date>(
+    new Date(_initialDate.getFullYear(), _initialDate.getMonth(), _initialDate.getDate()),
+)
+const allTimeMS = ref<number>(_initialTime)
 
-watch(timeOfDay, (newValue) => {
-    const hours = Math.floor(newValue / 60)
-    const minutes = newValue % 60
+const clockTimeOfDay = computed(() => {
+    const hours = Math.floor(timeOfDay.value / 60)
+    const minutes = timeOfDay.value % 60
     const formattedHours = hours < 10 ? `0${hours}` : `${hours}`
     const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`
-    clockTimeOfDay.value = `${formattedHours}:${formattedMinutes}`
+    return `${formattedHours}:${formattedMinutes}`
 })
+
+const onTimePickerUpdate = (newValue: string | null) => {
+    if (!newValue) return
+    const [hours, minutes] = newValue.split(':').map(Number)
+    timeOfDay.value = hours! * 60 + minutes!
+    updateGlobeTime()
+}
 
 watch(calendarDate, (newValue) => {
     const date = new Date(allTimeMS.value)
@@ -204,14 +236,6 @@ const formatedDate = computed(() => {
     const formattedMonth = month < 10 ? `0${month}` : `${month}`
     const formattedDay = day < 10 ? `0${day}` : `${day}`
     return `${year}-${formattedMonth}-${formattedDay}`
-})
-
-const formatedHoursAndMinutes = computed(() => {
-    const hours = Math.floor(timeOfDay.value / 60)
-    const minutes = timeOfDay.value % 60
-    const formattedHours = hours < 10 ? `0${hours}` : `${hours}`
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`
-    return `${formattedHours}:${formattedMinutes}`
 })
 
 const updateGlobeTime = () => {
@@ -262,14 +286,40 @@ watch(smoothShadowsEnabled, (newValue) => {
     }
 })
 
+const triggerAnimation = () => {
+    if (animationActive.value) {
+        globeInstance.time.stopAnimation()
+        animationActive.value = false
+        stopSyncInterval()
+    } else {
+        globeInstance.time.runAnimation(animationMultiplier.value)
+        animationActive.value = true
+        startSyncInterval()
+    }
+}
+
+let _syncInterval: ReturnType<typeof setInterval> | null = null
+
+const syncSlidersFromGlobe = () => {
+    const t = globeInstance.time.getTime()
+    const date = new Date(t)
+    allTimeMS.value = t
+    timeOfDay.value = date.getHours() * 60 + date.getMinutes()
+}
+
+const startSyncInterval = () => {
+    if (_syncInterval !== null) return
+    _syncInterval = setInterval(syncSlidersFromGlobe, 200)
+}
+
+const stopSyncInterval = () => {
+    if (_syncInterval !== null) {
+        clearInterval(_syncInterval)
+        _syncInterval = null
+    }
+}
+
 onMounted(() => {
-    allTimeMS.value = globeInstance.time.getTime()
-
-    const date = new Date(allTimeMS.value)
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
-    timeOfDay.value = hours * 60 + minutes
-
     shadowsObjectsEnabled.value = globeInstance.viewer.shadows
     if (globeInstance.viewer.terrainShadows === ShadowMode.ENABLED) {
         shadowsTerrainEnabled.value = true
@@ -278,6 +328,10 @@ onMounted(() => {
     }
 
     smoothShadowsEnabled.value = globeInstance.viewer.scene.shadowMap?.softShadows || false
+})
+
+onUnmounted(() => {
+    stopSyncInterval()
 })
 </script>
 

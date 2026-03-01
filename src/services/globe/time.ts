@@ -28,4 +28,13 @@ export class TimeManager {
     public setToActualTime(): void {
         this.setTime(Date.now())
     }
+
+    public runAnimation(animationMultiplier: number): void {
+        this._viewer.clock.shouldAnimate = true
+        this._viewer.clock.multiplier = animationMultiplier * 60 // 1 real second = 1 simulated hour
+    }
+
+    public stopAnimation(): void {
+        this._viewer.clock.shouldAnimate = false
+    }
 }

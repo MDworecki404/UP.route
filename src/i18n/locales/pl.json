@@ -193,5 +193,7 @@
     "zoomToObject": "Powiększ do obiektu",
     "objectsList": "Lista obiektów",
     "openObjectInfo": "Otwórz informacje o obiekcie",
-    "navigate": "Nawiguj"
+    "navigate": "Nawiguj",
+    "reset": "Resetuj",
+    "min/sec": "min/sek"
 }
