@@ -82,8 +82,9 @@ npm run lint         # ESLint + auto-fix
 npm run format       # Prettier
 ```
 
-> **Cesium Ion key**: Warstwy 3D Tiles / CZML / Terrain wymagają tokenu Cesium Ion.
-> Token ustawiany jest w `src/services/globe/globe.ts` przez `Ion.defaultAccessToken`.
+> **Cesium Ion key**: Warstwy 3D Tiles / CZML / Terrain / GeoJSON wymagają tokenu Cesium Ion.
+> Token odczytywany jest ze zmiennej środowiskowej `VITE_CESIUM_API_KEY` w `src/services/globe/globe.ts` (`Ion.defaultAccessToken = import.meta.env.VITE_CESIUM_API_KEY`).
+> Utwórz plik `.env` w katalogu głównym projektu z wpisem: `VITE_CESIUM_API_KEY=TwójToken`.
 
 ---
 
@@ -125,19 +126,56 @@ src/router/index.ts
 
 ```
 GlobeService
-  .viewer          → Cesium Viewer
-  .layers          → LayersManager     (zarządzanie warstwami)
-  .time            → TimeManager       (zegar, cienie słońca)
-  .events          → GlobeEvent        (obsługa kliknięć na glob)
-  .measurements    → MeasurementsService (pomiary)
-  .draw            → DrawService       (rysowanie szkieców)
-  .floodSim        → FloodSim          (symulacja powodzi)
-  .profile         → ProfileManager   (profil terenu)
-  .routeFinder     → RouteFinder       (wyznaczanie tras A*)
-  .userPositionService → UserPositionService (geolokalizacja)
+  .viewer              → Cesium Viewer
+  .layers              → LayersManager        (zarządzanie warstwami)
+  .time                → TimeManager          (zegar, cienie słońca)
+  .events              → GlobeEvent           (obsługa kliknięć na glob)
+  .measurements        → MeasurementsService  (pomiary)
+  .draw                → DrawService          (rysowanie szkieców)
+  .floodSim            → FloodSim             (symulacja powodzi)
+  .profile             → ProfileManager       (profil terenu)
+  .routeFinder         → RouteFinder          (wyznaczanie tras A*)
+  .userPositionService → UserPositionService  (geolokalizacja)
 ```
 
 Sub-usługi są importowane **dynamicznie** (`await import(...)`) w metodzie `initServices()`, co zmniejsza rozmiar chunks Vite.
+
+#### Publiczne metody GlobeService
+
+| Metoda | Opis |
+|---|---|
+| `flyHomeView()` | Animowany lot kamery do domyślnego widoku |
+| `changeZoom(direction: 1 \| -1)` | Przybliżenie/oddalenie z animacją (0.3s) |
+| `setCameraNorthUp()` | Obrót kamery tak, aby północ była u góry |
+| `setView({ destination, orientation })` | Natychmiastowe ustawienie pozycji kamery |
+| `getUserGlobeSettings()` | Wczytanie i zastosowanie ustawień globu z localStorage |
+| `setDefinedShaders(shader)` | Zastosowanie efektu post-processingu |
+| `enableEnvironment()` | Włączenie atmosfery, słońca, księżyca i skyboxa |
+| `disableEnvironment()` | Wyłączenie elementów środowiska |
+
+Pole publiczne `definedShader: DefinedShader` przechowuje aktywny shader (`'none'` domyślnie).
+
+#### Shadery post-processingu — typ `DefinedShader`
+
+Eksportowany z `src/services/globe/globe.ts` typ unii:
+
+```ts
+export type DefinedShader =
+    | 'none'
+    | 'blackAndWhite'
+    | 'nightVision'
+    | 'bloom'
+    | 'depthOfField'
+    | 'ambientOcclusion'
+```
+
+Przykład zastosowania:
+```ts
+import { globeInstance } from '@/services/globe/globe'
+globeInstance.setDefinedShaders('nightVision')
+```
+
+`depthOfField` automatycznie aktualizuje `focalDistance` po każdym renderowanym kadrze. Ustawienia shaderów są persystowane w localStorage jako część `userGlobeSettings`.
 
 Aby używać globu w komponencie lub usłudze:
 ```ts
@@ -160,10 +198,40 @@ Wszystkie typy warstw są walidowane przez **Zod** i tworzą `LayersUnionSchema`
 |---|---|---|
 | `osm` | `OSMLayer` | OpenStreetMap imagery |
 | `xyz` | `XYZLayer` | Kafelki XYZ/TMS (URL template) |
-| `wms` | `WMSLayer` | Web Map Service |
-| `3dtiles` | `Cesium3DTilesLayer` | Modele 3D Cesium Ion |
+| `wms` | *(schemat Zod zdefiniowany, brak implementacji w `LayersFactory`)* | Web Map Service |
+| `3dtiles` | `Cesium3DTilesLayer` | Modele 3D / chmury punktów Cesium Ion |
 | `czml` | `CZMLLayer` | Dane CZML z Cesium Ion |
 | `terrain` | `TerrainLayer` | DEM z Cesium Ion |
+| `geojson` | `GeoJSONLayer` | GeoJSON z Cesium Ion (clampToGround) |
+
+> **Uwaga:** typ `wmts` jest zdefiniowany w enum `LayerTypes`, ale nie posiada schematu Zod ani implementacji klasy — nie należy go używać w `layers.json`.
+
+> **Uwaga:** `TerrainLayer` **nie dziedziczy** z `LayerBase<T>` — posiada własną implementację `setVisibility()` i `isVisible()`, a `show` terenu zarządza przez `viewer.scene.setTerrain()`.
+
+#### Opcja `tilesProps` dla warstw 3D Tiles
+
+Warstwy typu `3dtiles` obsługują opcjonalne pole `tilesProps` dla chmur punktów:
+
+```json
+{
+    "type": "3dtiles",
+    "id": "myCampusPointCloud",
+    "name": { "pl": "Chmura punktów", "en": "Point Cloud" },
+    "active": false,
+    "ionId": 123456,
+    "tilesProps": {
+        "type": "pointCloud",
+        "pointSize": 4,
+        "pointCloudShading": {
+            "attenuation": true,
+            "eyeDomeLighting": true,
+            "eyeDomeLightingStrength": 1.0
+        }
+    }
+}
+```
+
+Parametry `tilesProps` są stosowane przy inicjalizacji. Runtime-ową zmianę stylu chmury punktów umożliwia metoda `Cesium3DTilesLayer.setPointCloudLayerProperties(options)`.
 
 #### Plik konfiguracyjny — `public/properties/layers.json`
 
@@ -184,6 +252,20 @@ Przykład:
 Pole `parent` grupuje warstwy w drzewie warstw UI. Dostępne wartości:
 `"demLayers"` | `"basemaps"` | `"3dLayers"` | `"campus3D"` | `"vectorLayers"`
 
+Przykład warstwy GeoJSON z Cesium Ion:
+```json
+{
+    "type": "geojson",
+    "active": false,
+    "name": { "pl": "Moja warstwa", "en": "My Layer" },
+    "id": "myGeoJSONLayer",
+    "parent": "vectorLayers",
+    "ionId": 987654
+}
+```
+
+Warstwy GeoJSON są ładowane przez `GeoJsonDataSource.load()` z opcją `clampToGround: true`.
+
 #### LayersManager — `src/services/globe/layersManager.ts`
 
 `LayersManager` czyta `layers.json`, wywołuje `LayersFactory(config, viewer)` dla każdego wpisu i przechowuje gotowe instancje w `Map<string, LayersClassTypes>`. Każda klasa warstwy dziedziczy z abstrakcyjnej klasy `LayerBase<T>` (`src/services/base/layers.ts`), która implementuje:
@@ -198,20 +280,39 @@ Narzędzia to **komponenty Vue** osadzone wewnątrz `<ToolsWrapper>` — karty z
 
 #### Rejestracja narzędzi — `src/services/tools.ts`
 
+Pełna lista kluczy `TOOLS_KEYS` (bez custom tools):
+
 ```ts
 export const TOOLS_KEYS = [
-    'cameraPosition',
-    'routeFinder',
-    // ... wszystkie ID
-    ...CUSTOM_TOOLS_IDS,   // własne narzędzia
+    'cameraPosition',       // CameraPosition.vue
+    'appSettings',          // AppSettings.vue
+    'layersTree',           // ui/LayersTree.vue (specjalny: montowany w szufladzie mobilnej)
+    'shadowsSettings',      // ShadowsSettings.vue
+    'objectInfo',           // ObjectInfo.vue
+    'measurementTools',     // MeasurementsTool.vue
+    'buildingFinder',       // BuildingFinder.vue
+    'shareMap',             // ShareMap.vue
+    'sketchTool',           // SketchTool.vue
+    'profileTool',          // ProfileTool.vue
+    'floodSim',             // FloodSimulator.vue
+    'chartView',            // ChartView.vue
+    'screenshotTool',       // ScreenshotTool.vue
+    'viewsBookmarks',       // ViewsBookmarks.vue
+    'rasterAdjustment',     // RasterAdjustment.vue (UUID — wielokrotne instancje)
+    'pointCloudAdjustment', // PointCloudAdjustment.vue (UUID — wielokrotne instancje)
+    'routeFinder',          // RouteFinder.vue
+    'geoJSONObjectsList',   // GeoJSONObjectsList.vue
+    ...CUSTOM_TOOLS_IDS,
 ] as const
 
 export const Tools: Record<ToolsKeys, Component> = {
     cameraPosition: (await import('@/components/tools/CameraPosition.vue')).default,
-    // ...
+    // ... (każdy klucz zmapowany lazily jak powyżej)
     ...CustomTools,
 }
 ```
+
+> Komponenty `AppInfo.vue`, `BookmarkEditor.vue`, `BookmarkImporter.vue`, `CesiumGlobeSettings.vue`, `SettingsTool.vue` w katalogu `components/tools/` są **pod-komponentami** używanymi wewnątrz innych narzędzi — nie figurują jako samodzielne wpisy w `TOOLS_KEYS`.
 
 Każde narzędzie jest **dynamicznie importowane** (lazy) — kod komponentu ładuje się dopiero przy pierwszym otwarciu.
 
@@ -236,8 +337,10 @@ toolsStore.openTool({
 Pinia store zarządzający listą otwartych narzędzi:
 - `activeTools: Map<string, ToolsMap>` — mapa id → dane narzędzia
 - `activeToolsArray: ToolsMap[]` — ta sama lista jako tablica (do renderowania)
+- `currentTool: ToolsMap | null` — (computed) aktualnie aktywne narzędzie na mobile (pierwsze z listy), `null` na desktopie
 - `openTool(config)` — otwiera lub zamyka (toggle) narzędzie
 - `closeTool(id)` / `minimizeTool(id)` / `restoreTool(id)` / `toggleFullscreen(id)`
+- `isMinimizedTool(id): boolean` — sprawdza czy narzędzie jest zminimalizowane
 
 Na **urządzeniach mobilnych** jednocześnie aktywne jest tylko jedno narzędzie (pozostałe są minimalizowane). Na **desktopie** wiele narzędzi może być otwartych równocześnie.
 
@@ -569,7 +672,8 @@ Pliki JSON w `public/properties/` są pobierane przez przeglądarkę w czasie dz
 ### `public/properties/layers.json`
 
 Tablica obiektów `LayersUnionType`. Każdy obiekt musi zawierać:
-- `type` — typ warstwy: `osm | xyz | wms | wmts | 3dtiles | czml | terrain`
+- `type` — typ warstwy: `osm | xyz | wms | 3dtiles | czml | terrain | geojson`
+  *(typ `wmts` jest w enum, ale nie jest obsługiwany przez `LayersFactory`)*
 - `id` — unikalny string (używany w `LayersManager.layers.get(id)`)
 - `name` — string lub `{ pl: string, en: string }`
 - `active` — `true` jeśli warstwa ma być domyślnie włączona
@@ -901,7 +1005,7 @@ export const applyLayerFilter = (id: string) => {
 
 ### 8.10 Nowy typ warstwy
 
-Jeśli istniejące typy (`osm`, `xyz`, `wms`, `3dtiles`, `czml`, `terrain`) nie są wystarczające:
+Jeśli istniejące typy (`osm`, `xyz`, `wms`, `3dtiles`, `czml`, `terrain`, `geojson`) nie są wystarczające:
 
 **Krok 1** — Dodaj schemat Zod w `src/types/layers.ts`:
 
@@ -945,6 +1049,8 @@ export class MyNewLayer extends LayerBase<MyCesiumType> {
     getType(): string { return 'myNewType' }
 }
 ```
+
+> **Uwaga:** Jeśli nowy typ warstwy wymaga niestandardowej logiki widoczności (np. jak `TerrainLayer`), możesz zaimplementować klasę **bez dziedziczenia** z `LayerBase<T>` i zdefiniować własne metody `setVisibility()` i `isVisible()`. Pamiętaj wtedy o aktualizacji typu `LayersClassTypes` w tym samym pliku.
 
 **Krok 3** — Dodaj przypadek do `LayersFactory` w tym samym pliku:
 

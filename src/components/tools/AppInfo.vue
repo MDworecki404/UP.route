@@ -1,10 +1,10 @@
 <template>
     <v-card-text>
         <v-row dense no-gutters>
-            <span>{{ $t('version') }}: 1.1</span>
+            <span>{{ $t('version') }}: 1.2</span>
         </v-row>
         <v-row dense no-gutters>
-            <span>{{ $t('dateOfRelease') }}: 28.02.2026</span>
+            <span>{{ $t('dateOfRelease') }}: 01.03.2026</span>
         </v-row>
 
         <v-divider class="my-2"></v-divider>
