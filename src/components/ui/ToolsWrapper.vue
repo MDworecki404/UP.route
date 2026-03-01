@@ -4,7 +4,7 @@
         elevation="2"
         class="pa-0 ma-0"
         rounded="0"
-        :style="{ zIndex: fullscreen && !isMinimizedTool(id) ? 99999 : 100 }"
+        :style="{ zIndex: fullscreen && !isMinimizedTool(id) ? 1500 : 100 }"
         :class="{
             'tools-wrapper-card-mobile': mobile,
             'tools-wrapper-fullscreen': fullscreen && !isMinimizedTool(id),
@@ -68,7 +68,7 @@ const { mobile } = useDisplay()
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 1500;
 }
 
 .tools-wrapper-content-mobile {

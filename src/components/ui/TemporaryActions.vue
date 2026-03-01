@@ -1,5 +1,5 @@
 <template>
-    <div class="temp-actions pa-1">
+    <div :class="[mobile ? 'temp-actions-mobile' : 'temp-actions', 'pa-1']">
         <v-fade-transition>
             <TextButton
                 v-if="commonStore.routeCreated"
@@ -16,6 +16,9 @@
 <script lang="ts" setup>
 import TextButton from './TextButton.vue'
 import { useCommonStore } from '@/stores'
+import { useDisplay } from 'vuetify'
+
+const { mobile } = useDisplay()
 
 const commonStore = useCommonStore()
 </script>
@@ -24,6 +27,13 @@ const commonStore = useCommonStore()
 .temp-actions {
     position: absolute;
     bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+}
+.temp-actions-mobile {
+    position: absolute;
+    top: 45px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;

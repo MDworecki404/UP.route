@@ -38,6 +38,11 @@ export const useToolsStore = defineStore('tools', () => {
         }
 
         if (mobile.value) {
+            if (activeTools.value.has(toolId) && activeTools.value.get(toolId)?.isMinimized) {
+                restoreTool(toolId)
+                return
+            }
+
             if (activeTools.value?.has(toolId)) {
                 closeTool(toolId)
                 return
