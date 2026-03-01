@@ -31,31 +31,54 @@ export class RouteFinder {
 
     constructor(private _viewer: Viewer) {
         this.registerRouteFinderLayer()
-
-        this._initPromise = this._initializeGraphCreator()
     }
 
     public ready(): Promise<void> {
         return this._initPromise ?? Promise.resolve()
     }
 
-    private async _initializeGraphCreator() {
-        try {
-            const carData = await fetchJsonFile<SerializedGraph>(
-                new URL('/graphs/car_graph.json', import.meta.url).href,
-            )
-            const footData = await fetchJsonFile<SerializedGraph>(
-                new URL('/graphs/foot_graph.json', import.meta.url).href,
-            )
-            const bikeData = await fetchJsonFile<SerializedGraph>(
-                new URL('/graphs/bike_graph.json', import.meta.url).href,
-            )
+    private async _initializeGraphCreator(mode: 'car' | 'foot' | 'bike') {
+        switch (mode) {
+            case 'car':
+                if (this._carGraph) return
+                try {
+                    const carData = await fetchJsonFile<SerializedGraph>(
+                        new URL('/graphs/car_graph.json', import.meta.url).href,
+                    )
 
-            this._carGraph = parseOptimizedGraph(carData)
-            this._footGraph = parseOptimizedGraph(footData)
-            this._bikeGraph = parseOptimizedGraph(bikeData)
-        } catch (error) {
-            console.error('Failed to initialize graphs:', error)
+                    this._carGraph = parseOptimizedGraph(carData)
+                } catch (error) {
+                    console.error('Failed to load car graph data:', error)
+                    return
+                }
+                break
+            case 'foot':
+                if (this._footGraph) return
+
+                try {
+                    const footData = await fetchJsonFile<SerializedGraph>(
+                        new URL('/graphs/foot_graph.json', import.meta.url).href,
+                    )
+
+                    this._footGraph = parseOptimizedGraph(footData)
+                } catch (error) {
+                    console.error('Failed to load foot graph data:', error)
+                    return
+                }
+                break
+            case 'bike':
+                if (this._bikeGraph) return
+                try {
+                    const bikeData = await fetchJsonFile<SerializedGraph>(
+                        new URL('/graphs/bike_graph.json', import.meta.url).href,
+                    )
+
+                    this._bikeGraph = parseOptimizedGraph(bikeData)
+                } catch (error) {
+                    console.error('Failed to load bike graph data:', error)
+                    return
+                }
+                break
         }
     }
 
@@ -135,6 +158,7 @@ export class RouteFinder {
     }
 
     async p2pRoute(userPosition: number[], endPosition: number[], mode: 'car' | 'foot' | 'bike') {
+        await this._initializeGraphCreator(mode)
         const graph =
             mode === 'car' ? this._carGraph : mode === 'foot' ? this._footGraph : this._bikeGraph
 
@@ -243,6 +267,7 @@ export class RouteFinder {
     }
 
     async u2bRoute(userPosition: number[], endBuilding: string, mode: 'car' | 'foot' | 'bike') {
+        await this._initializeGraphCreator(mode)
         const graph =
             mode === 'car' ? this._carGraph : mode === 'foot' ? this._footGraph : this._bikeGraph
 

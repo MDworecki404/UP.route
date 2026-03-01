@@ -122,7 +122,6 @@ export class GlobeService {
         this._drawService = new DrawService(this._viewer!, this._events)
         this._floodSim = new FloodSim(this._viewer!, this._layersManager, this._events)
         this._profileManager = new ProfileManager(this._viewer!, this._events)
-        appLoadingInfo.raiseEvent('initializingNavigationNetworks')
         this._routeFinder = new RouteFinder(this._viewer!)
         await this._routeFinder.ready()
         this._userPositionService = new UserPositionService(this._viewer!)
