@@ -47,6 +47,7 @@
             "en": "3D Buildings (Google)"
         },
         "id": "3dBuildingsGoogle",
+        "icon": "mdi-google",
         "parent": "3dLayers",
         "ionId": 2275207
     },
@@ -107,6 +108,7 @@
         },
         "id": "upwrALSBuildings",
         "parent": "campus3D",
+        "icon": "mdi-dots-hexagon",
         "ionId": 4354406
     },
     {
@@ -118,6 +120,7 @@
         },
         "id": "upwrLOD1Buildings",
         "parent": "campus3D",
+        "icon": "mdi-school-outline",
         "ionId": 4352519
     },
     {
@@ -129,6 +132,7 @@
         },
         "id": "wroclawRestaurants",
         "parent": "vectorLayers",
+        "icon": "mdi-silverware-fork-knife",
         "ionId": 4490376
     },
     {
@@ -140,6 +144,7 @@
         },
         "id": "wroclawMuseums",
         "parent": "vectorLayers",
+        "icon": "mdi-bank",
         "ionId": 4490375
     },
     {
@@ -151,6 +156,7 @@
         },
         "id": "wroclawCafes",
         "parent": "vectorLayers",
+        "icon": "mdi-coffee",
         "ionId": 4490374
     },
     {
@@ -162,6 +168,7 @@
         },
         "id": "wroclawPubs",
         "parent": "vectorLayers",
+        "icon": "mdi-beer",
         "ionId": 4490373
     },
     {
@@ -173,6 +180,7 @@
         },
         "id": "wroclawBars",
         "parent": "vectorLayers",
+        "icon": "mdi-glass-cocktail",
         "ionId": 4490372
     }
 ]

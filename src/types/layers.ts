@@ -9,9 +9,18 @@ export const LayerParents = z.enum([
     'vectorLayers',
 ])
 
+export const LayerParentsIcons: Record<z.infer<typeof LayerParents>, string> = {
+    demLayers: 'mdi-image-filter-hdr',
+    basemaps: 'mdi-map',
+    '3dLayers': 'mdi-cube',
+    campus3D: 'mdi-school',
+    vectorLayers: 'mdi-vector-square',
+}
+
 export const LayerBaseSchema = z.object({
     type: LayerTypes,
     active: z.boolean().default(true),
+    icon: z.string().optional(),
     name: z.string().or(
         z.object({
             pl: z.string(),

@@ -195,5 +195,12 @@
     "openObjectInfo": "Otwórz informacje o obiekcie",
     "navigate": "Nawiguj",
     "reset": "Resetuj",
-    "min/sec": "min/sek"
+    "min/sec": "min/sek",
+    "none": "Brak",
+    "blackAndWhite": "Czarno-biały",
+    "nightVision": "Noktowizor",
+    "bloom": "Rozbłysk",
+    "depthOfField": "Głębia ostrości",
+    "ambientOcclusion": "Okluzja otoczenia",
+    "postProcessingShader": "Shader post-processingu"
 }

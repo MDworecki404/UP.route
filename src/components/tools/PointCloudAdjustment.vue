@@ -44,6 +44,12 @@ const options = ref<PointCloudLayerAdjustmentOptions>({
 const updatePointCloudProps = () => {
     if (layer.value) {
         layer.value.setPointCloudLayerProperties(options.value)
+        if (layer.value.config.tilesProps?.type === 'pointCloud') {
+            layer.value.config.tilesProps.pointSize = options.value.pointSize
+            layer.value.config.tilesProps.maximumScreenSpaceError =
+                options.value.maximumScreenSpaceError
+            layer.value.config.tilesProps.pointCloudShading = options.value.pointCloudShading
+        }
     }
 }
 

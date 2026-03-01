@@ -1,10 +1,10 @@
-import type { ShadowMode } from '@cesium/engine'
+import type { DefinedShader } from '@/services/globe/globe'
 import z from 'zod'
 
 export type userGlobeSettings = {
-    skyAtmosphere: boolean
-    terrainShadows: keyof typeof ShadowMode
     resolutionScale: number
+    selectedShader: DefinedShader
+    skyAtmosphere: boolean
 }
 
 export const ViewConfigSchema = z.object({

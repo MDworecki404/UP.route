@@ -24,7 +24,7 @@ type UrlParams = {
     }
     tools?: Array<ToolsMap>
     lang?: 'en' | 'pl'
-    theme?: 'light' | 'dark'
+    theme?: string
     shadows?: {
         shadowsEnabled: boolean
         terrainShadows: boolean
@@ -142,8 +142,7 @@ const setLangAndThemeToUrl = async () => {
     const lang = i18n.global.locale.value
 
     const { vuetify } = await import('@/vuetify')
-    const currentTheme = vuetify.theme.current.value.dark ? 'dark' : 'light'
-    const theme = currentTheme === 'dark' ? 'dark' : 'light'
+    const theme = vuetify.theme.name.value
 
     return { lang, theme }
 }
@@ -156,9 +155,9 @@ const setLangAndThemeFromParams = async (params: URLSearchParams) => {
 
     const themeParam = params.get('theme')
     if (themeParam) {
-        const isDark = themeParam === 'dark'
-        const { vuetify } = await import('@/vuetify')
-        vuetify.theme.change(isDark ? 'dark' : 'light')
+        const { vuetify, buildThemeName, parseThemeName } = await import('@/vuetify')
+        const { palette, dark } = parseThemeName(themeParam)
+        vuetify.theme.change(buildThemeName(palette, dark))
     }
 }
 

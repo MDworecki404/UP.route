@@ -1,18 +1,36 @@
 import type { userGlobeSettings } from '@/types/utils'
-import { Cartesian3, Ion, Ray, ShadowMode, SkyAtmosphere } from '@cesium/engine'
+import {
+    Cartesian3,
+    Ion,
+    PostProcessStage,
+    PostProcessStageComposite,
+    PostProcessStageLibrary,
+    Ray,
+} from '@cesium/engine'
 import { type Viewer } from '@cesium/widgets'
 import { getDefaultView, getDefaultViewerSettings } from '../defaults'
 import { appLoaded, appLoadingInfo } from '../eventBus'
+import type { RouteFinder } from '../nearestRouteFinder/routeFinder'
 import { getItemFromLocalStorage } from '../utils'
+import type { DrawService } from './draw'
 import type { GlobeEvent } from './events'
+import type { FloodSim } from './floodSim'
 import type { LayersManager } from './layersManager'
 import type { MeasurementsService } from './measurements'
-import type { TimeManager } from './time'
-import type { DrawService } from './draw'
-import type { FloodSim } from './floodSim'
 import type { ProfileManager } from './profile'
-import type { RouteFinder } from '../nearestRouteFinder/routeFinder'
+import type { TimeManager } from './time'
 import type { UserPositionService } from './userPositions'
+import { Sun } from '@cesium/engine'
+import { Moon } from '@cesium/engine'
+import { SkyAtmosphere } from '@cesium/engine'
+
+export type DefinedShader =
+    | 'none'
+    | 'blackAndWhite'
+    | 'nightVision'
+    | 'bloom'
+    | 'depthOfField'
+    | 'ambientOcclusion'
 
 export let globeInstance: GlobeService
 export class GlobeService {
@@ -26,6 +44,10 @@ export class GlobeService {
     private _profileManager: ProfileManager | null = null
     private _routeFinder: RouteFinder | null = null
     private _userPositionService: UserPositionService | null = null
+    private _activeShaderStage: PostProcessStage | PostProcessStageComposite | null = null
+    public definedShader: DefinedShader = 'none'
+    private _dofListener: (() => void) | null = null
+    public environmentEnabled: boolean = false
 
     constructor(viewer: Viewer) {
         this._viewer = viewer
@@ -248,31 +270,141 @@ export class GlobeService {
     public getUserGlobeSettings(): void {
         const config = getItemFromLocalStorage<userGlobeSettings>('userGlobeSettings')
         if (config) {
-            if (config.skyAtmosphere === true) {
-                this._viewer!.scene.skyAtmosphere = new SkyAtmosphere()
-            }
-
-            if (config.terrainShadows) {
-                switch (config.terrainShadows) {
-                    case 'DISABLED':
-                        this._viewer!.terrainShadows = ShadowMode.DISABLED
-                        break
-                    case 'ENABLED':
-                        this._viewer!.terrainShadows = ShadowMode.ENABLED
-                        break
-                    case 'CAST_ONLY':
-                        this._viewer!.terrainShadows = ShadowMode.CAST_ONLY
-                        break
-                    case 'RECEIVE_ONLY':
-                        this._viewer!.terrainShadows = ShadowMode.RECEIVE_ONLY
-                        break
-                }
-            }
-
             if (config.resolutionScale) {
                 this._viewer!.resolutionScale = config.resolutionScale
             }
+
+            if (config.selectedShader) {
+                this.setDefinedShaders(config.selectedShader)
+            }
+
+            if (config.skyAtmosphere) {
+                this.enableEnvironment()
+            } else {
+                this.disableEnvironment()
+            }
         }
+    }
+
+    public setDefinedShaders(shader: DefinedShader): void {
+        const { postProcessStages, camera, postRender } = this._viewer!.scene
+
+        if (this._activeShaderStage) {
+            postProcessStages.remove(this._activeShaderStage)
+            this._activeShaderStage = null
+        }
+
+        if (this._dofListener) {
+            postRender.removeEventListener(this._dofListener)
+            this._dofListener = null
+        }
+
+        postProcessStages.bloom.enabled = false
+        postProcessStages.ambientOcclusion.enabled = false
+
+        this.definedShader = shader
+
+        switch (shader) {
+            case 'none':
+                break
+
+            case 'blackAndWhite':
+                this._activeShaderStage = postProcessStages.add(
+                    PostProcessStageLibrary.createBlackAndWhiteStage(),
+                )
+                break
+
+            case 'nightVision':
+                this._activeShaderStage = postProcessStages.add(
+                    PostProcessStageLibrary.createNightVisionStage(),
+                )
+                break
+
+            case 'bloom':
+                postProcessStages.bloom.enabled = true
+                postProcessStages.bloom.uniforms.contrast = 128.0
+                postProcessStages.bloom.uniforms.brightness = -0.6
+                postProcessStages.bloom.uniforms.glowOnly = false
+                postProcessStages.bloom.uniforms.delta = 1.0
+                postProcessStages.bloom.uniforms.sigma = 2.0
+                postProcessStages.bloom.uniforms.stepSize = 1.0
+                break
+
+            case 'depthOfField': {
+                const stage = PostProcessStageLibrary.createDepthOfFieldStage()
+
+                stage.uniforms.delta = 1.0
+                stage.uniforms.sigma = 1.0
+                stage.uniforms.stepSize = 1.0
+
+                this._activeShaderStage = postProcessStages.add(stage)
+
+                this._dofListener = () => {
+                    const focus = this.getCameraFocus()
+                    const distance = Cartesian3.distance(camera.positionWC, focus)
+                    stage.uniforms.focalDistance = Math.max(distance, 10.0)
+                }
+
+                postRender.addEventListener(this._dofListener)
+                break
+            }
+
+            case 'ambientOcclusion':
+                postProcessStages.ambientOcclusion.enabled = true
+                postProcessStages.ambientOcclusion.uniforms.intensity = 0.6
+                postProcessStages.ambientOcclusion.uniforms.ambientOcclusionOnly = false
+
+                postProcessStages.ambientOcclusion.uniforms.bias = 0.1
+
+                postProcessStages.ambientOcclusion.uniforms.lengthCap = 0.02
+
+                postProcessStages.ambientOcclusion.uniforms.stepSize = 1.0
+                break
+        }
+    }
+
+    public enableEnvironment(): void {
+        const scene = this._viewer!.scene
+        this.environmentEnabled = true
+
+        scene.globe.enableLighting = true
+
+        scene.globe.dynamicAtmosphereLighting = true
+        scene.globe.dynamicAtmosphereLightingFromSun = true
+
+        if (!scene.sun) {
+            scene.sun = new Sun()
+        }
+        scene.sun.show = true
+
+        if (!scene.moon) {
+            scene.moon = new Moon()
+        }
+        scene.moon.show = true
+
+        if (!scene.skyAtmosphere) {
+            scene.skyAtmosphere = new SkyAtmosphere()
+        }
+        scene.skyAtmosphere.show = true
+
+        if (scene.skyBox) {
+            scene.skyBox.show = true
+        }
+    }
+
+    public disableEnvironment(): void {
+        const scene = this._viewer!.scene
+        this.environmentEnabled = false
+
+        scene.globe.enableLighting = false
+
+        scene.globe.dynamicAtmosphereLighting = false
+        scene.globe.dynamicAtmosphereLightingFromSun = false
+
+        if (scene.sun) scene.sun.show = false
+        if (scene.moon) scene.moon.show = false
+        if (scene.skyAtmosphere) scene.skyAtmosphere.show = false
+        if (scene.skyBox) scene.skyBox.show = false
     }
 }
 

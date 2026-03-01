@@ -33,6 +33,9 @@
                     {{ $t('noLayersInSearch') }}
                 </div>
             </template>
+            <template #prepend="{ item }">
+                <v-icon v-if="item.icon" color="warning">{{ item.icon }}</v-icon>
+            </template>
             <template #append="{ item }">
                 <template
                     v-if="
@@ -98,7 +101,7 @@
 import { useDynamicTranslation } from '@/composables/useDynamicTranslation'
 import { globeInstance } from '@/services/globe/globe'
 import { zoomToLayerById } from '@/services/utils'
-import { LayerParents, type LayersUnionType } from '@/types/layers'
+import { LayerParents, LayerParentsIcons, type LayersUnionType } from '@/types/layers'
 import type { ContextMenuListType } from '@/types/ui'
 import _ from 'lodash'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
@@ -124,6 +127,7 @@ type TreeNodeLayer = {
     type: 'layer'
     layerType: LayersUnionType['type']
     isPointCloud?: boolean
+    icon?: string
 }
 
 type TreeNode = TreeNodeParent | TreeNodeLayer
@@ -138,11 +142,13 @@ const treeItems = computed(() => {
             return {
                 ...node,
                 title: t(node.id),
+                icon: LayerParentsIcons[node.id as keyof typeof LayerParentsIcons],
                 children: node.children.map((child) => {
                     const layer = globeInstance.layers.layers.get(child.id)
                     return {
                         ...child,
                         title: layer ? translate(layer.config.name).value! : child.title,
+                        icon: layer?.config.icon,
                     }
                 }),
             }
