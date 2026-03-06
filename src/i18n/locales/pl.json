@@ -202,5 +202,7 @@
     "bloom": "Rozbłysk",
     "depthOfField": "Głębia ostrości",
     "ambientOcclusion": "Okluzja otoczenia",
-    "postProcessingShader": "Shader post-processingu"
+    "postProcessingShader": "Shader post-processingu",
+    "runAnimation": "Uruchom animację",
+    "stopAnimation": "Zatrzymaj animację"
 }

@@ -199,5 +199,7 @@
     "bloom": "Bloom",
     "depthOfField": "Depth of Field",
     "ambientOcclusion": "Ambient Occlusion",
-    "postProcessingShader": "Post-processing shader"
+    "postProcessingShader": "Post-processing shader",
+    "runAnimation": "Run animation",
+    "stopAnimation": "Stop animation"
 }
