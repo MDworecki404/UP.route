@@ -36,14 +36,14 @@ export const getDefaultViewerSettings = (): Viewer.ConstructorOptions => {
 export const getDefaultView = () => {
     return {
         destination: {
-            x: 3838754.754100896,
-            y: 1179560.3644217171,
-            z: 4944745.01843994,
+            x: 3836539.6043590815,
+            y: 1177074.7885446213,
+            z: 4941506.153548925,
         },
         orientation: {
-            heading: 1.7763568394002505e-15,
-            pitch: -1.5500001117734095,
-            roll: 0,
+            heading: 0.8406217924200536,
+            pitch: -0.4624461944848104,
+            roll: 0.0000016676494114520324,
         },
     }
 }
