@@ -416,6 +416,19 @@ export const initGlobeInstance = async (target: HTMLElement): Promise<GlobeServi
 
     if (!globeInstance) {
         const viewer = new Viewer(target, getDefaultViewerSettings())
+
+        const creditContainer = viewer.creditDisplay.container as HTMLElement
+        const removeUpgradeCredit = () => {
+            creditContainer.querySelectorAll('a').forEach((link) => {
+                if (link.textContent?.includes('Upgrade for commercial use')) {
+                    link.parentElement?.remove()
+                }
+            })
+        }
+        const creditObserver = new MutationObserver(removeUpgradeCredit)
+        creditObserver.observe(creditContainer, { childList: true, subtree: true })
+        removeUpgradeCredit()
+
         viewer.dataSources.removeAll()
         viewer.imageryLayers.removeAll()
         viewer.scene.globe.depthTestAgainstTerrain = true
