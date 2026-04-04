@@ -1,9 +1,9 @@
 import type { Entity } from '@cesium/engine'
-import { BoundingSphere, Cartesian3, HeadingPitchRange } from '@cesium/engine'
-import { globeInstance } from './globe/globe'
-import { Cartographic } from '@cesium/engine'
-import type { CropperResult } from 'vue-advanced-cropper'
+import { BoundingSphere, Cartesian3, Cartographic, HeadingPitchRange } from '@cesium/engine'
 import jsPDF from 'jspdf'
+import type { CropperResult } from 'vue-advanced-cropper'
+import { globeInstance } from './globe/globe'
+import { useCommonStore, useDialogStore } from '@/stores'
 
 export const fetchJsonFile = async <T>(url: string): Promise<T> => {
     const response = await fetch(url)
@@ -107,6 +107,119 @@ export const getAllPositionsFromEntities = (entities: Entity[]): Cartesian3[] =>
     })
 
     return positions
+}
+
+export const isDesktopEasterEggAvailable = (): boolean => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+        return false
+    }
+
+    return window.matchMedia('(min-width: 960px) and (hover: hover) and (pointer: fine)').matches
+}
+
+export const setupSecretListener = () => {
+    if (!isDesktopEasterEggAvailable()) {
+        return {
+            arm: () => {},
+            cleanup: () => {},
+        }
+    }
+
+    const timeoutTime = 3000
+    const armedWindowTime = 5000
+    const secretSequence: string[] = []
+    const sequenceTimeoutIds: number[] = []
+    const availableKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown']
+    const neededSequence = [
+        'ArrowUp',
+        'ArrowUp',
+        'ArrowUp',
+        'ArrowLeft',
+        'ArrowRight',
+        'ArrowDown',
+        'ArrowDown',
+    ]
+    let isArmed = false
+    let armedWindowTimeoutId: number | undefined
+
+    const resetSecretSequence = () => {
+        secretSequence.length = 0
+
+        sequenceTimeoutIds.forEach((timeoutId) => {
+            clearTimeout(timeoutId)
+        })
+        sequenceTimeoutIds.length = 0
+    }
+
+    const resetArmedState = () => {
+        isArmed = false
+        resetSecretSequence()
+
+        if (armedWindowTimeoutId) {
+            clearTimeout(armedWindowTimeoutId)
+            armedWindowTimeoutId = undefined
+        }
+    }
+
+    const arm = () => {
+        if (!isDesktopEasterEggAvailable()) {
+            return
+        }
+
+        isArmed = true
+        resetSecretSequence()
+
+        if (armedWindowTimeoutId) {
+            clearTimeout(armedWindowTimeoutId)
+        }
+
+        armedWindowTimeoutId = window.setTimeout(() => {
+            resetArmedState()
+        }, armedWindowTime)
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (!isArmed) {
+            return
+        }
+
+        if (!availableKeys.includes(event.key)) {
+            resetSecretSequence()
+            return
+        }
+
+        secretSequence.push(event.key)
+
+        const timeoutId = window.setTimeout(() => {
+            secretSequence.shift()
+            const timeoutIndex = sequenceTimeoutIds.indexOf(timeoutId)
+
+            if (timeoutIndex >= 0) {
+                sequenceTimeoutIds.splice(timeoutIndex, 1)
+            }
+        }, timeoutTime)
+        sequenceTimeoutIds.push(timeoutId)
+
+        if (
+            secretSequence.length === neededSequence.length &&
+            secretSequence.every((key, index) => key === neededSequence[index])
+        ) {
+            const commonStore = useCommonStore()
+            commonStore.toggleAppInfoTestState()
+            useDialogStore().closeDialog()
+            resetArmedState()
+        }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return {
+        arm,
+        cleanup: () => {
+            resetArmedState()
+            document.removeEventListener('keydown', handleKeyDown)
+        },
+    }
 }
 
 export const zoomToLayerById = (layerId: string): void => {

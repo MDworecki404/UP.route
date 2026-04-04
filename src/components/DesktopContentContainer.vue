@@ -39,26 +39,32 @@
         <GlobeNavigationPanel />
 
         <NotifyComponent />
+
+        <AppInfoTest v-if="appInfoTestState" />
     </div>
 </template>
 
 <script setup lang="ts">
 import { performAction } from '@/services/actions'
 import { fetchJsonFile } from '@/services/utils'
+import { useCommonStore, useDialogStore } from '@/stores'
 import type { ContextMenuListType, UiType } from '@/types/ui'
+import { storeToRefs } from 'pinia'
 import { onMounted, ref } from 'vue'
 import DesktopToolsContainer from './DesktopToolsContainer.vue'
+import AppInfoTest from './tools/AppInfoTest.vue'
 import ActionButtonsList from './ui/ActionButtonsList.vue'
 import BottomNavigation from './ui/BottomNavigation.vue'
 import ContextMenuButton from './ui/ContextMenuButton.vue'
-import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
-import ToolsMenu from './ui/ToolsMenu.vue'
-import NotifyComponent from './ui/NotifyComponent.vue'
 import GlobeNavigationPanel from './ui/GlobeNavigationPanel.vue'
-import { useDialogStore } from '@/stores'
+import LayersTreeDrawer from './ui/LayersTreeDrawer.vue'
+import NotifyComponent from './ui/NotifyComponent.vue'
 import TemporaryActions from './ui/TemporaryActions.vue'
+import ToolsMenu from './ui/ToolsMenu.vue'
 
 const buttonsList = ref<UiType>()
+const commonStore = useCommonStore()
+const { appInfoTestState } = storeToRefs(commonStore)
 
 onMounted(async () => {
     const uiConfig = await fetchJsonFile<UiType>(

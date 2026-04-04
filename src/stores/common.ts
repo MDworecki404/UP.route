@@ -33,6 +33,13 @@ export const useCommonStore = defineStore('common', () => {
         routeCreated.value = false
     }
 
+    //AppInfoTestState
+
+    const appInfoTestState = ref(false)
+    const toggleAppInfoTestState = () => {
+        appInfoTestState.value = !appInfoTestState.value
+    }
+
     return {
         isOverlayActive,
         turnOffOverlay,
@@ -42,5 +49,7 @@ export const useCommonStore = defineStore('common', () => {
         routeCreated,
         setRouteCreated,
         removeRoute,
+        appInfoTestState,
+        toggleAppInfoTestState,
     }
 })

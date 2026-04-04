@@ -1,7 +1,7 @@
 <template>
     <v-card-text>
         <v-row dense no-gutters>
-            <span>{{ $t('version') }}: 1.2</span>
+            <span @click="registerSecretTap">{{ $t('version') }}: 1.2</span>
         </v-row>
         <v-row dense no-gutters>
             <span>{{ $t('dateOfRelease') }}: 01.03.2026</span>
@@ -74,14 +74,67 @@
 </template>
 
 <script lang="ts" setup>
+import { isDesktopEasterEggAvailable, setupSecretListener } from '@/services/utils'
+import { onMounted, onUnmounted } from 'vue'
+import CesiumImg from '../../assets/Cesium_logo.png'
 import TypescriptImg from '../../assets/Typescript.png'
 import VueImg from '../../assets/vue-logo.png'
 import VuetifyImg from '../../assets/vuetify-logo-dark-atom.svg'
-import CesiumImg from '../../assets/Cesium_logo.png'
+
+const versionTapThreshold = 5
+const versionTapWindowTime = 1800
+
+let armSecretListener: (() => void) | undefined
+let cleanupSecretListener: (() => void) | undefined
+let versionTapCount = 0
+let versionTapTimeoutId: number | undefined
 
 const openLink = (link: string) => {
     window.open(link, '_blank')
 }
+
+const resetSecretTapState = () => {
+    versionTapCount = 0
+
+    if (versionTapTimeoutId) {
+        clearTimeout(versionTapTimeoutId)
+        versionTapTimeoutId = undefined
+    }
+}
+
+const registerSecretTap = () => {
+    if (!isDesktopEasterEggAvailable()) {
+        return
+    }
+
+    versionTapCount += 1
+
+    if (versionTapTimeoutId) {
+        clearTimeout(versionTapTimeoutId)
+    }
+
+    versionTapTimeoutId = window.setTimeout(() => {
+        resetSecretTapState()
+    }, versionTapWindowTime)
+
+    if (versionTapCount < versionTapThreshold) {
+        return
+    }
+
+    resetSecretTapState()
+    armSecretListener?.()
+}
+
+onMounted(() => {
+    const secretListenerControls = setupSecretListener()
+    armSecretListener = secretListenerControls.arm
+    cleanupSecretListener = secretListenerControls.cleanup
+})
+
+onUnmounted(() => {
+    resetSecretTapState()
+    cleanupSecretListener?.()
+})
 </script>
 
 <style scoped>
