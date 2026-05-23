@@ -45,6 +45,34 @@
                 "width": 450,
                 "maxHeight": 500
             }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentation - New student",
+                    "pl": "Prezentacja - Nowy student"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-school-outline",
+            "action": {
+                "actionId": "togglePresentationMode",
+                "presentationId": "welcomeToWUELS"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentation - Explore the campus",
+                    "pl": "Prezentacja - Poznaj kampus"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-city",
+            "action": {
+                "actionId": "togglePresentationMode",
+                "presentationId": "exploreTheCampus"
+            }
         }
     ],
     "toolbarEndActionButtons": [
@@ -112,6 +140,34 @@
                 "icon": "mdi-office-building-marker",
                 "width": 450,
                 "maxHeight": 500
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentation - New student",
+                    "pl": "Prezentacja - Nowy student"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-school-outline",
+            "action": {
+                "actionId": "togglePresentationMode",
+                "presentationId": "welcomeToWUELS"
+            }
+        },
+        {
+            "tooltip": {
+                "text": {
+                    "en": "Presentation - Explore the campus",
+                    "pl": "Prezentacja - Poznaj kampus"
+                },
+                "location": "bottom"
+            },
+            "icon": "mdi-city",
+            "action": {
+                "actionId": "togglePresentationMode",
+                "presentationId": "exploreTheCampus"
             }
         }
     ],

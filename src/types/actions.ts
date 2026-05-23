@@ -27,12 +27,18 @@ export const ZoomOutActionSchema = z.object({
     actionId: z.literal('zoomOut'),
 })
 
+export const TogglePresentationModeSchema = z.object({
+    actionId: z.literal('togglePresentationMode'),
+    presentationId: z.string(),
+})
+
 export const ActionSchema = z.discriminatedUnion('actionId', [
     ToggleToolActionSchema,
     ToggleLayersDrawerSchema,
     BackToHomeViewActionSchema,
     ZoomInActionSchema,
     ZoomOutActionSchema,
+    TogglePresentationModeSchema,
 ])
 
 export type Action = z.infer<typeof ActionSchema>

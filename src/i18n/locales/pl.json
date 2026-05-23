@@ -204,5 +204,6 @@
     "ambientOcclusion": "Okluzja otoczenia",
     "postProcessingShader": "Shader post-processingu",
     "runAnimation": "Uruchom animację",
-    "stopAnimation": "Zatrzymaj animację"
+    "stopAnimation": "Zatrzymaj animację",
+    "close": "Zamknij"
 }

@@ -1,8 +1,9 @@
 import { useCommonStore, useToolsStore } from '@/stores'
 import type { Action, ActionsIds } from '@/types/actions'
 import { actionPerformed } from './eventBus'
-import { getTool, type ToolsKeys } from './tools'
 import { globeInstance } from './globe/globe'
+import { triggerPresentation } from './presentations/presentation'
+import { getTool, type ToolsKeys } from './tools'
 
 const toggleTool = async (config: Action) => {
     if (config.actionId !== 'toggleTool') return
@@ -56,12 +57,19 @@ const zoomOut = (config: Action) => {
     actionPerformed.raiseEvent(config)
 }
 
+const togglePresentationMode = async (config: Action) => {
+    if (config.actionId !== 'togglePresentationMode') return
+
+    await triggerPresentation(config.presentationId)
+}
+
 const ACTION_HANDLERS: { [key in ActionsIds]: (config: Action) => void } = {
     toggleLayersDrawer,
     toggleTool,
     backToHomeView,
     zoomIn,
     zoomOut,
+    togglePresentationMode,
 }
 
 export const performAction = (actionConfig: Action) => {

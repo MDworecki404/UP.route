@@ -1,4 +1,5 @@
 import { globeInstance } from '@/services/globe/globe'
+import type { Presentation } from '@/services/presentations/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -40,6 +41,21 @@ export const useCommonStore = defineStore('common', () => {
         appInfoTestState.value = !appInfoTestState.value
     }
 
+    //Presentation mode state
+    const presentationMode = ref(false)
+    const togglePresentationMode = () => {
+        presentationMode.value = !presentationMode.value
+    }
+
+    const presentationConfig = ref<Presentation | null>(null)
+    const setPresentationConfig = (config: Presentation) => {
+        presentationConfig.value = config
+    }
+
+    const clearPresentationConfig = () => {
+        presentationConfig.value = null
+    }
+
     return {
         isOverlayActive,
         turnOffOverlay,
@@ -51,5 +67,10 @@ export const useCommonStore = defineStore('common', () => {
         removeRoute,
         appInfoTestState,
         toggleAppInfoTestState,
+        presentationMode,
+        togglePresentationMode,
+        presentationConfig,
+        setPresentationConfig,
+        clearPresentationConfig,
     }
 })
