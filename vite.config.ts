@@ -53,6 +53,7 @@ export default defineConfig({
             },
         }),
     ],
+    assetsInclude: ['**/*.dat'],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url)),

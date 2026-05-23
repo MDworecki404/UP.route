@@ -19,7 +19,7 @@
 
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-import testVideo from '@/assets/private/static/videos/test.mp4'
+import testVideo from '@/assets/private/static/videos/test.dat'
 import ActionButton from '../ui/ActionButton.vue'
 import { useCommonStore } from '@/stores'
 

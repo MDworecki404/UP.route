@@ -74,7 +74,7 @@
 </template>
 
 <script lang="ts" setup>
-import { isDesktopEasterEggAvailable, setupSecretListener } from '@/services/utils'
+import { _xEnv, _xHook } from '@/services/utils'
 import { onMounted, onUnmounted } from 'vue'
 import CesiumImg from '../../assets/Cesium_logo.png'
 import TypescriptImg from '../../assets/Typescript.png'
@@ -103,7 +103,7 @@ const resetSecretTapState = () => {
 }
 
 const registerSecretTap = () => {
-    if (!isDesktopEasterEggAvailable()) {
+    if (!_xEnv()) {
         return
     }
 
@@ -126,7 +126,7 @@ const registerSecretTap = () => {
 }
 
 onMounted(() => {
-    const secretListenerControls = setupSecretListener()
+    const secretListenerControls = _xHook()
     armSecretListener = secretListenerControls.arm
     cleanupSecretListener = secretListenerControls.cleanup
 })

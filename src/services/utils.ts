@@ -109,7 +109,7 @@ export const getAllPositionsFromEntities = (entities: Entity[]): Cartesian3[] =>
     return positions
 }
 
-export const isDesktopEasterEggAvailable = (): boolean => {
+export const _xEnv = (): boolean => {
     if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
         return false
     }
@@ -117,107 +117,82 @@ export const isDesktopEasterEggAvailable = (): boolean => {
     return window.matchMedia('(min-width: 960px) and (hover: hover) and (pointer: fine)').matches
 }
 
-export const setupSecretListener = () => {
-    if (!isDesktopEasterEggAvailable()) {
+export const _xHook = () => {
+    if (!_xEnv()) {
         return {
             arm: () => {},
             cleanup: () => {},
         }
     }
 
-    const timeoutTime = 3000
-    const armedWindowTime = 5000
-    const secretSequence: string[] = []
-    const sequenceTimeoutIds: number[] = []
-    const availableKeys = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown']
-    const neededSequence = [
-        'ArrowUp',
-        'ArrowUp',
-        'ArrowUp',
-        'ArrowLeft',
-        'ArrowRight',
-        'ArrowDown',
-        'ArrowDown',
-    ]
-    let isArmed = false
-    let armedWindowTimeoutId: number | undefined
+    const _tt = 3000
+    const _aw = 5000
+    const _b = ['Left', 'Right', 'Up', 'Down'].map((x) => 'Arrow' + x)
+    const _sq: string[] = []
+    const _sid: number[] = []
+    const _nq = '\x02\x02\x02\x00\x01\x03\x03'.split('').map((c) => _b[c.charCodeAt(0)]!)
+    let _ia = false
+    let _ai: number | undefined
 
-    const resetSecretSequence = () => {
-        secretSequence.length = 0
-
-        sequenceTimeoutIds.forEach((timeoutId) => {
-            clearTimeout(timeoutId)
-        })
-        sequenceTimeoutIds.length = 0
+    const _rss = () => {
+        _sq.length = 0
+        _sid.forEach((t) => clearTimeout(t))
+        _sid.length = 0
     }
 
-    const resetArmedState = () => {
-        isArmed = false
-        resetSecretSequence()
-
-        if (armedWindowTimeoutId) {
-            clearTimeout(armedWindowTimeoutId)
-            armedWindowTimeoutId = undefined
+    const _ras = () => {
+        _ia = false
+        _rss()
+        if (_ai) {
+            clearTimeout(_ai)
+            _ai = undefined
         }
     }
 
     const arm = () => {
-        if (!isDesktopEasterEggAvailable()) {
+        if (!_xEnv()) {
             return
         }
-
-        isArmed = true
-        resetSecretSequence()
-
-        if (armedWindowTimeoutId) {
-            clearTimeout(armedWindowTimeoutId)
+        _ia = true
+        _rss()
+        if (_ai) {
+            clearTimeout(_ai)
         }
-
-        armedWindowTimeoutId = window.setTimeout(() => {
-            resetArmedState()
-        }, armedWindowTime)
+        _ai = window.setTimeout(_ras, _aw)
     }
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-        if (!isArmed) {
+    const _hkd = (e: KeyboardEvent) => {
+        if (!_ia) {
             return
         }
-
-        if (!availableKeys.includes(event.key)) {
-            resetSecretSequence()
+        if (!_b.includes(e.key)) {
+            _rss()
             return
         }
-
-        secretSequence.push(event.key)
-
-        const timeoutId = window.setTimeout(() => {
-            secretSequence.shift()
-            const timeoutIndex = sequenceTimeoutIds.indexOf(timeoutId)
-
-            if (timeoutIndex >= 0) {
-                sequenceTimeoutIds.splice(timeoutIndex, 1)
+        _sq.push(e.key)
+        const _t = window.setTimeout(() => {
+            _sq.shift()
+            const _i = _sid.indexOf(_t)
+            if (_i >= 0) {
+                _sid.splice(_i, 1)
             }
-        }, timeoutTime)
-        sequenceTimeoutIds.push(timeoutId)
-
-        if (
-            secretSequence.length === neededSequence.length &&
-            secretSequence.every((key, index) => key === neededSequence[index])
-        ) {
+        }, _tt)
+        _sid.push(_t)
+        if (_sq.length === _nq.length && _sq.every((k, i) => k === _nq[i])) {
             const commonStore = useCommonStore()
             commonStore.toggleAppInfoTestState()
             useDialogStore().closeDialog()
-            resetArmedState()
+            _ras()
         }
     }
 
-    document.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', _hkd)
 
     return {
         arm,
         cleanup: () => {
-            resetArmedState()
-            document.removeEventListener('keydown', handleKeyDown)
+            _ras()
+            document.removeEventListener('keydown', _hkd)
         },
     }
 }
