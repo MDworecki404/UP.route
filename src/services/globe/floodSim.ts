@@ -55,7 +55,10 @@ export class FloodSim {
                 this._floodAreaEntity = new Entity({
                     polygon: {
                         hierarchy: positions,
-                        extrudedHeight: 200,
+                        height: 0,
+                        heightReference: HeightReference.CLAMP_TO_GROUND,
+                        extrudedHeight: 10,
+                        extrudedHeightReference: HeightReference.RELATIVE_TO_GROUND,
                         material: Color.BLUE.withAlpha(0.5),
                         outline: true,
                         outlineColor: Color.DARKBLUE,
@@ -109,15 +112,16 @@ export class FloodSim {
         this._floodAreaEntity = new Entity({
             polygon: {
                 hierarchy: wroclawBoundariesPositions,
-                extrudedHeight: 200,
+                height: 0,
+                heightReference: HeightReference.CLAMP_TO_GROUND,
+                extrudedHeight: 10,
+                extrudedHeightReference: HeightReference.RELATIVE_TO_GROUND,
                 material: Color.BLUE.withAlpha(0.5),
                 outline: true,
                 outlineColor: Color.DARKBLUE,
                 distanceDisplayCondition: undefined,
                 closeTop: true,
                 closeBottom: true,
-                heightReference: HeightReference.NONE,
-                extrudedHeightReference: HeightReference.NONE,
             },
         })
 
@@ -127,7 +131,6 @@ export class FloodSim {
     public setFloodHeight(height: number): void {
         if (this._floodAreaEntity && this._floodAreaEntity.polygon) {
             this._floodAreaEntity.polygon.extrudedHeight = new CallbackProperty(() => height, false)
-            this._floodAreaEntity.polygon.height = new CallbackProperty(() => 0, false)
         }
     }
 

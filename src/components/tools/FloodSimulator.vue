@@ -171,8 +171,8 @@
                         color="primary"
                         thumb-size="12"
                         :step="0.01"
-                        :min="100"
-                        :max="200"
+                        :min="0"
+                        :max="50"
                         thumb-label
                     >
                     </v-slider>
@@ -185,8 +185,8 @@
                         max-width="120"
                         :precision="2"
                         :step="0.01"
-                        :min="100"
-                        :max="200"
+                        :min="0"
+                        :max="50"
                         :control-variant="'stacked'"
                     ></v-number-input>
                 </v-row>
@@ -214,7 +214,7 @@ import TextButton from '../ui/TextButton.vue'
 import { floodAreaSelected } from '@/services/eventBus'
 
 const floodAnalysisMode = ref<FloodAnalysisMode | null>(null)
-const floodHeight = ref(200)
+const floodHeight = ref(10)
 const sideLength = ref(200)
 const areaSelected = ref(false)
 const listenersRemovers: (() => void)[] = []
@@ -244,7 +244,7 @@ const updateFloodHeight = (height: number) => {
 }
 
 const cancelFloodAnalysis = () => {
-    floodHeight.value = 200
+    floodHeight.value = 10
     floodAnalysisMode.value = null
     areaSelected.value = false
     floodAreaSelected.raiseEvent(false)
