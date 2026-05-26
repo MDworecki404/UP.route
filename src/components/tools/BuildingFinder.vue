@@ -12,7 +12,7 @@
         ></v-text-field>
         <TableComponent
             generic="UpwrBuildingsMetadata"
-            :items="buildingsData"
+            :items="buildingsDataSorted"
             :headers="headers"
             :search="searchQuery"
             :items-per-page="5"
@@ -37,7 +37,7 @@ import { fetchJsonFile } from '@/services/utils'
 import { useToolsStore } from '@/stores'
 import type { UpwrBuildingsMetadata, UpwrBuildingsMetadataArray } from '@/types/customs'
 import type { ContextMenuListType } from '@/types/ui'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DataTableHeader } from 'vuetify'
 import ContextMenuButton from '../ui/ContextMenuButton.vue'
@@ -50,6 +50,9 @@ const { t } = useI18n()
 const toolsStore = useToolsStore()
 
 const buildingsData = ref<UpwrBuildingsMetadataArray>([])
+const buildingsDataSorted = computed(() => {
+    return [...buildingsData.value].sort((a, b) => a.buildingNum!.localeCompare(b.buildingNum!))
+})
 const searchQuery = ref<string>('')
 
 const headers: DataTableHeader[] = [
