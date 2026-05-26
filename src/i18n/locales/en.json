@@ -201,5 +201,6 @@
     "ambientOcclusion": "Ambient Occlusion",
     "postProcessingShader": "Post-processing shader",
     "runAnimation": "Run animation",
-    "stopAnimation": "Stop animation"
+    "stopAnimation": "Stop animation",
+    "close": "Close"
 }

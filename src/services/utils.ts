@@ -1,9 +1,9 @@
 import type { Entity } from '@cesium/engine'
-import { BoundingSphere, Cartesian3, HeadingPitchRange } from '@cesium/engine'
-import { globeInstance } from './globe/globe'
-import { Cartographic } from '@cesium/engine'
-import type { CropperResult } from 'vue-advanced-cropper'
+import { BoundingSphere, Cartesian3, Cartographic, HeadingPitchRange } from '@cesium/engine'
 import jsPDF from 'jspdf'
+import type { CropperResult } from 'vue-advanced-cropper'
+import { globeInstance } from './globe/globe'
+import { useCommonStore, useDialogStore } from '@/stores'
 
 export const fetchJsonFile = async <T>(url: string): Promise<T> => {
     const response = await fetch(url)
@@ -107,6 +107,94 @@ export const getAllPositionsFromEntities = (entities: Entity[]): Cartesian3[] =>
     })
 
     return positions
+}
+
+export const _xEnv = (): boolean => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') {
+        return false
+    }
+
+    return window.matchMedia('(min-width: 960px) and (hover: hover) and (pointer: fine)').matches
+}
+
+export const _xHook = () => {
+    if (!_xEnv()) {
+        return {
+            arm: () => {},
+            cleanup: () => {},
+        }
+    }
+
+    const _tt = 3000
+    const _aw = 5000
+    const _b = ['Left', 'Right', 'Up', 'Down'].map((x) => 'Arrow' + x)
+    const _sq: string[] = []
+    const _sid: number[] = []
+    const _nq = '\x02\x02\x02\x00\x01\x03\x03'.split('').map((c) => _b[c.charCodeAt(0)]!)
+    let _ia = false
+    let _ai: number | undefined
+
+    const _rss = () => {
+        _sq.length = 0
+        _sid.forEach((t) => clearTimeout(t))
+        _sid.length = 0
+    }
+
+    const _ras = () => {
+        _ia = false
+        _rss()
+        if (_ai) {
+            clearTimeout(_ai)
+            _ai = undefined
+        }
+    }
+
+    const arm = () => {
+        if (!_xEnv()) {
+            return
+        }
+        _ia = true
+        _rss()
+        if (_ai) {
+            clearTimeout(_ai)
+        }
+        _ai = window.setTimeout(_ras, _aw)
+    }
+
+    const _hkd = (e: KeyboardEvent) => {
+        if (!_ia) {
+            return
+        }
+        if (!_b.includes(e.key)) {
+            _rss()
+            return
+        }
+        _sq.push(e.key)
+        const _t = window.setTimeout(() => {
+            _sq.shift()
+            const _i = _sid.indexOf(_t)
+            if (_i >= 0) {
+                _sid.splice(_i, 1)
+            }
+        }, _tt)
+        _sid.push(_t)
+        if (_sq.length === _nq.length && _sq.every((k, i) => k === _nq[i])) {
+            const commonStore = useCommonStore()
+            commonStore.toggleAppInfoTestState()
+            useDialogStore().closeDialog()
+            _ras()
+        }
+    }
+
+    document.addEventListener('keydown', _hkd)
+
+    return {
+        arm,
+        cleanup: () => {
+            _ras()
+            document.removeEventListener('keydown', _hkd)
+        },
+    }
 }
 
 export const zoomToLayerById = (layerId: string): void => {

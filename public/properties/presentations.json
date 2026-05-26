@@ -1,0 +1,370 @@
+[
+    {
+        "id": "welcomeToWUELS",
+        "title": {
+            "en": "Welcome to WUELS!",
+            "pl": "Witamy w UPWr!"
+        },
+        "description": {
+            "en": "A guided tour of the Wrocław University of Environmental and Life Sciences campus and the city of Wrocław for new students.",
+            "pl": "Przewodnik po kampusie Uniwersytetu Przyrodniczego we Wrocławiu i mieście dla nowych studentów."
+        },
+        "slides": [
+            {
+                "index": 1,
+                "title": {
+                    "en": "Welcome to WUELS!",
+                    "pl": "Witamy w UPWr!"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3859302.7658268,
+                        "y": 1181905.054822164,
+                        "z": 4973508.77371812
+                    },
+                    "orientation": {
+                        "heading": 6.283185307179586,
+                        "pitch": -1.5707929812933865,
+                        "roll": 0
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings", "wroclawBoundaries"],
+                "text": {
+                    "en": "Welcome to the Wrocław University of Environmental and Life Sciences — WUELS! You are about to start an adventure in one of Poland's most beautiful and vibrant student cities. Wrocław awaits you with open arms!",
+                    "pl": "Witamy na Uniwersytecie Przyrodniczym we Wrocławiu! Zaczyna się Twoja przygoda w jednym z najpiękniejszych i najbardziej tętniących życiem studenckich miast w Polsce. Wrocław czeka na Ciebie z otwartymi ramionami!"
+                }
+            },
+            {
+                "index": 2,
+                "title": {
+                    "en": "The UPWr Campus",
+                    "pl": "Kampus UPWr"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3840379.3012264855,
+                        "y": 1179756.0978924464,
+                        "z": 4942923.437571932
+                    },
+                    "orientation": {
+                        "heading": 0.11745876102686381,
+                        "pitch": -1.0324883351765353,
+                        "roll": 6.283065542192341
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The UPWr campus is spread across Wrocław, with the main buildings located in the city centre. You can see the 3D model of the university buildings here. The campus includes lecture halls, laboratories, libraries, sports facilities, and student dormitories.",
+                    "pl": "Kampus UPWr rozciąga się po całym Wrocławiu, a główne budynki zlokalizowane są w centrum miasta. Widzisz tutaj model 3D budynków uczelni. Na kampusie znajdują się sale wykładowe, laboratoria, biblioteki, obiekty sportowe i akademiki."
+                }
+            },
+            {
+                "index": 3,
+                "title": {
+                    "en": "Campus in 3D — Take a Closer Look",
+                    "pl": "Kampus w 3D — przyjrzyj się bliżej"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836777.601636407,
+                        "y": 1177690.5555407957,
+                        "z": 4941580.405706663
+                    },
+                    "orientation": {
+                        "heading": 0.19731712839823068,
+                        "pitch": -0.6710184172196265,
+                        "roll": 0.00004473433938567695
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "Take a closer look at the UPWr buildings in 3D! The university was founded in 1951 and today educates over 9,000 students across faculties of Biology, Environmental Engineering, Food Science, Veterinary Medicine, Life Sciences, and more.",
+                    "pl": "Przyjrzyj się bliżej budynkom UPWr w 3D! Uczelnia powstała w 1951 roku i dziś kształci ponad 9 000 studentów na wydziałach m.in. Biologii, Inżynierii Środowiska, Biotechnologii, Medycyny Weterynaryjnej, Nauk o Żywności i wielu innych."
+                }
+            },
+            {
+                "index": 4,
+                "title": {
+                    "en": "Wrocław — Your New Home City",
+                    "pl": "Wrocław — Twoje nowe miasto"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3839219.162144935,
+                        "y": 1174952.5482679964,
+                        "z": 4941639.450636908
+                    },
+                    "orientation": {
+                        "heading": 0.6749104564399513,
+                        "pitch": -0.6805688104357026,
+                        "roll": 0.000023538351339169594
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "wroclawBoundaries", "wroclawLOD1Buildings"],
+                "text": {
+                    "en": "Wrocław is one of Poland's largest cities and consistently ranks among the best student cities in the country. With over 130,000 students, a stunning Old Town, the Oder River islands, and countless cultural events — this city will become your second home.",
+                    "pl": "Wrocław to jedno z największych miast w Polsce, konsekwentnie zaliczane do najlepszych miast studenckich. Ponad 130 000 studentów, zachwycające Stare Miasto, odrzańskie wyspy i niezliczone wydarzenia kulturalne — to miasto stanie się Twoim drugim domem."
+                }
+            },
+            {
+                "index": 5,
+                "title": {
+                    "en": "Student Life — Food & Entertainment",
+                    "pl": "Życie studenckie — jedzenie i rozrywka"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3862864.6403081673,
+                        "y": 1172486.4031856535,
+                        "z": 4943829.1158384485
+                    },
+                    "orientation": {
+                        "heading": 0.47132514146379734,
+                        "pitch": -0.7076457946283545,
+                        "roll": 6.283050823807464
+                    }
+                },
+                "layerIds": [
+                    "openStreetMapHOT",
+                    "wroclawRestaurants",
+                    "wroclawCafes",
+                    "wroclawPubs",
+                    "wroclawBars"
+                ],
+                "text": {
+                    "en": "Wrocław has a thriving food and nightlife scene perfect for students! The map shows restaurants, cafes, pubs, and bars around the city. The legendary Market Square (Rynek) is the beating heart of Wrocław's social life — just a short distance from the campus.",
+                    "pl": "Wrocław ma tętniącą życiem scenę gastronomiczną i rozrywkową, idealną dla studentów! Mapa pokazuje restauracje, kawiarnie, puby i bary w okolicach miasta. Legendarny Rynek to bijące serce życia towarzyskiego Wrocławia — zaledwie rzut beretem od kampusu."
+                }
+            },
+            {
+                "index": 6,
+                "title": {
+                    "en": "Culture & Museums",
+                    "pl": "Kultura i muzea"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3842771.921018162,
+                        "y": 1179928.1546817708,
+                        "z": 4940374.134507185
+                    },
+                    "orientation": {
+                        "heading": 5.895310794406651,
+                        "pitch": -0.5605331979361692,
+                        "roll": 6.283138495261573
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "wroclawMuseums"],
+                "text": {
+                    "en": "Wrocław is a city of culture! It was the European Capital of Culture in 2016. The city is home to dozens of museums, including the National Museum, the Panorama of the Battle of Racławice, and the Museum of Contemporary Art. As a student, you'll get discounts at most of them!",
+                    "pl": "Wrocław to miasto kultury! W 2016 roku był Europejską Stolicą Kultury. Miasto szczyci się dziesiątkami muzeów, w tym Muzeum Narodowym, Panoramą Racławicką i Muzeum Sztuki Współczesnej. Jako student skorzystasz z ulg w większości z nich!"
+                }
+            },
+            {
+                "index": 7,
+                "title": {
+                    "en": "Your Adventure Starts Here!",
+                    "pl": "Twoja przygoda zaczyna się tutaj!"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836151.2816578313,
+                        "y": 1177174.4375478833,
+                        "z": 4941663.194277136
+                    },
+                    "orientation": {
+                        "heading": 1.4301529077937882,
+                        "pitch": -0.6900757721058346,
+                        "roll": 0.000022356902916520482
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "You are now ready to begin your journey at WUELS! Explore the interactive map, discover the campus, find your way around Wrocław, and make the most of your student years. Good luck and welcome aboard — we're glad you're here!",
+                    "pl": "Jesteś gotowy, by rozpocząć swoją przygodę na UPWr! Odkrywaj interaktywną mapę, poznaj kampus, znajdź drogę po Wrocławiu i jak najlepiej wykorzystaj swoje studenckie lata. Powodzenia i witamy na pokładzie — cieszymy się, że jesteś!"
+                }
+            }
+        ]
+    },
+    {
+        "id": "exploreTheCampus",
+        "title": {
+            "en": "UPWr Campus Buildings",
+            "pl": "Budynki Kampusu UPWr"
+        },
+        "description": {
+            "en": "A detailed overview of the main campus buildings (A, B, C, E, F) and student dormitories (DS).",
+            "pl": "Szczegółowy przegląd głównych budynków kampusu (A, B, C, E, F) oraz domów studenckich (DS)."
+        },
+        "slides": [
+            {
+                "index": 1,
+                "title": {
+                    "en": "Campus Overview",
+                    "pl": "Przegląd kampusu"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3840379.3012264855,
+                        "y": 1179756.0978924464,
+                        "z": 4942923.437571932
+                    },
+                    "orientation": {
+                        "heading": 0.11745876102686381,
+                        "pitch": -1.0324883351765353,
+                        "roll": 6.283065542192341
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The UPWr campus spans several districts of Wrocław. Buildings are grouped into zones: A (main administration), B (Veterinary Medicine), C (Environmental Engineering & Geodesy), E (Biology & Animal Sciences), F (Agricultural Engineering & Sports), and DS (student dormitories).",
+                    "pl": "Kampus UPWr rozciąga się na kilka dzielnic Wrocławia. Budynki podzielone są na strefy: A (główna administracja), B (Medycyna Weterynaryjna), C (Inżynieria Środowiska i Geodezja), E (Biologia i Hodowla Zwierząt), F (Inżynieria Rolnicza i Sport) oraz DS (domy studenckie)."
+                }
+            },
+            {
+                "index": 2,
+                "title": {
+                    "en": "Zone A — Main Building & Administration",
+                    "pl": "Strefa A — Gmach Główny i Administracja"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836142.841536042,
+                        "y": 1177211.6843609149,
+                        "z": 4941630.0583579615
+                    },
+                    "orientation": {
+                        "heading": 1.4299924926807188,
+                        "pitch": -0.7348522233998027,
+                        "roll": 6.283177867263748
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The heart of the UPWr campus. A2 (Norwida 25) is the Main Building — home to the Rector, Chancellor, and all central administrative offices. A1 (Skłodowskiej-Curie 42) hosts the Student Government, Doctoral School, Business Incubator, and the Centre for Student Affairs. A4 (Norwida 25) houses the Main Library, while A7 (Norwida 27B) is the Department of Experimental Biology.",
+                    "pl": "Serce kampusu UPWr. A2 (Norwida 25) to Gmach Główny — siedziba Rektora, Kanclerza i wszystkich centralnych biur administracyjnych. W A1 (Skłodowskiej-Curie 42) mieści się Samorząd Studencki, Szkoła Doktorska, Akademicki Inkubator Przedsiębiorczości i Centrum Spraw Studenckich. A4 (Norwida 25) to Biblioteka Główna, a A7 (Norwida 27B) — Katedra Biologii Eksperymentalnej."
+                }
+            },
+            {
+                "index": 3,
+                "title": {
+                    "en": "Zone A & B — Faculty of Veterinary Medicine",
+                    "pl": "Strefa A i B — Wydział Medycyny Weterynaryjnej"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3835794.3096968606,
+                        "y": 1177372.7118366545,
+                        "z": 4941851.520737673
+                    },
+                    "orientation": {
+                        "heading": 2.826884528124758,
+                        "pitch": -0.8049090129046195,
+                        "roll": 6.283181955283632
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The Veterinary Medicine zone stretches along pl. Grunwaldzki. A3 (Norwida 31) is the Faculty Dean's Office, hosting departments of Biochemistry, Pharmacology, Pathology, and Food Hygiene. Along pl. Grunwaldzki: B1–B4 contain clinics for exotic birds, horses, dogs, cats (B2, B9), a Reproduction Clinic (B3), and the Surgery Clinic (B4). B8 (Mikulicza-Radeckiego 6) is the Modern Languages Centre.",
+                    "pl": "Strefa Medycyny Weterynaryjnej ciągnie się wzdłuż pl. Grunwaldzkiego. A3 (Norwida 31) to dziekanat wydziału z katedrami Biochemii, Farmakologii, Patologii i Higieny Żywności. Przy pl. Grunwaldzkim: B1–B4 mieszczą kliniki dla ptaków i zwierząt egzotycznych, koni, psów i kotów (B2, B9), Klinikę Rozrodu (B3) oraz Klinikę Chirurgii (B4). B8 (Mikulicza-Radeckiego 6) to Studium Języków Obcych."
+                }
+            },
+            {
+                "index": 4,
+                "title": {
+                    "en": "Zone C — Environmental Engineering & Geodesy",
+                    "pl": "Strefa C — Inżynieria Środowiska i Geodezja"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3835805.757990213,
+                        "y": 1177131.2031302697,
+                        "z": 4941864.870340466
+                    },
+                    "orientation": {
+                        "heading": 2.260171092426349,
+                        "pitch": -0.903346605076726,
+                        "roll": 6.283180029949932
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "C1 (Grunwaldzka 53) is the Geodesy Building — Institute of Geodesy & Geoinformatics. C2 (pl. Grunwaldzki 24), the Land Reclamation Building, hosts Environmental Engineering and Landscape Architecture. C3 (pl. Grunwaldzki 24A), nicknamed 'Akwarium', is the Dean's Office of the Faculty of Natural and Technical Sciences with Botany, Genetics, and Horticulture departments. C5 (Grunwaldzka 55) is the Geo-Info-Hydro Centre — the Dean's Office of the Faculty of Environmental Engineering and Geodesy.",
+                    "pl": "C1 (Grunwaldzka 53) to Budynek Geodezji — Instytut Geodezji i Geoinformatyki. C2 (pl. Grunwaldzki 24), Budynek Melioracji, mieści Inżynierię Środowiska i Architekturę Krajobrazu. C3 (pl. Grunwaldzki 24A), zwane 'Akwarium', to dziekanat Wydziału Przyrodniczo-Technologicznego z katedrami Botaniki, Genetyki i Ogrodnictwa. C5 (Grunwaldzka 55) to Centrum Geo-Info-Hydro — dziekanat Wydziału Inżynierii Kształtowania Środowiska i Geodezji."
+                }
+            },
+            {
+                "index": 5,
+                "title": {
+                    "en": "Zone E — Biology & Animal Sciences",
+                    "pl": "Strefa E — Biologia i Hodowla Zwierząt"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836248.1891230205,
+                        "y": 1179801.760964744,
+                        "z": 4940709.675616386
+                    },
+                    "orientation": {
+                        "heading": 2.4118973558315164,
+                        "pitch": -0.7897695306211023,
+                        "roll": 6.283182909047693
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The E zone along Kożuchowska and Chełmońskiego streets is dedicated to biology and animal sciences. E2 & E3 (Kożuchowska 5–5B) host the Institute of Environmental Biology, Animal Husbandry, and the Electron Microscopy Lab. E4 (Kożuchowska 7A) is the Plant Biology Laboratory. E5 (Kożuchowska 7) is the Department of Genetics and the ICT Centre. E12 (Chełmońskiego 38C) is the Dean's Office of the Faculty of Biology and Animal Sciences. E11 houses the Museum of Biodiversity.",
+                    "pl": "Strefa E wzdłuż ulic Kożuchowskiej i Chełmońskiego poświęcona jest biologii i hodowli zwierząt. E2 i E3 (Kożuchowska 5–5B) to Instytut Biologii Środowiskowej, Hodowla Zwierząt i Pracownia Mikroskopii Elektronowej. E4 (Kożuchowska 7A) — Zakład Biologii Roślin. E5 (Kożuchowska 7) — Katedra Genetyki i Uczelniane Centrum Informatyzacji. E12 (Chełmońskiego 38C) to dziekanat Wydziału Biologii i Hodowli Zwierząt. W E11 znajduje się Muzeum Bioróżnorodności."
+                }
+            },
+            {
+                "index": 6,
+                "title": {
+                    "en": "Zone F — Agricultural Engineering & Sports",
+                    "pl": "Strefa F — Inżynieria Rolnicza i Sport"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836228.7106940164,
+                        "y": 1179897.7973672927,
+                        "z": 4940806.5010379525
+                    },
+                    "orientation": {
+                        "heading": 1.159480380277027,
+                        "pitch": -1.0001753862062555,
+                        "roll": 6.2831797200333055
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "The F zone at Chełmońskiego Street combines research and student life. F1–F3 & F8 house the Institute of Agricultural Engineering and the Renewable Energy Centre. F4 is the Applied Biology Centre with faculty workshops. F11 (Chełmońskiego 43A) is the University Swimming Pool, and F12 (Chełmońskiego 43) is the Sports Hall run by the Physical Education and Sport Centre — both available to all students!",
+                    "pl": "Strefa F przy ulicy Chełmońskiego łączy badania naukowe z życiem studenckim. F1–F3 i F8 mieszczą Instytut Inżynierii Rolniczej i Centrum Odnawialnych Źródeł Energii. F4 to Centrum Biologii Stosowanej z warsztatami wydziałowymi. F11 (Chełmońskiego 43A) to Kryta Pływalnia, a F12 (Chełmońskiego 43) — Hala Sportowa prowadzona przez Studium Wychowania Fizycznego i Sportu. Obie dostępne dla wszystkich studentów!"
+                }
+            },
+            {
+                "index": 7,
+                "title": {
+                    "en": "Student Dormitories (DS)",
+                    "pl": "Domy Studenckie (DS)"
+                },
+                "cameraPosition": {
+                    "destination": {
+                        "x": 3836145.0760404053,
+                        "y": 1179850.7461715562,
+                        "z": 4940893.895344955
+                    },
+                    "orientation": {
+                        "heading": 0.9587217453701191,
+                        "pitch": -0.8982231137839571,
+                        "roll": 6.283181326079571
+                    }
+                },
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "text": {
+                    "en": "UPWr operates six student dormitories: DS1 'Arka' (Olszewskiego 25), DS2 'Centaur' (Grunwaldzka 65), DS3 'Labirynt' (Sopocka 23), DS4 'Talizman' (Grunwaldzka 63), DS5 'Zodiak' (Grunwaldzka 106A) — a 10-floor high-rise, and DS6 'Raj' (Pautscha 5/7). All dormitories are located within a short walk or bus ride from the main campus buildings.",
+                    "pl": "UPWr prowadzi sześć domów studenckich: DS1 'Arka' (Olszewskiego 25), DS2 'Centaur' (Grunwaldzka 65), DS3 'Labirynt' (Sopocka 23), DS4 'Talizman' (Grunwaldzka 63), DS5 'Zodiak' (Grunwaldzka 106A) — 10-piętrowy wieżowiec, oraz DS6 'Raj' (Pautscha 5/7). Wszystkie akademiki są położone w niedalekim spacerze lub krótkim dojeździe autobusem od głównych budynków kampusu."
+                }
+            }
+        ]
+    }
+]
