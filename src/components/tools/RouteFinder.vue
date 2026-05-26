@@ -67,7 +67,7 @@
                 <v-row dense no-gutters>
                     <v-autocomplete
                         v-model="startBuilding"
-                        :items="buildings"
+                        :items="buildingsSorted"
                         :item-title="(item) => item.buildingNum"
                         :item-value="(item) => item.buildingNum"
                         variant="outlined"
@@ -80,7 +80,7 @@
                 <v-row dense no-gutters>
                     <v-autocomplete
                         v-model="endBuilding"
-                        :items="buildings"
+                        :items="buildingsSorted"
                         :item-title="(item) => item.buildingNum"
                         :item-value="(item) => item.buildingNum"
                         variant="outlined"
@@ -155,7 +155,7 @@
                 <v-row dense no-gutters>
                     <v-autocomplete
                         v-model="endBuilding"
-                        :items="buildings"
+                        :items="buildingsSorted"
                         :item-title="(item) => item.buildingNum"
                         :item-value="(item) => item.buildingNum"
                         variant="outlined"
@@ -185,7 +185,7 @@
 import { globeInstance } from '@/services/globe/globe'
 import { fetchJsonFile } from '@/services/utils'
 import { upwrBuildingsMetadataArraySchema, type UpwrBuildingsMetadataArray } from '@/types/customs'
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { safeParse } from 'zod'
 import ActionButton from '../ui/ActionButton.vue'
 import TextButton from '../ui/TextButton.vue'
@@ -193,6 +193,9 @@ import TextButton from '../ui/TextButton.vue'
 const tab = ref('b2b')
 
 const buildings = ref<UpwrBuildingsMetadataArray>([])
+const buildingsSorted = computed(() => {
+    return [...buildings.value].sort((a, b) => a.buildingNum!.localeCompare(b.buildingNum!))
+})
 
 const startBuilding = ref<string | null>('C1')
 const endBuilding = ref<string | null>('B8')
