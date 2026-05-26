@@ -196,7 +196,7 @@ const buildings = ref<UpwrBuildingsMetadataArray>([])
 
 const startBuilding = ref<string | null>('C1')
 const endBuilding = ref<string | null>('B8')
-const routeType = ref<'bike' | 'foot' | 'car'>('bike')
+const routeType = ref<'bike' | 'foot' | 'car'>('foot')
 const isLoadingRoute = ref(false)
 
 const triggerB2BRouteFinding = async () => {

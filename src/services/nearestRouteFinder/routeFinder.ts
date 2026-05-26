@@ -3,7 +3,14 @@ import type { UpwrBuildingsMetadata } from '@/types/customs'
 import { GeneratedUPRoutesSchema, type GeneratedUPRoutesType } from '@/types/localDBs'
 import { upwrBrandColors } from '@/vuetify'
 import type { DataSource, PolylineGraphics } from '@cesium/engine'
-import { Cartesian3, Cartographic, Color, CustomDataSource, PropertyBag } from '@cesium/engine'
+import {
+    Cartesian3,
+    Cartographic,
+    Color,
+    CustomDataSource,
+    PolylineDashMaterialProperty,
+    PropertyBag,
+} from '@cesium/engine'
 import type { Viewer } from '@cesium/widgets'
 import { safeParse } from 'zod'
 import {
@@ -87,6 +94,30 @@ export class RouteFinder {
             this._routeFinderLayer = new CustomDataSource('routeFinderLayer')
             this._viewer.dataSources.add(this._routeFinderLayer)
         }
+    }
+
+    private drawDottedLine(from: number[], to: number[]) {
+        if (!this._routeFinderLayer) {
+            console.error('RouteFinder layer is not initialized')
+            return
+        }
+
+        const positions = [
+            Cartesian3.fromDegrees(from[0]!, from[1]!),
+            Cartesian3.fromDegrees(to[0]!, to[1]!),
+        ]
+
+        this._routeFinderLayer.entities.add({
+            polyline: {
+                positions,
+                width: 3,
+                material: new PolylineDashMaterialProperty({
+                    color: Color.fromCssColorString(upwrBrandColors.burgundyDark),
+                    dashLength: 16,
+                }),
+                clampToGround: true,
+            },
+        })
     }
 
     private drawLineString(coordinates: number[][]) {
@@ -231,6 +262,8 @@ export class RouteFinder {
                     }
                     if (cur === startKey) path.push(graph.get(startKey)!.vertex)
                     this.drawLineString(path.reverse())
+                    this.drawDottedLine(userPosition, graph.get(startKey)!.vertex)
+                    this.drawDottedLine(graph.get(endKey)!.vertex, endPosition)
                     return
                 }
 
@@ -260,7 +293,7 @@ export class RouteFinder {
                 }
             }
 
-            console.error('No path found between the two positions')
+            console.error('No path found between the two positions (p2pRoute)')
         } catch (err) {
             console.error('p2pRoute failed:', err)
         }
@@ -376,6 +409,8 @@ export class RouteFinder {
                     }
                     if (cur === startKey) path.push(graph.get(startKey)!.vertex)
                     this.drawLineString(path.reverse())
+                    this.drawDottedLine(userPosition, graph.get(startKey)!.vertex)
+                    this.drawDottedLine(graph.get(endKey)!.vertex, destLonLat!)
                     return
                 }
 
