@@ -272,7 +272,7 @@ export class RouteFinder {
 
                 const currentNode = graph.get(currentKey)!
                 for (const edge of currentNode.edges) {
-                    const neighborKey = edge.to.join(',')
+                    const neighborKey = edge.key
                     if (closedSet.has(neighborKey)) continue
 
                     const tentativeG = currentNode.aStarAttrs.gScore + edge.weight
@@ -419,7 +419,7 @@ export class RouteFinder {
 
                 const currentNode = graph.get(currentKey)!
                 for (const edge of currentNode.edges) {
-                    const neighborKey = edge.to.join(',')
+                    const neighborKey = edge.key
                     if (closedSet.has(neighborKey)) continue
 
                     const tentativeG = currentNode.aStarAttrs.gScore + edge.weight

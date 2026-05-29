@@ -16,6 +16,7 @@ export type GraphNode = {
     edges: Array<{
         to: number[]
         weight: number
+        key: string
     }>
     aStarAttrs: {
         gScore: number

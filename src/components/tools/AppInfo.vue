@@ -1,7 +1,7 @@
 <template>
     <v-card-text>
         <v-row dense no-gutters>
-            <span @click="registerSecretTap">{{ $t('version') }}: 1.2</span>
+            <span @click="registerSecretTap">{{ $t('version') }}: 1.2.1</span>
         </v-row>
         <v-row dense no-gutters>
             <span>{{ $t('dateOfRelease') }}: 01.03.2026</span>
