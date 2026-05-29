@@ -6,6 +6,9 @@
         <v-row dense no-gutters>
             <span>{{ $t('dateOfRelease') }}: 01.03.2026</span>
         </v-row>
+        <v-row dense no-gutters>
+            <span>{{ $t('dateOfGraphsUpdate') }}: 29.05.2026</span>
+        </v-row>
 
         <v-divider class="my-2"></v-divider>
         <span>{{ $t('appInfoContent') }}</span>
@@ -31,6 +34,7 @@
             </a>
             <v-img
                 style="cursor: pointer"
+                class="hyperRefImg"
                 :src="TypescriptImg"
                 :max-width="50"
                 v-tooltip="{
@@ -41,6 +45,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
+                class="hyperRefImg"
                 :src="VueImg"
                 :max-width="50"
                 v-tooltip="{
@@ -51,6 +56,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
+                class="hyperRefImg"
                 :src="VuetifyImg"
                 :max-width="50"
                 v-tooltip="{
@@ -61,6 +67,7 @@
             ></v-img>
             <v-img
                 style="cursor: pointer"
+                class="hyperRefImg"
                 :src="CesiumImg"
                 :max-width="50"
                 v-tooltip="{
@@ -141,5 +148,18 @@ onUnmounted(() => {
 a {
     color: inherit;
     text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+a:hover {
+    transform: scale(1.25);
+}
+
+.hyperRefImg {
+    transition: transform 0.2s ease-in-out;
+}
+
+.hyperRefImg:hover {
+    transform: scale(1.25);
 }
 </style>

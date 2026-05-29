@@ -205,5 +205,6 @@
     "postProcessingShader": "Shader post-processingu",
     "runAnimation": "Uruchom animację",
     "stopAnimation": "Zatrzymaj animację",
-    "close": "Zamknij"
+    "close": "Zamknij",
+    "dateOfGraphsUpdate": "Data aktualizacji grafów nawigacyjnych"
 }

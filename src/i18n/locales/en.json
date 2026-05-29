@@ -202,5 +202,6 @@
     "postProcessingShader": "Post-processing shader",
     "runAnimation": "Run animation",
     "stopAnimation": "Stop animation",
-    "close": "Close"
+    "close": "Close",
+    "dateOfGraphsUpdate": "Date of navigation graphs update"
 }
