@@ -226,7 +226,7 @@
                         "roll": 6.283065542192341
                     }
                 },
-                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings", "wroclawDEM"],
                 "text": {
                     "en": "The UPWr campus spans several districts of Wrocław. Buildings are grouped into zones: A (main administration), B (Veterinary Medicine), C (Environmental Engineering & Geodesy), E (Biology & Animal Sciences), F (Agricultural Engineering & Sports), and DS (student dormitories).",
                     "pl": "Kampus UPWr rozciąga się na kilka dzielnic Wrocławia. Budynki podzielone są na strefy: A (główna administracja), B (Medycyna Weterynaryjna), C (Inżynieria Środowiska i Geodezja), E (Biologia i Hodowla Zwierząt), F (Inżynieria Rolnicza i Sport) oraz DS (domy studenckie)."
@@ -250,7 +250,7 @@
                         "roll": 6.283177867263748
                     }
                 },
-                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings"],
+                "layerIds": ["openStreetMapHOT", "upwrLOD1Buildings", "wroclawDEM"],
                 "text": {
                     "en": "The heart of the UPWr campus. A2 (Norwida 25) is the Main Building — home to the Rector, Chancellor, and all central administrative offices. A1 (Skłodowskiej-Curie 42) hosts the Student Government, Doctoral School, Business Incubator, and the Centre for Student Affairs. A4 (Norwida 25) houses the Main Library, while A7 (Norwida 27B) is the Department of Experimental Biology.",
                     "pl": "Serce kampusu UPWr. A2 (Norwida 25) to Gmach Główny — siedziba Rektora, Kanclerza i wszystkich centralnych biur administracyjnych. W A1 (Skłodowskiej-Curie 42) mieści się Samorząd Studencki, Szkoła Doktorska, Akademicki Inkubator Przedsiębiorczości i Centrum Spraw Studenckich. A4 (Norwida 25) to Biblioteka Główna, a A7 (Norwida 27B) — Katedra Biologii Eksperymentalnej."
