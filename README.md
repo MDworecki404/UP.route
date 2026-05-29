@@ -625,7 +625,7 @@ src/
 │   │   ├── time.ts             # TimeManager (zegar, cienie słońca)
 │   │   └── userPositions.ts    # UserPositionService (GPS)
 │   └── nearestRouteFinder/
-│       ├── graphCreator.ts     # budowanie grafu z GeoJSON
+│       ├── graphCreator.ts     # deserializacja zoptymalizowanego grafu tras (pre-compute edge.key)
 │       ├── routeFinder.ts      # algorytm A* + zarządzanie trasami
 │       └── types.ts            # typy grafu (GraphNode, GeoJsonFile)
 │
