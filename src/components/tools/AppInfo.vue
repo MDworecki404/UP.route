@@ -7,7 +7,7 @@
             <span>{{ $t('dateOfRelease') }}: 01.03.2026</span>
         </v-row>
         <v-row dense no-gutters>
-            <span>{{ $t('dateOfGraphsUpdate') }}: 29.05.2026</span>
+            <span>{{ $t('dateOfGraphsUpdate') }}: 15.06.2026</span>
         </v-row>
 
         <v-divider class="my-2"></v-divider>
