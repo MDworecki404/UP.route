@@ -4,6 +4,18 @@
 
 > Kompletny przewodnik po architekturze, konwencjach i sposobach rozszerzania aplikacji.
 
+> [!IMPORTANT]
+> **Informacja o prawach autorskich i przeznaczeniu repozytorium**
+> 
+> Niniejsze repozytorium zawiera autorski kod źródłowy stworzony na potrzeby realizacji i obrony pracy magisterskiej. Zostało ono upublicznione wyłącznie w celu umożliwienia weryfikacji działania systemu przez promotora oraz recenzenta.
+>
+> * **Tytuł pracy:** Opracowanie metody wyznaczania tras pomiędzy budynkami kampusu UPWr
+> * **Autor:** Marek Dworecki (Nr indeksu: 122968)
+> * **Uczelnia:** Uniwersytet Przyrodniczy we Wrocławiu
+> * **Wydział:** Wydział Inżynierii Kształtowania Środowiska i Geodezji
+> * **Kierunek:** Geodezja i Kartografia
+> * **Rok obrony:** 2026
+
 ---
 
 ## Spis treści
