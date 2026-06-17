@@ -39,5 +39,7 @@ coverage
 # Vitest
 __screenshots__/
 
+src/assets/private/static/videos/test.dat
+
 # Local Netlify folder
 .netlify
