@@ -1,4 +1,5 @@
 # UP.route — Code Guide
+🇬🇧 [English version](README.en.md)
 
 ![screenshot (9)](https://github.com/user-attachments/assets/de21188c-3b15-4941-81b2-2baff1a65c3b)
 
