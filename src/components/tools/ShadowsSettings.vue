@@ -332,6 +332,7 @@ onMounted(() => {
 
 onUnmounted(() => {
     stopSyncInterval()
+    globeInstance.time.stopAnimation()
 })
 </script>
 
